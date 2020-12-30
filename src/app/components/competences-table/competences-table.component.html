@@ -1,0 +1,22 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Comp&eacute;tences</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter" id="">
+				<thead class=" text-primary">
+					<tr>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let competence of competences">
+						<td>{{competence.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une comp&eacute;tence</button>
+		</div>
+	</div>
+</div>

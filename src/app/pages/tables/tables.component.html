@@ -1,0 +1,43 @@
+<div class="wrapper">
+	<app-sidebar></app-sidebar>
+	<div class="main-panel">
+		<app-navbar></app-navbar>
+		<div class=" content">
+			<div class=" row">
+				<div class=" col-md-12">
+					<div class=" card">
+						<div class=" card-header">
+							<h4 class=" card-title">Projects</h4>
+							<button (click)="openFormModal()" class="btn btn-fill btn-danger">Cr&eacute;er un nouveau projet</button>
+						</div>
+						<div class=" card-body">
+							<div class=" table-responsive">
+								<table class=" table tablesorter" id="">
+									<thead class=" text-primary">
+										<tr>
+											<th>Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let project of projects">
+											<td>{{project.name}}</td>
+											<td>{{project.status}}</td>
+											<td><a [routerLink]="['/project', project.id]"> <i
+													class="tim-icons icon-pencil"></i></a></td>
+											<td><i class="tim-icons icon-settings"></i>
+											<td>
+											<td><i class="tim-icons icon-trash-simple"></i>
+											<td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<app-footer></app-footer>
+</div>

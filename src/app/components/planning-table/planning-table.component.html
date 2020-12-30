@@ -1,0 +1,83 @@
+<div class=" content">
+	<div class=" row">
+		<div class="col-md-12">
+			<div class=" card">
+				<div class=" card-header">
+					<h4 class=" card-title">Plan de charge</h4>
+				</div>
+				<div class=" card-body">
+					<div style="">
+						<app-date-picker></app-date-picker>
+						<button class="btn btn-fill btn-danger">Valider</button>
+					</div>	
+					<div class=" table-responsive">
+						<table class=" table tablesorter" id="">
+							<thead class=" text-primary">
+								
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
+								</tr>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th style="border: 1px solid black;" [attr.colspan]="week.numberOfDays" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</th>
+								</tr>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ng-container *ngFor="let project of projects">
+									<tr >
+										<td>{{project.name}}</td>
+									</tr>
+									<ng-container *ngFor="let subproject of project.subProjectList">
+										<tr>
+											<td></td>
+											<td>{{subproject.name}}</td>
+										</tr>
+										<ng-container *ngFor="let task of subproject.taskList">
+											<tr>
+												<td></td>
+												<td></td>
+												<td>{{task.name}}</td>
+											</tr>
+											<ng-container *ngFor="let resourceCalendar of task.resourceCalendars">
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td>{{resourceCalendar.resource?.lastname}}</td>
+													<ng-container *ngFor="let date of calendar?.planchaCalendarList">
+														<td *ngIf="isInDatabase(date, resourceCalendar.calendarItems); else notInDatabase; let isInDatabase">
+															<app-planning-cell [resourceCalendar]="resourceCalendar" [calendarItem]="isInDatabase" [date]="date"></app-planning-cell>
+														</td>
+														<ng-template #notInDatabase>
+															<td>
+																<app-planning-cell [resourceCalendar]="resourceCalendar" [calendarItem]="" [date]="date" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" ></app-planning-cell>
+															</td>
+														</ng-template>
+													</ng-container>
+												</tr>
+											</ng-container>
+										</ng-container>
+									</ng-container> 
+								</ng-container>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

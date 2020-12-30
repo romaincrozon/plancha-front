@@ -1,0 +1,33 @@
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title">Cr&eacute;er un nouveau projet</h4>
+		<button type="button" class="close" aria-label="Close"
+		   (click)="activeModal.dismiss('Cross click')">
+		</button>
+	</div>
+	<div class="card-body">
+		<form [formGroup]="createProjectForm" (ngSubmit)="submitForm()">
+		  <div class="modal-boy">
+		    <div class="container">
+		      <div class="form-group">
+		        <label for="name">Nom</label>
+		        <input type="text" class="form-control" formControlName="name" />
+		      </div>
+		      <div class="form-group">
+		        <label for="status">Statut</label>
+				<select name="status" formControlName="status" >
+					<option value="active">En cours</option>
+					<option value="forecast">Pr&eacute;visionnel</option>
+					<option value="closed">Cl&ocirc;tur&eacute;</option>
+				</select>
+		      </div>
+		    </div>
+		  </div>
+		  <div>
+		    <button class="btn btn-fill btn-danger" [disabled]="!createProjectForm.valid">
+		      Submit Form
+		    </button>
+		  </div>
+		</form>
+	</div>
+</div>

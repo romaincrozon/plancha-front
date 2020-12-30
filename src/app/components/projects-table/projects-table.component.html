@@ -1,0 +1,31 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Chantiers</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter" id="">
+				<thead class=" text-primary">
+					<tr>
+						<th>Name</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of list">
+						<td>{{item.name}}</td>
+						<td>{{item.status}}</td>
+						<td>
+							<a [routerLink]="['/subproject', item.id]">
+								<i class="tim-icons icon-pencil"></i>
+							</a>
+						</td>
+						<td><i class="tim-icons icon-settings"></i><td>
+						<td><i class="tim-icons icon-trash-simple"></i><td>
+					</tr>
+				</tbody>
+			</table>
+			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un chantier</button>
+		</div>
+	</div>
+</div>
