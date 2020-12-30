@@ -22,6 +22,9 @@ export class PlanningTableComponent implements OnInit {
 	  		public projectService: ProjectService, 
 	  		public taskService: TaskService,
 	  		public dataSharingService: DataSharingService) {
+  	}
+
+  	ngOnInit(): void {
 	  	this.dataSharingService.calendarRange.subscribe( value => {
 	        this.calendarRange = value;
 			this.calendarService.getCalendar(this.calendarRange).subscribe((data: {}) => {
@@ -31,15 +34,6 @@ export class PlanningTableComponent implements OnInit {
 				this.projects = data;
 			});
 	    });
-  	}
-
-  	ngOnInit(): void {
-		this.calendarService.getCalendar(this.calendarRange).subscribe((data: {}) => {
-			this.calendar = data;
-		});
-		this.projectService.getProjectsByDate(this.calendarRange).subscribe(data => {
-			this.projects = data;
-		});
   	}
   	
   	isInDatabase(date: any, calendarItems: CalendarItem[]){

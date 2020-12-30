@@ -49,14 +49,17 @@ export class DatePickerComponent {
   }
   
   onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
+    /*if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
       this.toDate = date;
     } else {
       this.toDate = null;
       this.fromDate = date;
+    }*/
+    if (this.fromDate && !this.toDate) {
     }
+    this.dataSharingService.calendarRange.next(new CalendarRange(this.calendar, this.fromDate, this.toDate));
   }
 
   isHovered(date: NgbDate) {

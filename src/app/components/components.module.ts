@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { FooterComponent } from "./footer/footer.component"; 
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -15,9 +16,10 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { ProfilesTableComponent } from './profiles-table/profiles-table.component';
 import { CompetencesTableComponent } from './competences-table/competences-table.component';
 import { PlanningCellComponent } from './planning-cell/planning-cell.component';
+import { DatepickerComponent } from './datepicker/datepicker.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule],
+  imports: [CommonModule, RouterModule, NgbModule, MatDatepickerModule],
   declarations: [
   	FooterComponent, 
   	NavbarComponent, 
@@ -29,7 +31,9 @@ import { PlanningCellComponent } from './planning-cell/planning-cell.component';
   	RequestTableComponent, 
   	ProfileInfoComponent, 
   	ProfilesTableComponent, 
-  	CompetencesTableComponent, PlanningCellComponent
+  	CompetencesTableComponent, 
+  	PlanningCellComponent, 
+  	DatepickerComponent
   ],
   exports: [
   	FooterComponent, 
