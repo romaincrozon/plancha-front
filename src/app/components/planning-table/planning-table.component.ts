@@ -27,17 +27,23 @@ export class PlanningTableComponent implements OnInit {
   	ngOnInit(): void {
 	  	this.dataSharingService.calendarRange.subscribe( value => {
 	        this.calendarRange = value;
-			this.calendarService.getCalendar(this.calendarRange).subscribe((data: {}) => {
-				this.calendar = data;
-			});
-			this.projectService.getProjectsByDate(this.calendarRange).subscribe(data => {
-				this.projects = data;
-			});
+	        if (this.calendarRange != null 
+	        		&& this.calendarRange.startDate != null 
+		        	&& this.calendarRange.endDate != null){
+				console.log(this.calendarRange);
+				this.calendarService.getCalendar(this.calendarRange).subscribe((data: {}) => {
+					this.calendar = data;
+				});
+				this.projectService.getProjectsByDate(this.calendarRange).subscribe(data => {
+					this.projects = data;
+				});
+			}
 	    });
   	}
   	
   	isInDatabase(date: any, calendarItems: CalendarItem[]){
   		for(var calendarItem of calendarItems){
+  			console.log(calendarItem.calendar + "||" + date.calendar )
   			if (calendarItem.calendar == date.calendar){
   				return calendarItem;
   			}

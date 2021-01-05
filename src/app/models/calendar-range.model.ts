@@ -1,13 +1,11 @@
-import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-
 export class CalendarRange {
   
-  	fromDate: NgbDate | null;
-  	toDate: NgbDate | null;
+  	startDate : string | null;
+  	endDate : string | null;
 
-	constructor(private calendar: NgbCalendar, fromDate: NgbDate, toDate: NgbDate) {
-    	this.fromDate = (fromDate == null) ? calendar.getToday() : fromDate;
-    	this.toDate = (toDate == null) ? calendar.getNext(calendar.getToday(), 'd', 10) : toDate;
+	constructor(startDate: string, endDate: string) {
+    	this.startDate = startDate;
+    	this.endDate = endDate;
   	}
   	
 }

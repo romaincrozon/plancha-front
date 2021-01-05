@@ -32,7 +32,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
+									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
 								</tr>
 							</thead>
 							<tbody>

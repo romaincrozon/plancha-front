@@ -13,7 +13,7 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestComponent } from './pages/request/request.component';
 
 const routes: Routes = [
-  { path: '', component: TablesComponent },
+  { path: '', component: PlanningComponent },
   { path: 'project', component: TablesComponent },
   { path: 'project/:id', component: ProjectComponent },
   { path: 'subproject/:id', component: ProjectComponent },

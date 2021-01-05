@@ -38,6 +38,7 @@ import { DataSharingService } from './services/data-sharing/data-sharing.service
     AppRoutingModule,
 	ReactiveFormsModule,
     ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
   declarations: [
   	AppComponent, 

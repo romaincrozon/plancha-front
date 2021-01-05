@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 import { CalendarRange } from '../../models/calendar-range.model';
 
@@ -11,7 +10,7 @@ import { CalendarRange } from '../../models/calendar-range.model';
 @Injectable()
 export class DataSharingService {
 
-    constructor(private calendar: NgbCalendar) { }
+    constructor() { }
 
-    public calendarRange: BehaviorSubject<CalendarRange> = new BehaviorSubject<CalendarRange>(new CalendarRange(this.calendar, null, null));
+    public calendarRange: BehaviorSubject<CalendarRange> = new BehaviorSubject<CalendarRange>(new CalendarRange(null, null));
 }
