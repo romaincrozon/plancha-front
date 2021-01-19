@@ -1,10 +1,7 @@
-<form [formGroup]="createCellForm">
+<form [formGroup]="cellForm">
 	<div class="container">
 		<div class="form-group">
-			<input type="number" type="hidden" class="form-control" formControlName="id" [attr.value]="calendarItem?.id"/>
-			<input type="text" type="hidden" class="form-control" formControlName="calendar" [attr.value]="date.calendar"/>
-			<input type="text" type="hidden" class="form-control" formControlName="holiday" [attr.value]="date.holiday"/>
-			<input style="width:60px" type="text" class="form-control" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" [attr.value]="calendarItem?.value" />
+			<input style="width:60px" type="number" class="form-control" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" />
 		</div>
 	</div>
 </form>

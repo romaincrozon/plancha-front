@@ -1,12 +1,14 @@
-import {Deserializable} from './deserializable.model';
-import {Resource} from './resource.model';
-import {TaskCalendar} from './task-calendar.model';
+import { Deserializable } from './deserializable.model';
+import { Resource } from './resource.model';
+import { Task } from './task.model';
+import { CalendarItem } from './calendar-item.model';
 
 export class ResourceCalendar implements Deserializable {
   
   	public id: number;
   	public resource: Resource;
-  	public taskCalendars: TaskCalendar[];
+  	public task: Task;
+  	public calendarItems: CalendarItem;
 
 	constructor(input?: any) {
     	if (input) {
@@ -16,9 +18,8 @@ export class ResourceCalendar implements Deserializable {
   	
  	deserialize(input: any): this {
     	Object.assign(this, input);
-
-    	this.taskCalendars = input.taskCalendars != null ? input.taskCalendars.map(taskCalendar => new TaskCalendar().deserialize(taskCalendar)) : null;
-
+    	this.calendarItems = input.calendarItems != null ? input.calendarItems.map(calendarItem => new CalendarItem().deserialize(calendarItem)) : null;
+		
     	return this;
   	}
 }

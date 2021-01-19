@@ -3,9 +3,10 @@ import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-import { CalendarItem } from '../../models/calendar-item.model';
-import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
+import { ResourceCalendar } from '../../models/resource-calendar.model';
 import { CalendarRange } from '../../models/calendar-range.model';
+import { Task } from '../../models/task.model';
+import { TaskResource } from '../../models/task-resource.model';
 
 const endpoint = 'http://localhost:8080/';
 const httpOptions = {
@@ -17,34 +18,34 @@ const httpOptions = {
 @Injectable({
     providedIn: 'root'
 })
-export class CalendarItemService {
+
+export class ResourceCalendarService {
 
   	constructor(private http: HttpClient) { }
-  
+
   	private extractData(res: Response) {
         let body = res;
         return body || {};
     }
 
-    createCalendarItem(calendarItem: CalendarItem): Observable<CalendarItem> {
-	    return this.http.post<CalendarItem>(endpoint + 'dailyCalendarItem', calendarItem, httpOptions)
+    getResourceCalendarsByDateAndTask(calendarRange: CalendarRange, task: Task): Observable<ResourceCalendar[]> {
+    	return this.http.post<ResourceCalendar[]>(endpoint + 'resourceCalendarsByDate/task/' + task.id, calendarRange, httpOptions)
+	        .pipe(
+	          	map(data => data.map(data => new ResourceCalendar().deserialize(data))) 
+		    );
+    }
+
+    createResourceCalendar(resourceCalendar: ResourceCalendar): Observable<ResourceCalendar> {
+	    return this.http.post<ResourceCalendar>(endpoint + 'resourceCalendar', resourceCalendar, httpOptions)
 		    .pipe(
-		      catchError(this.handleError('post Calendar item', calendarItem))
+		      catchError(this.handleError('post Resource Calendar', resourceCalendar))
 		    );
     }
     
-    createWeekItem(weekItem: any): Observable<CalendarItem[]> {
-	    return this.http.post<CalendarItem[]>(endpoint + 'weeklyCalendarItem', weekItem, httpOptions)
-	        .pipe(
-	          	map(data => data.map(data => new CalendarItem().deserialize(data))) 
-		    );
-    }
-    
-    
-    getCalendarItemsByDate(calendarRange: CalendarRange): Observable<CalendarResourceTask[]> {
-    	return this.http.post<CalendarResourceTask[]>(endpoint + 'calendarItemsByDate', calendarRange, httpOptions)
-	        .pipe(
-	          	map(data => data.map(data => new CalendarResourceTask().deserialize(data))) 
+    createResourceCalendarFromTaskAndResource(taskResource: TaskResource): Observable<any> {
+	    return this.http.post<ResourceCalendar>(endpoint + 'resourceCalendarByTaskAndResource', taskResource, httpOptions)
+		    .pipe(
+		      catchError(this.handleError('post task resource', taskResource))
 		    );
     }
     

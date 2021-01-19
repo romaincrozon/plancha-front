@@ -1,0 +1,8 @@
+<form [formGroup]="selectResourceForm">
+	<div class="form-group">
+		<select #select class="form-control" formControlName="selectResources" (change)='onResourceSelected(select.value)'>
+			<option value="unset" selected>Ajouter une resource</option>
+			<option *ngFor="let availableResource of availableResources" [attr.value]="availableResource?.id">{{availableResource.quadri}}</option>
+		</select>
+	</div>
+</form>

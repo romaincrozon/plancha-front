@@ -1,11 +1,9 @@
 import {Deserializable} from './deserializable.model';
 
-export class CalendarItem implements Deserializable {
+export class TaskResource implements Deserializable {
   
-  	public id: number;
-  	public resourceCalendarId: number;
-  	public calendar: string;
-  	public value: number;
+  	public resourceId: number;
+  	public taskId: number;
 
 	constructor(input?: any) {
     	if (input) {

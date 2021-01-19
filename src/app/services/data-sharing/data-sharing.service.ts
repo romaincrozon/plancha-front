@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { CalendarRange } from '../../models/calendar-range.model';
+import { GridParameters } from '../../models/grid-parameters.model';
+import { ResourceCalendar } from '../../models/resource-calendar.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +13,7 @@ export class DataSharingService {
 
     constructor() { }
 
-    public calendarRange: BehaviorSubject<CalendarRange> = new BehaviorSubject<CalendarRange>(new CalendarRange(null, null));
+    public gridParameters: BehaviorSubject<GridParameters> = new BehaviorSubject<GridParameters>(new GridParameters(null, 'days'));
+	//public resourceCalendarMap: BehaviorSubject<Map> = new BehaviorSubject<Map>(new Map());
+
 }

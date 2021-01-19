@@ -1,0 +1,39 @@
+<ng-container *ngFor="let task of tasks">
+<!-- 	<tr> -->
+		<td></td>
+		<td></td>
+		<td></td>
+		<td colspan="2">{{task.name}}</td>
+<!-- 	</tr> -->
+	<template #planningRowContainer>
+	</template>
+	
+	
+<!-- 	<tr app-planning-row" -->
+<!-- 		[gridParameters]="gridParameters" -->
+<!-- 		[task]="task" -->
+<!-- 		[projectResources]="projectResources"> -->
+<!-- 	</tr> -->
+<!-- 	<tr app-planning-row *ngIf="task.resourceCalendars.length == 0" -->
+<!-- 		[gridParameters]="gridParameters" -->
+<!-- 		[task]="task" -->
+<!-- 		[projectResources]="project?.resourceList"> -->
+<!-- 	</tr> -->
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>
+			<form [formGroup]="selectResourceForm">
+				<div class="form-group">
+					<input type="hidden" formControlName="taskId" [attr.value]="task.id"/>
+					<select #select class="form-control" formControlName="selectResources" (change)='onResourceSelected(select.value)'>
+						<option value="unset" selected>Ajouter une resource</option>
+						<option *ngFor="let availableResource of getAvailableResources(task)" [attr.value]="availableResource?.id">{{availableResource.quadri}}</option>
+					</select>
+				</div>
+			</form>
+		</td>
+	</tr>
+</ng-container>

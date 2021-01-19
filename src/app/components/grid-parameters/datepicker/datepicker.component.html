@@ -1,12 +1,8 @@
-<form [formGroup]="dateSelectorGroup" (ngSubmit)="submitForm()">	
-	<mat-form-field> 
-		<mat-label>Enter a date range</mat-label>
-		<mat-date-range-input [rangePicker]="myPicker">
-			<input matStartDate formControlName="startDate" placeholder="Start date"> 
-			<input matEndDate formControlName="endDate" placeholder="End date"> 
-		</mat-date-range-input>
-		<mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
-		<mat-date-range-picker #myPicker></mat-date-range-picker> 
-	</mat-form-field>
-	<button class="btn btn-fill btn-danger">Valider</button>
-</form>
+<mat-form-field [formGroup]="parentForm"> 
+	<mat-date-range-input [rangePicker]="datepicker">
+		<input matStartDate formControlName="startDate" placeholder="Start date"> 
+		<input matEndDate formControlName="endDate" placeholder="End date"> 
+	</mat-date-range-input>
+	<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+	<mat-date-range-picker #datepicker></mat-date-range-picker> 
+</mat-form-field>

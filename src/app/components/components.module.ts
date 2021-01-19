@@ -6,6 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { DatePipe } from '@angular/common'
 
 import { FooterComponent } from "./footer/footer.component"; 
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -18,7 +19,13 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { ProfilesTableComponent } from './profiles-table/profiles-table.component';
 import { CompetencesTableComponent } from './competences-table/competences-table.component';
 import { PlanningCellComponent } from './planning-cell/planning-cell.component';
-import { DatepickerComponent } from './datepicker/datepicker.component';
+import { DatepickerComponent } from './grid-parameters/datepicker/datepicker.component';
+import { PlanningAddresourceComponent } from './planning-addresource/planning-addresource.component';
+import { GridParametersComponent } from './grid-parameters/grid-parameters.component';
+import { ViewsComponent } from './grid-parameters/views/views.component';
+import { PlanningRowComponent } from './planning-row/planning-row.component';
+import { AlertComponent } from './alert/alert.component';
+import { PlanningTaskComponent } from './planning-task/planning-task.component';
 
 @NgModule({
   imports: [
@@ -42,7 +49,12 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
   	ProfilesTableComponent, 
   	CompetencesTableComponent, 
   	PlanningCellComponent, 
-  	DatepickerComponent
+  	DatepickerComponent, 
+  	PlanningAddresourceComponent, 
+  	GridParametersComponent, 
+  	ViewsComponent, 
+  	PlanningRowComponent, 
+  	AlertComponent, PlanningTaskComponent
   ],
   exports: [
   	FooterComponent, 
@@ -56,6 +68,9 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule
-  ]
+  ],
+  providers: [
+  	DatePipe
+  ],
 })
 export class ComponentsModule {}

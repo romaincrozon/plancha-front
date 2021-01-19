@@ -1,11 +1,11 @@
 import {Deserializable} from './deserializable.model';
 
-export class CalendarItem implements Deserializable {
+export class CalendarResourceTask implements Deserializable {
   
-  	public id: number;
-  	public resourceCalendarId: number;
-  	public calendar: string;
-  	public value: number;
+  	public id?: number;
+  	public calendar?: string;
+  	public value?: number;
+  	public resourceCalendarId?: number;
 
 	constructor(input?: any) {
     	if (input) {
@@ -17,4 +17,6 @@ export class CalendarItem implements Deserializable {
     	Object.assign(this, input);
     	return this;
   	}
+  	
+  	
 }

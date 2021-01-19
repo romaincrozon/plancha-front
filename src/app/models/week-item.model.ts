@@ -1,10 +1,11 @@
 import {Deserializable} from './deserializable.model';
+import {ResourceCalendar} from './resource-calendar.model';
+import {CalendarItem} from './calendar-item.model';
 
-export class CalendarItem implements Deserializable {
-  
-  	public id: number;
+export class WeekItem implements Deserializable {
+
   	public resourceCalendarId: number;
-  	public calendar: string;
+  	public calendars: CalendarItem[];
   	public value: number;
 
 	constructor(input?: any) {

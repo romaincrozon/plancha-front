@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { ProjectService } from '../../services/project/project.service';
-import { TaskService } from '../../services/task/task.service';
+import { CalendarItemService } from '../../services/calendar-item/calendar-item.service';
 import { DataSharingService } from '../../services/data-sharing/data-sharing.service';
 
 import { Project } from '../../models/project.model';
 import { CalendarItem } from '../../models/calendar-item.model';
 import { CalendarRange } from '../../models/calendar-range.model';
+import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
+import { GridParameters } from '../../models/grid-parameters.model';
+
+import { DirectiveAddresourceDirective } from '../../directives/directive-addresource.directive';
+//import { ResourceCalendarItem } from '../../directives/items/resource-calendar-item';
+import { ResourceCalendar } from '../../models/resource-calendar.model';
+import { RowComponent } from '../row.component';
 
 @Component({
   selector: 'app-planning-table',
@@ -14,40 +21,33 @@ import { CalendarRange } from '../../models/calendar-range.model';
 })
 export class PlanningTableComponent implements OnInit {
 
+	//@Input() planningRowItems: PlanningRowItem[];
+	//@ViewChild(DirectiveAddresourceDirective, {static: true}) appDirectiveAddresource: DirectiveAddresourceDirective;
+	
+	@Input() gridParameters: GridParameters;
 	calendar: any;
 	projects: Project[];
-	calendarRange: CalendarRange;
   
   	constructor(public calendarService: CalendarService, 
 	  		public projectService: ProjectService, 
-	  		public taskService: TaskService,
 	  		public dataSharingService: DataSharingService) {
   	}
 
   	ngOnInit(): void {
-	  	this.dataSharingService.calendarRange.subscribe( value => {
-	        this.calendarRange = value;
-	        if (this.calendarRange != null 
-	        		&& this.calendarRange.startDate != null 
-		        	&& this.calendarRange.endDate != null){
-				console.log(this.calendarRange);
-				this.calendarService.getCalendar(this.calendarRange).subscribe((data: {}) => {
+	  	this.dataSharingService.gridParameters.subscribe( value => {
+	        this.gridParameters = value;
+	        if (this.gridParameters != null 
+	        		&& this.gridParameters.calendarRange != null 
+	        		&& this.gridParameters.calendarRange.startDate != null 
+		        	&& this.gridParameters.calendarRange.endDate != null 
+		        	&& this.gridParameters.view != null){
+				this.calendarService.getCalendar(this.gridParameters.calendarRange).subscribe((data: {}) => {
 					this.calendar = data;
 				});
-				this.projectService.getProjectsByDate(this.calendarRange).subscribe(data => {
+				this.projectService.getProjects().subscribe(data => {
 					this.projects = data;
 				});
 			}
 	    });
-  	}
-  	
-  	isInDatabase(date: any, calendarItems: CalendarItem[]){
-  		for(var calendarItem of calendarItems){
-  			console.log(calendarItem.calendar + "||" + date.calendar )
-  			if (calendarItem.calendar == date.calendar){
-  				return calendarItem;
-  			}
-  		}
-  		return null;
   	}
 }

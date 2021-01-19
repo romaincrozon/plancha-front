@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
+import { NgModule, ComponentFactory,ComponentRef, ComponentFactoryResolver, ViewContainerRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RouterModule } from "@angular/router";
@@ -15,6 +15,9 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestComponent } from './pages/request/request.component';
 
+import { AlertComponent } from './components/alert/alert.component';
+import { PlanningRowComponent } from './components/planning-row/planning-row.component';
+
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { CreateProjectModalComponent } from './modals/create-project-modal/create-project-modal.component';
@@ -26,6 +29,7 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
 import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
 
 import { DataSharingService } from './services/data-sharing/data-sharing.service';
+import { DirectiveAddresourceDirective } from './directives/directive-addresource.directive';
 
 @NgModule({
   imports: [
@@ -57,6 +61,7 @@ import { DataSharingService } from './services/data-sharing/data-sharing.service
   	ConfirmModalComponent,
   	UpdateRequestModalComponent,
   	RequestComponent,
+  	DirectiveAddresourceDirective,
   ],
   providers: [
   	DataSharingService
@@ -64,7 +69,10 @@ import { DataSharingService } from './services/data-sharing/data-sharing.service
   entryComponents: [
   	CreateProjectModalComponent,
   	CreateRequestModalComponent,
+  	PlanningRowComponent,
+  	AlertComponent
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

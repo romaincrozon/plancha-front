@@ -1,7 +1,7 @@
 import {Deserializable} from './deserializable.model';
 import {Project} from './project.model';
 import {SubProject} from './sub-project.model';
-import {TaskCalendar} from './task-calendar.model';
+import {ResourceCalendar} from './resource-calendar.model';
 
 export class Task implements Deserializable {
   
@@ -9,7 +9,7 @@ export class Task implements Deserializable {
   	public name: string;
   	public status: string;
   	public subprojects: SubProject[];
-  	public taskCalendars: TaskCalendar[];
+  	public resourceCalendars: ResourceCalendar[];
 
 	constructor(input?: any) {
     	if (input) {
@@ -21,7 +21,7 @@ export class Task implements Deserializable {
     	Object.assign(this, input);
 
     	this.subprojects = input.subprojects != null ? input.subprojects.map(subproject => new SubProject().deserialize(subproject)) : null;
-    	this.taskCalendars = input.taskCalendars != null ? input.taskCalendars.map(taskCalendar => new TaskCalendar().deserialize(taskCalendar)) : null;
+    	this.resourceCalendars = input.resourceCalendars != null ? input.resourceCalendars.map(resourceCalendar => new ResourceCalendar().deserialize(resourceCalendar)) : null;
 
     	return this;
   	}
