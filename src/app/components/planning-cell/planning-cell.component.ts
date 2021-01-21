@@ -14,10 +14,11 @@ import { WeekItem } from '../../models/week-item.model';
 })
 export class PlanningCellComponent implements OnInit {
 
-  	@Input() calendarResourceTasks: CalendarResourceTask[];
+  	@Input() resourceCalendar: ResourceCalendar;
+  	@Input() view: string;  	
   	@Input() calendarItem: CalendarItem;
-  	@Input() view: string;
   	@Input() week: any;
+  	
   	cellForm: FormGroup;
   	calendarItems: CalendarItem[];
   
@@ -42,8 +43,7 @@ export class PlanningCellComponent implements OnInit {
 	  		var calendarItemToCreate = new CalendarItem(this.cellForm.value);
 	  		calendarItemToCreate.id = this.calendarItem.id;
 	  		calendarItemToCreate.calendar = this.calendarItem.calendar;
-	  		calendarItemToCreate.resourceCalendarId = this.calendarResourceTasks[0].resourceCalendarId;
-	  		//calendarItemToCreate.resourceCalendarId = this.calendarItem.resourceCalendarId;
+	  		calendarItemToCreate.resourceCalendarId = this.resourceCalendar.id;
   			this.calendarItemService.createCalendarItem(calendarItemToCreate).subscribe(data => {
 			  	this.calendarItem = data;
 			});
@@ -54,8 +54,7 @@ export class PlanningCellComponent implements OnInit {
 			    calendars.push(planchaCalendar.calendar);
 			});
   			weekItemToCreate.calendars = calendars;
-  			//weekItemToCreate.resourceCalendarId = this.resourceCalendarId;
-  			weekItemToCreate.resourceCalendarId = this.calendarResourceTasks[0].resourceCalendarId;
+  			weekItemToCreate.resourceCalendarId = this.resourceCalendar.id;
   			weekItemToCreate.value = this.cellForm.value.value;
   			console.log(weekItemToCreate);
   			this.calendarItemService.createWeekItem(weekItemToCreate).subscribe(data => {
@@ -65,15 +64,25 @@ export class PlanningCellComponent implements OnInit {
   	}
   	
   	fillCell(){
-  		if (this.calendarResourceTasks != null && this.view == 'days'){
-  			var resourceCalendarId = this.calendarResourceTasks[0].resourceCalendarId;
+		if (this.resourceCalendar != null && this.resourceCalendar.calendarItems != null) {
+  			console.log("calendarItems != null");
+			var resourceCalendarId = this.resourceCalendar.id;
   			var date = this.datepipe.transform(this.calendarItem.calendar, 'yyyy-MM-dd');
-  			let item = this.calendarResourceTasks.find(node => 	
-				node.resourceCalendarId == resourceCalendarId
-  				&& this.datepipe.transform(node.calendar, 'yyyy-MM-dd') == date);
-		    if (item != null){
-		    	this.cellForm.controls['value'].setValue(item.value);
-  		    }
+  			console.log("fillcell");
+  			console.log(this.resourceCalendar);
+  			//if (this.resourceCalendar.calendarItems instanceof CalendarItem[]){
+	  			let item = this.resourceCalendar.calendarItems.find(node => 
+	  				this.datepipe.transform(node.calendar, 'yyyy-MM-dd') == date);
+			//} else if (this.resourceCalendar.calendarItems instanceof CalendarItem){
+	  		//	let item = this.resourceCalendar.calendarItems;
+			//}
+			if (item != null){
+				if (this.view == 'days'){
+		    		this.cellForm.controls['value'].setValue(item.value);
+		    	} else {
+		    		//this.cellForm.controls['value'].setValue(item.value);
+				}
+			}
   		}
   	}
 }

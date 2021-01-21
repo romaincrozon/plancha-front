@@ -20,11 +20,9 @@ import { RowComponent } from '../row.component';
   templateUrl: './planning-table.component.html'
 })
 export class PlanningTableComponent implements OnInit {
-
-	//@Input() planningRowItems: PlanningRowItem[];
-	//@ViewChild(DirectiveAddresourceDirective, {static: true}) appDirectiveAddresource: DirectiveAddresourceDirective;
 	
 	@Input() gridParameters: GridParameters;
+	
 	calendar: any;
 	projects: Project[];
   

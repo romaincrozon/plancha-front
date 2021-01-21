@@ -1,5 +1,5 @@
 <div class=" content">
-	<div class=" row">
+	<div class="row">
 		<div class="col-md-12">
 			<div class=" card">
 				<div class=" card-header">
@@ -9,55 +9,43 @@
 					<div>
 						<app-grid-parameters></app-grid-parameters>
 					</div>	
-					<div class=" table-responsive">
-						<table class=" table tablesorter">
-							<thead class=" text-primary">
-								
-								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
-								</tr>
-								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" [attr.colspan]="week.numberOfDays" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</th>
-								</tr>
-								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
-								</tr>
-							</thead>
-							<tbody>
+					<div>
+						<div>
+							<div>
+								<div>
+									<div style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</div>
+								</div>
+								<div>
+									<div style="border: 1px solid black;" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</div>
+								</div>
+								<div>
+									<div style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</div>
+								</div>
+							</div>
+							<div>
 								<ng-container *ngFor="let project of projects">
-									<tr >
-										<td>{{project.confidencePercentage}}%</td>
-										<td colspan="4">{{project.name}}</td>
-									</tr>
+									<div>
+										<div>{{project.confidencePercentage}}%</div>
+										<div>{{project.name}}</div>
+									</div>
 									<ng-container *ngFor="let subproject of project?.subProjectList">
-										<tr>
-											<td></td>
-											<td></td>
-											<td colspan="3">{{subproject.name}}</td>
-										</tr>
-										<tr app-planning-task
-											[tasks]="subproject?.taskList"						
-											[projectResources]="project?.resourceList">
-										</tr>
+										<div>
+											<div>{{subproject.name}}</div>
+										</div>
+										<ng-container *ngFor="let task of subproject?.taskList">
+											<div>{{task.name}}</div>
+											<app-planning-task
+												[task]="task"
+												[gridParameters]="gridParameters"					
+												[projectResources]="project?.resourceList"
+												[calendars]="calendar?.planchaCalendarList"
+												[weeks]="calendar?.weekList">
+											</app-planning-task>
+										</ng-container>
 									</ng-container> 
 								</ng-container>
-							</tbody>
-						</table>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

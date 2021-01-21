@@ -8,7 +8,7 @@ export class ResourceCalendar implements Deserializable {
   	public id: number;
   	public resource: Resource;
   	public task: Task;
-  	public calendarItems: CalendarItem;
+  	public calendarItems: CalendarItem[];
 
 	constructor(input?: any) {
     	if (input) {
