@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
-import { CompetenceService } from '../../services/competence/competence.service';
+import { CompetenceService } from '../../services/competence.service';
 import { Competence } from '../../models/competence.model';
 
 @Component({

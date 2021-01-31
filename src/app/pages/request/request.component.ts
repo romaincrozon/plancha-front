@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Observable, of, from, interval } from 'rxjs';
 import { Location } from '@angular/common';
 
-import { RequestService } from '../../services/request/request.service';
+import { RequestService } from '../../services/request.service';
 
 import { Request } from '../../models/request.model';
 

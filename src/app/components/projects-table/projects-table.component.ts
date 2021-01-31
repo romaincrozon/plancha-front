@@ -3,9 +3,9 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CreateProjectModalComponent } from '../../modals/create-project-modal/create-project-modal.component';
-import { TaskService } from '../../services/task/task.service';
-import { SubProjectService } from '../../services/subproject/subproject.service';
-import { ProjectService } from '../../services/project/project.service';
+import { TaskService } from '../../services/task.service';
+import { SubProjectService } from '../../services/subproject.service';
+import { ProjectService } from '../../services/project.service';
 
 import { Task } from '../../models/task.model';
 import { SubProject } from '../../models/sub-project.model';

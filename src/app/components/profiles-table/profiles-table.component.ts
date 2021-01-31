@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../../services/profile/profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../models/profile.model';
 import { CreateProfileModalComponent } from '../../modals/create-profile-modal/create-profile-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

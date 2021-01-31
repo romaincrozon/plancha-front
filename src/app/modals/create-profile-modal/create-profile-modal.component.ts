@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of, from, interval } from 'rxjs';
 
-import { CompetenceService } from '../../services/competence/competence.service';
-import { ProfileService } from '../../services/profile/profile.service';
-import { RequestService } from '../../services/request/request.service';
+import { CompetenceService } from '../../services/competence.service';
+import { ProfileService } from '../../services/profile.service';
+import { RequestService } from '../../services/request.service';
 import { Profile } from '../../models/profile.model';
 import { Competence } from '../../models/competence.model';
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Resource } from '../../models/resource.model';
 
 @Component({
   selector: 'app-profile-info',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileInfoComponent implements OnInit {
 
-  constructor() { }
+	@Input() resource: Resource;
 
-  ngOnInit(): void {
-  }
+  	constructor() { 
+  	}
+
+  	ngOnInit(): void {
+  	
+  	}
 
 }

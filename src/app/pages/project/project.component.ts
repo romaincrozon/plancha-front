@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Observable, of, from, interval } from 'rxjs';
 import { Location } from '@angular/common';
-import { ProjectService } from '../../services/project/project.service';
-import { SubProjectService } from '../../services/subproject/subproject.service';
+import { ProjectService } from '../../services/project.service';
+import { SubProjectService } from '../../services/subproject.service';
 
 import { Project } from '../../models/project.model';
 import { SubProject } from '../../models/sub-project.model';

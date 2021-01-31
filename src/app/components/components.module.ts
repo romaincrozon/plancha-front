@@ -20,12 +20,13 @@ import { ProfilesTableComponent } from './profiles-table/profiles-table.componen
 import { CompetencesTableComponent } from './competences-table/competences-table.component';
 import { PlanningCellComponent } from './planning-cell/planning-cell.component';
 import { DatepickerComponent } from './grid-parameters/datepicker/datepicker.component';
-import { PlanningAddresourceComponent } from './planning-addresource/planning-addresource.component';
 import { GridParametersComponent } from './grid-parameters/grid-parameters.component';
 import { ViewsComponent } from './grid-parameters/views/views.component';
 import { PlanningRowComponent } from './planning-row/planning-row.component';
-import { AlertComponent } from './alert/alert.component';
 import { PlanningTaskComponent } from './planning-task/planning-task.component';
+import { AlertComponent } from './alert/alert.component';
+import { ResourcesTableFullComponent } from './resources-table-full/resources-table-full.component';
+import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
 
 @NgModule({
   imports: [
@@ -50,11 +51,13 @@ import { PlanningTaskComponent } from './planning-task/planning-task.component';
   	CompetencesTableComponent, 
   	PlanningCellComponent, 
   	DatepickerComponent, 
-  	PlanningAddresourceComponent, 
   	GridParametersComponent, 
   	ViewsComponent, 
   	PlanningRowComponent, 
-  	AlertComponent, PlanningTaskComponent
+  	PlanningTaskComponent, 
+  	AlertComponent, 
+  	ResourcesTableFullComponent, 
+  	CountTaskPipePipe
   ],
   exports: [
   	FooterComponent, 
@@ -63,11 +66,14 @@ import { PlanningTaskComponent } from './planning-task/planning-task.component';
   	ProjectsTableComponent, 
   	ResourcesTableComponent, 
   	PlanningTableComponent, 
+  	ProfileInfoComponent, 
   	RequestTableComponent,
   	ProfilesTableComponent,
+  	ResourcesTableFullComponent,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CountTaskPipePipe
   ],
   providers: [
   	DatePipe

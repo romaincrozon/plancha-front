@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 
-import { DataSharingService } from '../../services/data-sharing/data-sharing.service';
+import { DataSharingService } from '../../services/data-sharing.service';
 import { CalendarRange } from '../../models/calendar-range.model';
 import { GridParameters } from '../../models/grid-parameters.model';
 

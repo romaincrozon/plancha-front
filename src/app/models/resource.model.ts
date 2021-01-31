@@ -13,6 +13,7 @@ export class Resource implements Deserializable {
   	public password: string;
   	public quadri: string;
   	public availabilityPerWeek: number;
+    public token: string;
 
   	public resourceCalendar: ResourceCalendar;
   	public projects: Project[];

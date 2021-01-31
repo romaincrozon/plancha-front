@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
-import { CalendarService } from '../../services/calendar/calendar.service';
-import { ProjectService } from '../../services/project/project.service';
-import { CalendarItemService } from '../../services/calendar-item/calendar-item.service';
-import { DataSharingService } from '../../services/data-sharing/data-sharing.service';
+import { CalendarService } from '../../services/calendar.service';
+import { ProjectService } from '../../services/project.service';
+import { CalendarItemService } from '../../services/calendar-item.service';
+import { DataSharingService } from '../../services/data-sharing.service';
 
 import { Project } from '../../models/project.model';
 import { CalendarItem } from '../../models/calendar-item.model';
@@ -13,7 +13,6 @@ import { GridParameters } from '../../models/grid-parameters.model';
 import { DirectiveAddresourceDirective } from '../../directives/directive-addresource.directive';
 //import { ResourceCalendarItem } from '../../directives/items/resource-calendar-item';
 import { ResourceCalendar } from '../../models/resource-calendar.model';
-import { RowComponent } from '../row.component';
 
 @Component({
   selector: 'app-planning-table',

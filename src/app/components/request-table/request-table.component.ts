@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { RequestService } from '../../services/request/request.service';
+import { RequestService } from '../../services/request.service';
 import { CreateRequestModalComponent } from '../../modals/create-request-modal/create-request-modal.component';
 import { Request } from '../../models/request.model';
 import { Project } from '../../models/project.model';

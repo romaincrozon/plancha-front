@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
-import { RequestService } from '../../services/request/request.service';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'app-confirm-modal',

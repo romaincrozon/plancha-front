@@ -10,8 +10,8 @@ import { CalendarItem } from '../../models/calendar-item.model';
 
 import { PlanningRowComponent } from '../planning-row/planning-row.component';
 
-import { ResourceCalendarService } from '../../services/resource-calendar/resource-calendar.service';
-import { UtilsService } from '../../services/utils/utils.service';
+import { ResourceCalendarService } from '../../services/resource-calendar.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-planning-task',

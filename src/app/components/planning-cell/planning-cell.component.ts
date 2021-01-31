@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common'
 
 import { ResourceCalendar } from '../../models/resource-calendar.model';
 import { CalendarItem } from '../../models/calendar-item.model';
-import { CalendarItemService } from '../../services/calendar-item/calendar-item.service';
+import { CalendarItemService } from '../../services/calendar-item.service';
 import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
 import { WeekItem } from '../../models/week-item.model';
 
@@ -56,7 +56,7 @@ export class PlanningCellComponent implements OnInit {
   			weekItemToCreate.calendars = calendars;
   			weekItemToCreate.resourceCalendarId = this.resourceCalendar.id;
   			weekItemToCreate.value = this.cellForm.value.value;
-  			console.log(weekItemToCreate);
+  			//console.log(weekItemToCreate);
   			this.calendarItemService.createWeekItem(weekItemToCreate).subscribe(data => {
 				this.calendarItems = data;
 			});
@@ -65,11 +65,10 @@ export class PlanningCellComponent implements OnInit {
   	
   	fillCell(){
 		if (this.resourceCalendar != null && this.resourceCalendar.calendarItems != null) {
-  			console.log("calendarItems != null");
+  			//console.log("calendarItems != null");
 			var resourceCalendarId = this.resourceCalendar.id;
   			var date = this.datepipe.transform(this.calendarItem.calendar, 'yyyy-MM-dd');
-  			console.log("fillcell");
-  			console.log(this.resourceCalendar);
+  			//console.log(this.resourceCalendar);
   			//if (this.resourceCalendar.calendarItems instanceof CalendarItem[]){
 	  			let item = this.resourceCalendar.calendarItems.find(node => 
 	  				this.datepipe.transform(node.calendar, 'yyyy-MM-dd') == date);

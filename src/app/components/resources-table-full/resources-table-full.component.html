@@ -1,0 +1,28 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Resources</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter">
+				<thead class=" text-primary">
+					<tr>
+						<th>Pseudo</th>
+						<th>Pr&eacute;nom</th>
+						<th>Nom</th>
+						<th>Quadrigramme</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let resource of resources">
+						<td>{{resource.username}}</td>
+						<td>{{resource.firstname}}</td>
+						<td>{{resource.lastname}}</td>
+						<td>{{resource.quadri}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une ressource</button>
+	</div>
+</div>

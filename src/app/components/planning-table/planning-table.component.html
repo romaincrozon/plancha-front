@@ -33,7 +33,7 @@
 											<div>{{subproject.name}}</div>
 										</div>
 										<ng-container *ngFor="let task of subproject?.taskList">
-											<div>{{task.name}}</div>
+											<div>{{task.name}}</div><div>toto{{task.resourceCalendars | countTaskPipe:calendars}}</div>
 											<app-planning-task
 												[task]="task"
 												[gridParameters]="gridParameters"					

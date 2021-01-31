@@ -11,8 +11,8 @@ import { Resource } from '../../models/resource.model';
 import { TaskResource } from '../../models/task-resource.model';
 import { WeekItem } from '../../models/week-item.model';
 
-import { ResourceCalendarService } from '../../services/resource-calendar/resource-calendar.service';
-import { UtilsService } from '../../services/utils/utils.service';
+import { ResourceCalendarService } from '../../services/resource-calendar.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-planning-row',

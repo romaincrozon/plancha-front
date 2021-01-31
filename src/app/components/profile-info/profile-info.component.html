@@ -1,1 +1,50 @@
-<p>profile-info works!</p>
+<div class=" content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-7">
+					<div class=" card">
+						<div class=" card-header">
+							<h4 class=" card-title">Profil</h4>
+						</div>
+						<div class=" card-body">
+							<div class="row">
+								<div class="col-md-6" style="text-align:right">
+									<p>Avatar:</p>
+									<p>Pseudo:</p>
+									<p>Pr&eacute;nom:</p>
+									<p>Nom:</p>
+									<p>Quadrigramme:</p>
+									<p>Mot de passe:</p>
+								</div>
+								<div class="col-md-6">
+									<p><img style="width:20px" src="../../../assets/img/default-avatar.png" alt="Edit avatar"></p>
+									<p>{{resource?.username}}</p>
+									<p>{{resource?.firstname}}</p>
+									<p>{{resource?.lastname}}</p>
+									<p>{{resource?.quadri}}</p>
+									<a (click)="changePassword">Changer de mot de passe</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class=" card">
+						<div class=" card-header">
+							<h4 class=" card-title">Projets</h4>
+						</div>
+						<div class=" card-body">
+							<div *ngIf="resource?.projects?.length > 0">
+								<p *ngFor="let project of resource?.projects">{{project.name}}</p>
+							</div>
+							<div *ngIf="resource?.projects?.length == 0">
+								<p>Cette resource n'est affect&eacute; &agrave; aucun projet</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
