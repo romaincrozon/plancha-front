@@ -1,5 +1,6 @@
 <form [formGroup]="gridParameterGroup" (ngSubmit)="submitForm()">
 	<app-datepicker [parentForm]="gridParameterGroup"></app-datepicker>
+	<app-filter *ngIf="projects" [projects]="projects" [parentForm]="gridParameterGroup"></app-filter>
 	<app-views [parentForm]="gridParameterGroup"></app-views>	
 	<button class="btn btn-fill btn-danger">Valider</button>
 </form>

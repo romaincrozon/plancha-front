@@ -1,4 +1,4 @@
-<div class=" content">
+<div class=" content"  #el>
 	<div class="row">
 		<div class="col-md-12">
 			<div class=" card">
@@ -7,45 +7,78 @@
 				</div>
 				<div class=" card-body">
 					<div>
-						<app-grid-parameters></app-grid-parameters>
+						<app-grid-parameters [projects]="allProjects"></app-grid-parameters>
 					</div>	
-					<div>
-						<div>
-							<div>
-								<div>
-									<div style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</div>
-								</div>
-								<div>
-									<div style="border: 1px solid black;" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</div>
-								</div>
-								<div>
-									<div style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</div>
-								</div>
-							</div>
-							<div>
+<!-- 					<app-resource-synthesis [projects]="projects" [calendar]="calendar"></app-resource-synthesis> -->
+					<div class=" table-responsive" *ngIf="gridParameters.calendarRange">
+						<table class=" table tablesorter">
+							<thead class=" text-primary">
+								<tr>
+									<th [attr.colspan]="5"></th>
+									<th style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
+								</tr>
+								<tr>
+									<th [attr.colspan]="5"></th>
+									<th style="border: 1px solid black;" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</th>
+								</tr>
+								<tr>
+									<th [attr.colspan]="5"></th>
+									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ng-container *ngFor="let resource of resources">
+									<tr>
+										<td [attr.rowspan]="3">{{resource.quadri}}%</td>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+									<tr>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+									<tr>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+								</ng-container>
 								<ng-container *ngFor="let project of projects">
-									<div>
-										<div>{{project.confidencePercentage}}%</div>
-										<div>{{project.name}}</div>
-									</div>
+									<tr>
+										<td>{{project.confidencePercentage}}%</td>
+										<td [attr.colspan]="4">{{project.name}}</td>
+										<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
+									</tr>
 									<ng-container *ngFor="let subproject of project?.subProjectList">
-										<div>
-											<div>{{subproject.name}}</div>
-										</div>
+										<tr>
+											<td [attr.colspan]="2"></td>
+											<td [attr.colspan]="3">{{subproject.name}}</td>
+											<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
+										</tr>
 										<ng-container *ngFor="let task of subproject?.taskList">
-											<div>{{task.name}}</div><div>toto{{task.resourceCalendars | countTaskPipe:calendars}}</div>
-											<app-planning-task
-												[task]="task"
-												[gridParameters]="gridParameters"					
+											<tr>
+												<td [attr.colspan]="3"></td>
+												<td>{{task.name}}</td>
+												<td>
+													<button (click)="openFormModal(project.resourceList)" type="button" class="btn btn-link">
+                      									<i class="tim-icons icon-pencil"></i>
+                    								</button>
+                    							</td>
+												<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-task-id]="task.id" #count>{{task.resourceCalendars | countTaskPipe:calendar}}</td>
+											</tr>
+											<tr *ngFor="let resourceCalendar of task?.resourceCalendars"
+												app-planning-row
+												(valueChange)="sum($event)"
+												[resourceCalendar]="resourceCalendar"
 												[projectResources]="project?.resourceList"
+												[gridParameters]="gridParameters"					
 												[calendars]="calendar?.planchaCalendarList"
-												[weeks]="calendar?.weekList">
-											</app-planning-task>
+												[weeks]="calendar?.weekList"
+												[project]="project"
+												[subproject]="subproject"
+												[task]="task">
+											</tr>
 										</ng-container>
 									</ng-container> 
 								</ng-container>
-							</div>
-						</div>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

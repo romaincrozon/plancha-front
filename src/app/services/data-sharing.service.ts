@@ -13,7 +13,7 @@ export class DataSharingService {
 
     constructor() { }
 
-    public gridParameters: BehaviorSubject<GridParameters> = new BehaviorSubject<GridParameters>(new GridParameters(null, 'days'));
+    public gridParameters: BehaviorSubject<GridParameters> = new BehaviorSubject<GridParameters>(new GridParameters(null, 'days', null));
 	//public resourceCalendarMap: BehaviorSubject<Map> = new BehaviorSubject<Map>(new Map());
 
 }

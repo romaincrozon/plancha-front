@@ -26,7 +26,14 @@ import { PlanningRowComponent } from './planning-row/planning-row.component';
 import { PlanningTaskComponent } from './planning-task/planning-task.component';
 import { AlertComponent } from './alert/alert.component';
 import { ResourcesTableFullComponent } from './resources-table-full/resources-table-full.component';
+import { FilterPipe } from '../pipes/filter.pipe';
 import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
+import { CountSubprojectPipePipe } from '../pipes/count-subproject-pipe.pipe';
+import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
+import { ResourcePlanningTableComponent } from './resource-planning-table/resource-planning-table.component';
+import { NeedTableComponent } from './need-table/need-table.component';
+import { TodoTableComponent } from './todo-table/todo-table.component';
+import { FilterComponent } from './grid-parameters/filter/filter.component';
 
 @NgModule({
   imports: [
@@ -36,7 +43,8 @@ import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
   	MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
   	FooterComponent, 
@@ -57,7 +65,14 @@ import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
   	PlanningTaskComponent, 
   	AlertComponent, 
   	ResourcesTableFullComponent, 
-  	CountTaskPipePipe
+  	FilterPipe, 
+  	CountTaskPipePipe, 
+    CountSubprojectPipePipe,
+    CountProjectPipePipe,
+  	ResourcePlanningTableComponent, 
+  	NeedTableComponent, 
+  	TodoTableComponent, 
+  	FilterComponent, 
   ],
   exports: [
   	FooterComponent, 
@@ -68,12 +83,17 @@ import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
   	PlanningTableComponent, 
   	ProfileInfoComponent, 
   	RequestTableComponent,
+  	TodoTableComponent,
   	ProfilesTableComponent,
+  	CompetencesTableComponent,
   	ResourcesTableFullComponent,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    CountTaskPipePipe
+    CountTaskPipePipe,
+    CountSubprojectPipePipe,
+  	CountProjectPipePipe,
+  	FilterPipe,
   ],
   providers: [
   	DatePipe

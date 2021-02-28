@@ -56,6 +56,11 @@ export class SubProjectService {
 		    );
     }
     
+    delete(subproject: SubProject): void {
+    	console.log("Delete subproject :" + subproject);
+    	this.http.delete(endpoint + 'subproject/' + subproject.id).subscribe(() => console.log('Delete successful'));
+    }
+    
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 

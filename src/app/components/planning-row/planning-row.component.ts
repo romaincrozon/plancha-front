@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output  } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Project } from '../../models/project.model';
 import { Task } from '../../models/task.model';
+import { SubProject } from '../../models/sub-project.model';
 import { CalendarItem } from '../../models/calendar-item.model';
 import { CalendarRange } from '../../models/calendar-range.model';
 import { GridParameters } from '../../models/grid-parameters.model';
@@ -15,16 +16,22 @@ import { ResourceCalendarService } from '../../services/resource-calendar.servic
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
-  selector: 'app-planning-row',
+  selector: '[app-planning-row]',
   templateUrl: './planning-row.component.html'
 })
 export class PlanningRowComponent implements OnInit {
 
-  	@Input() projectResources: Resource[];
 	@Input() gridParameters: GridParameters;
+	@Input() projectResources: Resource[];
 	@Input() resourceCalendar: ResourceCalendar;
 	@Input() calendars: CalendarItem[];
 	@Input() weeks: WeekItem[];
+	
+	@Input() project: Project;
+	@Input() subproject: SubProject;
+	@Input() task: Task;
+	
+  	@Output() valueChange = new EventEmitter<any>();
 	
   	constructor(private utilsService: UtilsService) { }
 
@@ -36,4 +43,20 @@ export class PlanningRowComponent implements OnInit {
 			return item;
 		}
 	}
+	
+	sum(cell) {
+        this.valueChange.emit(cell);
+    }
+    
+    getCellValue(resourceCalendar, calendar): CalendarItem {
+    	if (resourceCalendar != null && resourceCalendar.calendarItems != null) {
+  			var date = this.utilsService.formatDate(calendar.calendar);
+  			let item = resourceCalendar.calendarItems.find(node => 
+  				this.utilsService.formatDate(node.calendar) == date);
+  			if (item){
+    			return item;
+    		}
+    	}
+    	return calendar;
+    }
 }

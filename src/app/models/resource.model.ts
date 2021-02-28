@@ -14,6 +14,7 @@ export class Resource implements Deserializable {
   	public quadri: string;
   	public availabilityPerWeek: number;
     public token: string;
+    public cost: number;
 
   	public resourceCalendar: ResourceCalendar;
   	public projects: Project[];

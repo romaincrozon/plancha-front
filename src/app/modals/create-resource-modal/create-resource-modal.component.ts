@@ -18,9 +18,6 @@ export class CreateResourceModalComponent {
   	constructor( public resourceService: ResourceService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {
     	this.createForm();
   	}
-  
-  	ngOnInit() {
-  	}
   	  
   	private createForm() {
     	this.createResourceForm = this.formBuilder.group({

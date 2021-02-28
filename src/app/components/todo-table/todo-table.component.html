@@ -1,0 +1,31 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Todo</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter">
+				<thead class=" text-primary">
+					<tr>
+						<th>Nom</th>
+						<th>D&eacute;tails</th>
+						<th>&eacute;ch&eacute;ance</th>
+						<th>R&eacute;currence</th>
+						<th>Statut</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let todoItem of todoItems">
+						<td>{{todoItem.name}}</td>
+						<td>{{todoItem.detail}}</td>
+						<td>{{todoItem.deadline | date:'dd/MM/yyyy'}}</td>
+						<td>{{todoItem.recurrence}}</td>
+						<td>{{todoItem.status}}</td>
+						<td>{{todoItem.category}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -9,19 +9,28 @@
 					<tr>
 						<th>Name</th>
 						<th>Status</th>
+						<th>% de confiance</th>
+						<th>Charge vendue</th>
+						<th>Charge challeng&eacute;e</th>
+						<th>Charge consomm&eacute;e</th>
+						<th>Marge</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of list">
-						<td>{{item.name}}</td>
+						<td [style.background-color]="item.color.code">{{item.name}}</td>
 						<td>{{item.status}}</td>
+						<td>{{item.confidencePercentage}}%</td>
+						<td>{{item.soldWorkload}}</td>
+						<td>{{item.challengedWorkload}}</td>
+						<td>{{item.consumedWorkload}}</td>
+						<td>{{item.projectMargin}}</td>
 						<td>
-							<a [routerLink]="['/subproject', item.id]">
+							<a [routerLink]="['/project', item.id]">
 								<i class="tim-icons icon-pencil"></i>
 							</a>
 						</td>
-						<td><i class="tim-icons icon-settings"></i><td>
-						<td><i class="tim-icons icon-trash-simple"></i><td>
+						<td><i (click)="openDeleteModal(item)" class="tim-icons icon-trash-simple"></i><td>
 					</tr>
 				</tbody>
 			</table>

@@ -1,25 +1,25 @@
-<div *ngFor="let resourceCalendar of task.resourceCalendars">
-	<app-planning-row
+<ng-container *ngFor="let resourceCalendar of task.resourceCalendars">
+	<tr app-planning-row
 		[resourceCalendar]="resourceCalendar"
 		[gridParameters]="gridParameters"					
 		[projectResources]="projectResources"
 		[calendars]="calendars"
 		[weeks]="weeks">
-	</app-planning-row>
-</div>
+	</tr>
+</ng-container>
 
-<template #planningRowContainer>
-</template>
+<!-- <template #planningRowContainer> -->
+<!-- </template> -->
 
-<div *ngIf="availableResources != null && availableResources.length > 0">
-	<div>
-		<form [formGroup]="selectResourceForm">
-			<div class="form-group">
-				<select #select class="form-control" formControlName="selectResources" (change)='onResourceSelected(select.value)'>
-					<option value="0" selected>Ajouter une resource</option>
-					<option *ngFor="let availableResource of availableResources" [attr.value]="availableResource?.id">{{availableResource.quadri}}</option>
-				</select>
-			</div>
-		</form>
-	</div>
-</div>
+<!-- <div *ngIf="availableResources != null && availableResources.length > 0"> -->
+<!-- 	<div> -->
+<!-- 		<form [formGroup]="selectResourceForm"> -->
+<!-- 			<div class="form-group"> -->
+<!-- 				<select #select class="form-control" formControlName="selectResources" (change)='onResourceSelected(select.value)'> -->
+<!-- 					<option value="0" selected>Ajouter une resource</option> -->
+<!-- 					<option *ngFor="let availableResource of availableResources" [attr.value]="availableResource?.id">{{availableResource.quadri}}</option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+<!-- </div> -->

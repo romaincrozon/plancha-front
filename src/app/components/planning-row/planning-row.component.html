@@ -1,15 +1,32 @@
-<div>{{getResourceById(resourceCalendar.resource)?.quadri}}</div>
+<td></td><td></td><td></td><td></td>
+<td>{{getResourceById(resourceCalendar.resource)?.quadri}}</td>
 <ng-container *ngIf="gridParameters.view == 'days'">
 	<ng-container *ngFor="let calendar of calendars">
-		<div>
-			<app-planning-cell [view]="gridParameters.view" [calendarItem]="calendar" [resourceCalendar]="resourceCalendar" ></app-planning-cell>
-		</div>
+		<td>
+			<app-planning-cell 
+				(valueChange)="sum($event)" 
+				[project]="project"
+				[subproject]="subproject"
+				[task]="task" 
+				[view]="gridParameters.view" 
+				[calendarItem]="getCellValue(resourceCalendar, calendar)" 
+				[resourceCalendar]="resourceCalendar" >
+			</app-planning-cell>
+		</td>
 	</ng-container>
 </ng-container>
 <ng-container *ngIf="gridParameters.view == 'weeks'" >
 	<ng-container *ngFor="let week of weeks">
-		<div>
-			<app-planning-cell [view]="gridParameters.view" [week]="week" [resourceCalendarId]="resourceCalendar"></app-planning-cell>
-		</div>
+		<td>
+			<app-planning-cell 
+				(valueChange)="display($event)" 
+				[project]="project"
+				[subproject]="subproject"
+				[task]="task" 
+				[view]="gridParameters.view" 
+				[week]="week" 
+				[resourceCalendar]="resourceCalendar">
+			</app-planning-cell>
+		</td>
 	</ng-container>
 </ng-container>

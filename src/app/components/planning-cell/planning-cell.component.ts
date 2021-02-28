@@ -1,10 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 
+import { Project } from '../../models/project.model';
+import { Task } from '../../models/task.model';
+import { SubProject } from '../../models/sub-project.model';
 import { ResourceCalendar } from '../../models/resource-calendar.model';
 import { CalendarItem } from '../../models/calendar-item.model';
 import { CalendarItemService } from '../../services/calendar-item.service';
+import { UtilsService } from '../../services/utils.service';
 import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
 import { WeekItem } from '../../models/week-item.model';
 
@@ -19,12 +23,18 @@ export class PlanningCellComponent implements OnInit {
   	@Input() calendarItem: CalendarItem;
   	@Input() week: any;
   	
+  	@Input() project: Project;
+	@Input() subproject: SubProject;
+	@Input() task: Task;
+	
+  	@Output() valueChange = new EventEmitter<any>();
+  	
   	cellForm: FormGroup;
   	calendarItems: CalendarItem[];
   
   	constructor(private formBuilder: FormBuilder, 
   		private calendarItemService: CalendarItemService, 
-  		private datepipe: DatePipe) {}
+  		private utilsService: UtilsService) {}
 
   	ngOnInit(): void {
   		this.createForm();
@@ -45,7 +55,19 @@ export class PlanningCellComponent implements OnInit {
 	  		calendarItemToCreate.calendar = this.calendarItem.calendar;
 	  		calendarItemToCreate.resourceCalendarId = this.resourceCalendar.id;
   			this.calendarItemService.createCalendarItem(calendarItemToCreate).subscribe(data => {
-			  	this.calendarItem = data;
+			  	let index = this.resourceCalendar.calendarItems.findIndex(calendarItem => this.utilsService.formatDate(calendarItem.calendar) === this.utilsService.formatDate(this.calendarItem.calendar));
+			  	if (index > -1){
+				  	this.resourceCalendar[index] = data;
+			  	} else {
+			  		this.resourceCalendar.calendarItems.push(data);
+			  	}
+			  	let diffValue = data.value - (this.calendarItem.value ? this.calendarItem.value : 0);
+			  	this.valueChange.emit({calendar:this.calendarItem.calendar, 
+			  		value:diffValue, 
+			  		projectId: this.project.id, 
+			  		subprojectId: this.subproject.id, 
+			  		taskId: this.task.id
+			  	});
 			});
 		}else{
   			var weekItemToCreate = new WeekItem();
@@ -56,7 +78,6 @@ export class PlanningCellComponent implements OnInit {
   			weekItemToCreate.calendars = calendars;
   			weekItemToCreate.resourceCalendarId = this.resourceCalendar.id;
   			weekItemToCreate.value = this.cellForm.value.value;
-  			//console.log(weekItemToCreate);
   			this.calendarItemService.createWeekItem(weekItemToCreate).subscribe(data => {
 				this.calendarItems = data;
 			});
@@ -64,24 +85,10 @@ export class PlanningCellComponent implements OnInit {
   	}
   	
   	fillCell(){
-		if (this.resourceCalendar != null && this.resourceCalendar.calendarItems != null) {
-  			//console.log("calendarItems != null");
-			var resourceCalendarId = this.resourceCalendar.id;
-  			var date = this.datepipe.transform(this.calendarItem.calendar, 'yyyy-MM-dd');
-  			//console.log(this.resourceCalendar);
-  			//if (this.resourceCalendar.calendarItems instanceof CalendarItem[]){
-	  			let item = this.resourceCalendar.calendarItems.find(node => 
-	  				this.datepipe.transform(node.calendar, 'yyyy-MM-dd') == date);
-			//} else if (this.resourceCalendar.calendarItems instanceof CalendarItem){
-	  		//	let item = this.resourceCalendar.calendarItems;
-			//}
-			if (item != null){
-				if (this.view == 'days'){
-		    		this.cellForm.controls['value'].setValue(item.value);
-		    	} else {
-		    		//this.cellForm.controls['value'].setValue(item.value);
-				}
-			}
-  		}
+		if (this.view == 'days'){
+    		this.cellForm.controls['value'].setValue(this.calendarItem.value);
+    	} else {
+    		//this.cellForm.controls['value'].setValue(this.calendarItem.value);
+		}
   	}
 }

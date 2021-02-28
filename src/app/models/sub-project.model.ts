@@ -9,6 +9,11 @@ export class SubProject implements Deserializable {
   	public status: string;
   	public project: Project;
   	public tasks: Task[];
+  	public selected: boolean = true;
+  	
+	public soldWorkload: number;
+	public challengedWorkload: number;
+	public consumedWorkload: number;
 
 	constructor(input?: any) {
     	if (input) {
@@ -18,7 +23,6 @@ export class SubProject implements Deserializable {
   	
   	deserialize(input: any): this {
     	Object.assign(this, input);
-		console.log(this);
     	this.tasks = input.tasks != null ? input.tasks.map(task => new Task().deserialize(task)) : null;
 
     	return this;

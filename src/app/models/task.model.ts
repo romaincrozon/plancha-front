@@ -10,6 +10,10 @@ export class Task implements Deserializable {
   	public status: string;
   	public subprojects: SubProject[];
   	public resourceCalendars: ResourceCalendar[];
+  	
+	public soldWorkload: number;
+	public challengedWorkload: number;
+	public consumedWorkload: number;
 
 	constructor(input?: any) {
     	if (input) {

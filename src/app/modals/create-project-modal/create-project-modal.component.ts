@@ -1,56 +1,70 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import { SubProjectService } from '../../services/subproject.service';
 import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
+import { ColorService } from '../../services/color.service';
 
 import { Project } from '../../models/project.model';
 import { SubProject } from '../../models/sub-project.model';
 import { Task } from '../../models/task.model';
+import { Color } from '../../models/color.model';
 
 @Component({
   selector: 'app-create-project-modal',
   templateUrl: './create-project-modal.component.html'
 })
-export class CreateProjectModalComponent {
+export class CreateProjectModalComponent implements OnInit {
   
-  createProjectForm: FormGroup;
-  project: Project;
-  subproject: SubProject;
-  task: Task;
+  	createProjectForm: FormGroup;
+  	project: Project;
+  	colors: Color[];
+  	selectedColor: Color;
   
-  constructor( public projectService: ProjectService, public subprojectService: SubProjectService, public taskService: TaskService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder,  ) {
-    this.createForm();
-  }
+  	constructor( public projectService: ProjectService, 
+  			public colorService: ColorService, 
+  			public activeModal: NgbActiveModal, 
+  			private formBuilder: FormBuilder,  ) {
+    }
+  	
+  	ngOnInit() {
+  		this.createForm();
+    	this.getColors();
+  	}
   
-  private createForm() {
-    this.createProjectForm = this.formBuilder.group({
-      name: new FormControl(),
-      status: new FormControl()
-    });
-  }
-  
-  private submitForm() {
-  	if (this.project != null){
-	    var subProjectToCreate = new SubProject(this.createProjectForm.value);
-	    subProjectToCreate.project = this.project;
-	    this.subprojectService.createSubProject(subProjectToCreate).subscribe(data => {
-			this.subproject = data;
+  	private getColors(){
+		this.colorService.getColors().subscribe(data => {
+			this.colors = data;
 		});
-	}else if (this.subproject != null){
-	    var taskToCreate = new Task(this.createProjectForm.value);
-	    //taskToCreate.subproject = this.subproject;
-	    //this.taskService.createTask(taskToCreate).subscribe(data => {
-		//	this.task = data;
-		//});
-	} else {
+  	}
+  
+  	private selectColor(color: Color){
+  		this.selectedColor = color;
+  		console.log(this.selectedColor);
+  	}
+  	
+  	private createForm() {
+    	this.createProjectForm = this.formBuilder.group({
+      		name: new FormControl(),
+      		status: new FormControl(),
+	      	confidencePercentage: new FormControl(),
+			soldWorkload: new FormControl(),
+			challengedWorkload: new FormControl(),
+			consumedWorkload: new FormControl(),
+			projectMargin: new FormControl(),
+			color: new FormControl(),
+    	});
+  	}
+  
+  	private submitForm() {
   		var projectToCreate = new Project(this.createProjectForm.value);
+  		projectToCreate.color = this.selectedColor;
+		console.log(projectToCreate);
 		this.projectService.createProject(projectToCreate).subscribe(data => {
 			this.project = data;
 		});
-	}
-    this.activeModal.close();
-  }
+	    this.activeModal.close();
+  	}
 }

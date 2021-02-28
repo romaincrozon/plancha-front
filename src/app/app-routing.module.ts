@@ -12,6 +12,9 @@ import { ProfileSettingsComponent } from './pages/profile-settings/profile-setti
 import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestComponent } from './pages/request/request.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { CompetencesComponent } from './pages/competences/competences.component';
+import { ProfilesComponent } from './pages/profiles/profiles.component';
+import { TodoComponent } from './pages/todo/todo.component';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -26,6 +29,10 @@ const routes: Routes = [
   { path: 'planning', component: PlanningComponent },
   { path: 'profile', component: ProfileSettingsComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'request', component: RequestsComponent },
+  { path: 'todo', component: TodoComponent },
+  { path: 'settings/competences', component: CompetencesComponent },
+  { path: 'settings/profiles', component: ProfilesComponent },
   { path: 'request', component: RequestsComponent },
   { path: 'request/:id', component: RequestComponent },
   { path: 'administration', component: AdministrationComponent },
