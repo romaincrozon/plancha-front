@@ -11,13 +11,13 @@ import { DatePipe } from '@angular/common'
 import { FooterComponent } from "./footer/footer.component"; 
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
-import { ProjectsTableComponent } from './projects-table/projects-table.component';
-import { ResourcesTableComponent } from './resources-table/resources-table.component';
+import { ProjectsTableComponent } from './tables/projects-table/projects-table.component';
+import { ResourcesTableComponent } from './tables/resources-table/resources-table.component';
 import { PlanningTableComponent } from './planning-table/planning-table.component';
-import { RequestTableComponent } from './request-table/request-table.component';
+import { RequestTableComponent } from './tables/request-table/request-table.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
-import { ProfilesTableComponent } from './profiles-table/profiles-table.component';
-import { CompetencesTableComponent } from './competences-table/competences-table.component';
+import { ProfilesTableComponent } from './tables/profiles-table/profiles-table.component';
+import { CompetencesTableComponent } from './tables/competences-table/competences-table.component';
 import { PlanningCellComponent } from './planning-cell/planning-cell.component';
 import { DatepickerComponent } from './grid-parameters/datepicker/datepicker.component';
 import { GridParametersComponent } from './grid-parameters/grid-parameters.component';
@@ -31,9 +31,14 @@ import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
 import { CountSubprojectPipePipe } from '../pipes/count-subproject-pipe.pipe';
 import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
 import { ResourcePlanningTableComponent } from './resource-planning-table/resource-planning-table.component';
-import { NeedTableComponent } from './need-table/need-table.component';
 import { TodoTableComponent } from './todo-table/todo-table.component';
 import { FilterComponent } from './grid-parameters/filter/filter.component';
+import { SubprojectsTableComponent } from './tables/subprojects-table/subprojects-table.component';
+import { TasksTableComponent } from './tables/tasks-table/tasks-table.component';
+import { NeedProjectTableComponent } from './tables/need-project-table/need-project-table.component';
+import { NeedTeamTableComponent } from './tables/need-team-table/need-team-table.component';
+import { AvailabilityTableComponent } from './tables/availability-table/availability-table.component';
+import { CalendarWeeksComponent } from './calendar-weeks/calendar-weeks.component';
 
 @NgModule({
   imports: [
@@ -70,19 +75,29 @@ import { FilterComponent } from './grid-parameters/filter/filter.component';
     CountSubprojectPipePipe,
     CountProjectPipePipe,
   	ResourcePlanningTableComponent, 
-  	NeedTableComponent, 
   	TodoTableComponent, 
   	FilterComponent, 
+  	SubprojectsTableComponent, 
+  	TasksTableComponent, 
+  	NeedProjectTableComponent, 
+  	NeedTeamTableComponent, 
+  	AvailabilityTableComponent, 
+  	CalendarWeeksComponent, 
   ],
   exports: [
   	FooterComponent, 
   	NavbarComponent, 
   	SidebarComponent, 
   	ProjectsTableComponent, 
+  	SubprojectsTableComponent, 
+  	TasksTableComponent, 
   	ResourcesTableComponent, 
   	PlanningTableComponent, 
   	ProfileInfoComponent, 
   	RequestTableComponent,
+  	NeedTeamTableComponent,
+  	NeedProjectTableComponent,
+  	AvailabilityTableComponent,
   	TodoTableComponent,
   	ProfilesTableComponent,
   	CompetencesTableComponent,

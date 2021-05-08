@@ -13,9 +13,9 @@
 							class="form-control" formControlName="name" />
 					</div>
 					<div class="form-group">
-						<label for="competences">Competences</label> 
-						<select multiple name="competences" formControlName="competences">
-							<option value="{{competence.id}}" *ngFor="let competence of competences">{{competence.name}}</option>
+						<label for="competences">Comp&eacute;tences</label> 
+						<select class=" form-control" multiple name="competences" formControlName="competences"> 
+							<option *ngFor="let competence of competences" [ngValue]="competence">{{competence.name}}</option>
 						</select>
 					</div>
 				</div>

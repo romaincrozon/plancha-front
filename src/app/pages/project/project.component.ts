@@ -16,8 +16,7 @@ import { SubProject } from '../../models/sub-project.model';
 export class ProjectComponent implements OnInit {
 
 	id: string;
-	object: any;
-	typeObject: string;
+	project: Project;
   	updateProjectForm: FormGroup;
   	
   	constructor(public projectService: ProjectService, public subProjectService: SubProjectService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
@@ -25,28 +24,19 @@ export class ProjectComponent implements OnInit {
   	}
 
   	ngOnInit() : void{
-  		this.getObject().subscribe(
-      		currentObject => this.object = currentObject
+  		this.getProject().subscribe(
+      		currentProject => this.project = currentProject
     	);
   	}
   	
-  	getObject() : Observable<any[]>{
+  	getProject() : Observable<Project>{
 		this.activatedRoute.paramMap.subscribe(params => {
 	      	this.id = params.get('id');
 		});	  
-		  	
-		if (this.router.url.includes("subproject")){
-			this.typeObject = "subproject";
-			this.subProjectService.getSubProjectById(this.id).subscribe((data: {}) => {
-				this.object = data;
-			});
-		}else{
-			this.typeObject = "project";
-			this.projectService.getProjectById(this.id).subscribe((data: {}) => {
-				this.object = data;
-			});
-		}
-	    return of(this.object);	
+		this.projectService.getProjectById(this.id).subscribe(data => {
+			this.project = data;
+		});
+	    return of(this.project);	
 	}
 	
 	private createForm() {
@@ -58,19 +48,11 @@ export class ProjectComponent implements OnInit {
 	
 	private submitForm() {
 		if (this.id != null){
-			if (this.typeObject == 'project'){
-			    var projectToUpdate = new Project(this.updateProjectForm.value);
-			    projectToUpdate.id = this.id;
-			    this.projectService.updateProject(projectToUpdate).subscribe(data => {
-					this.object = data;
-				});
-			}else if (this.typeObject == 'subproject') {
-			    var subProjectToUpdate = new SubProject(this.updateProjectForm.value);
-			    subProjectToUpdate.id = this.id;
-			    this.subProjectService.updateSubProject(subProjectToUpdate).subscribe(data => {
-					this.object = data;
-				});
-			}
+		    var projectToUpdate = new Project(this.updateProjectForm.value);
+		    projectToUpdate.id = this.id;
+		    this.projectService.updateProject(projectToUpdate).subscribe(data => {
+				this.project = data;
+			});
 		}else{
 			console.log("Error");
 		}

@@ -1,0 +1,42 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Demandes</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter">
+				<thead class=" text-primary">
+					<tr>
+						<th>Type</th>
+						<th>Projet</th>
+						<th>Resources</th>
+						<th>Jours par semaine</th>
+						<th>Total</th>
+						<th>Date de d&eacute;but</th>
+						<th>Date de fin</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let request of requests">
+						<td>Type</td>
+						<td>{{request.project}}</td>
+						<td>Ressources</td>
+						<td>{{request.daysPerWeek}}</td>
+						<td>{{request.totalDays}}</td>
+						<td>{{request.beginDate | date:'dd/MM/yyyy'}}</td>
+						<td>{{request.endDate | date:'dd/MM/yyyy'}}</td>
+						<td>
+							<a [routerLink]="['/request', request.id]">
+								<i class="tim-icons icon-pencil"></i>
+							</a>
+						</td>
+						<td><i class="tim-icons icon-check-2"></i></td>
+						<td><i class="tim-icons icon-attach-87"></i><td>
+						<td><i class="tim-icons icon-trash-simple"></i><td>
+					</tr>
+				</tbody>
+			</table>
+			<button (click)="openFormModal()" class="btn btn-fill btn-danger">Cr&eacute;er une demande</button>
+		</div>
+	</div>
+</div>

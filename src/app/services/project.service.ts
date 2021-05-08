@@ -61,7 +61,7 @@ export class ProjectService {
     
     delete(project: Project): void {
     	console.log("Delete project :" + project);
-    	this.http.delete(endpoint + 'project/' + project.id, httpOptions).subscribe(() => console.log('Delete successful'));
+    	this.http.delete(endpoint + 'project/' + project.id).subscribe(() => console.log('Delete successful'));
     }
     
     private handleError<T>(operation = 'operation', result?: T) {

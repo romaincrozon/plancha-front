@@ -31,17 +31,16 @@ export class SubProjectService {
     }
     
     getSubProjectById(id: string): Observable<SubProject> {
-    	return this.http.get<SubProject>(endpoint + 'subProject');    
+    	return this.http.get<SubProject>(endpoint + 'subProject/' + id);    
 	}
 	
-    getSubProjectsByProjectId(id: number): Observable<SubProject[]> {
+    getSubProjectsByProjectId(id: string): Observable<SubProject[]> {
     	return this.http.get<SubProject[]>(endpoint + 'project/' + id + '/subProject').pipe(
           	map(data => data.map(data => new SubProject().deserialize(data))) 
 	    );    
 	}
     
     createSubProject(subproject: SubProject): Observable<SubProject> {
-    	console.log("Create subproject :" + subproject);
     	return this.http.post<SubProject>(endpoint + 'subProject', subproject, httpOptions)
 		    .pipe(
 		      catchError(this.handleError('Create subproject ', subproject))

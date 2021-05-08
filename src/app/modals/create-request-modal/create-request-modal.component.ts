@@ -5,6 +5,7 @@ import { Observable, of, from, interval } from 'rxjs';
 
 import { ProfileService } from '../../services/profile.service';
 import { RequestService } from '../../services/request.service';
+import { ProjectService } from '../../services/project.service';
 import { Profile } from '../../models/profile.model';
 import { Request } from '../../models/request.model';
 import { Project } from '../../models/project.model';
@@ -18,16 +19,20 @@ export class CreateRequestModalComponent {
   	createRequestForm: FormGroup;
   	creationLabel: string;
   	profiles: Profile[] = [];
+  	projects: Project[] = [];
   	request: Request;
   	@Input() public project: Project ;
   
-  	constructor( public profileService: ProfileService, public requestService: RequestService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {
+  	constructor( public profileService: ProfileService, public projectService: ProjectService, public requestService: RequestService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {
     	this.createForm();
   	}
   
   	ngOnInit() {
   		this.getProfiles().subscribe(
       		profiles => this.profiles = profiles
+    	);
+  		this.getProjects().subscribe(
+      		projects => this.projects = projects
     	);
   	}
   	
@@ -37,6 +42,13 @@ export class CreateRequestModalComponent {
 		});
 	   	return of(this.profiles);	
 	}
+	
+  	getProjects() : Observable<Project[]>{
+		this.projectService.getProjects().subscribe(data => {
+			this.projects = data;
+		});
+	   	return of(this.projects);	
+	}
   
   	private createForm() {
     	this.createRequestForm = this.formBuilder.group({
@@ -44,26 +56,17 @@ export class CreateRequestModalComponent {
       		endDate: new FormControl(),
 		    daysPerWeek: new FormControl(),
 		    totalDays: new FormControl(),
-		    profile: new FormControl()
+		    profile: new FormControl(),
+		    project: new FormControl()
 		});
 	}
   
   	private submitForm() {
-    	if (this.project != null) {
-	    	var request = new Request(this.createRequestForm.value);
-	    	var profile = new Profile();
-	    	profile.id = this.createRequestForm.controls.profile.value;
-	    	console.log("profile.id:" + profile.id);
-	    	request.profile = profile;
-	    	request.project = this.project;
-	    	console.log("Request " + request);
-	    	this.requestService.createRequest(request).subscribe(data => {
-				this.request = data;
-			});
-			console.log(this.project);
-    	} else {
-    		console.log("Error");
-    	}
+  		console.log(this.createRequestForm.value);
+    	var request = new Request(this.createRequestForm.value);
+    	this.requestService.createRequest(request).subscribe(data => {
+			this.request = data;
+		});
     	this.activeModal.close();
   	}
 }

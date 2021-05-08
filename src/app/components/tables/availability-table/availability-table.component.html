@@ -1,0 +1,24 @@
+<div class=" card">
+	<div class=" card-header">
+		<h4 class=" card-title">Disponibilit&eacute;s</h4>
+	</div>
+	<div class=" card-body">
+		<div class=" table-responsive">
+			<table class=" table tablesorter">
+				<thead class=" text-primary">
+					<tr>
+						<th>Lib&eacute;ll&eacute;</th>
+						<th>Comp&eacute;tences</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let profile of profiles">
+						<td>{{profile.name}}</td> 
+						<td><span *ngFor="let competence of profile?.competences">{{competence.name}}</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un profil</button>
+		</div>
+	</div>
+</div>

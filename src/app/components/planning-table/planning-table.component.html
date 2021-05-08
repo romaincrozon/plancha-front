@@ -14,31 +14,43 @@
 						<table class=" table tablesorter">
 							<thead class=" text-primary">
 								<tr>
-									<th [attr.colspan]="5"></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
 									<th style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
 								</tr>
 								<tr>
-									<th [attr.colspan]="5"></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
 									<th style="border: 1px solid black;" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</th>
 								</tr>
 								<tr>
-									<th [attr.colspan]="5"></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
 									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
 								</tr>
 							</thead>
 							<tbody>
 								<ng-container *ngFor="let resource of resources">
-									<tr>
-										<td [attr.rowspan]="3">{{resource.quadri}}%</td>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-									<tr>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-									<tr>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-								</ng-container>
+								<tr>
+									<td>{{resource.quadri}}%</td>
+									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+								</tr>
+								<tr>
+									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+								</tr>
+								<tr>
+									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+								</tr>
+							</ng-container>
 								<ng-container *ngFor="let project of projects">
 									<tr>
 										<td>{{project.confidencePercentage}}%</td>
@@ -47,13 +59,16 @@
 									</tr>
 									<ng-container *ngFor="let subproject of project?.subProjectList">
 										<tr>
-											<td [attr.colspan]="2"></td>
+											<td></td>
+											<td></td>
 											<td [attr.colspan]="3">{{subproject.name}}</td>
 											<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
 										</tr>
 										<ng-container *ngFor="let task of subproject?.taskList">
 											<tr>
-												<td [attr.colspan]="3"></td>
+												<td></td>
+												<td></td>
+												<td></td>
 												<td>{{task.name}}</td>
 												<td>
 													<button (click)="openFormModal(project.resourceList)" type="button" class="btn btn-link">

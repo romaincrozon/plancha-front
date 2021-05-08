@@ -1,6 +1,7 @@
-import {Deserializable} from './deserializable.model';
-import {Project} from './project.model';
-import {Task} from './task.model';
+import { Deserializable } from './deserializable.model';
+import { Project } from './project.model';
+import { Task } from './task.model';
+import { Color } from './color.model';
 
 export class SubProject implements Deserializable {
   
@@ -10,6 +11,7 @@ export class SubProject implements Deserializable {
   	public project: Project;
   	public tasks: Task[];
   	public selected: boolean = true;
+	public color: Color;
   	
 	public soldWorkload: number;
 	public challengedWorkload: number;

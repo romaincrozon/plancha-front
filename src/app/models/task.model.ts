@@ -2,14 +2,16 @@ import {Deserializable} from './deserializable.model';
 import {Project} from './project.model';
 import {SubProject} from './sub-project.model';
 import {ResourceCalendar} from './resource-calendar.model';
+import {TaskType} from './task-type.model';
 
 export class Task implements Deserializable {
   
   	public id: number;
   	public name: string;
   	public status: string;
-  	public subprojects: SubProject[];
+  	public subProject: SubProject;
   	public resourceCalendars: ResourceCalendar[];
+	public taskType: TaskType;
   	
 	public soldWorkload: number;
 	public challengedWorkload: number;
@@ -24,7 +26,6 @@ export class Task implements Deserializable {
   	deserialize(input: any): this {
     	Object.assign(this, input);
 
-    	this.subprojects = input.subprojects != null ? input.subprojects.map(subproject => new SubProject().deserialize(subproject)) : null;
     	this.resourceCalendars = input.resourceCalendars != null ? input.resourceCalendars.map(resourceCalendar => new ResourceCalendar().deserialize(resourceCalendar)) : null;
 
     	return this;

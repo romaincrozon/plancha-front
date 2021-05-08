@@ -16,13 +16,14 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { CreateProjectModalComponent } from './modals/create-project-modal/create-project-modal.component';
 import { CreateRequestModalComponent } from './modals/create-request-modal/create-request-modal.component';
-import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { CreateProfileModalComponent } from './modals/create-profile-modal/create-profile-modal.component';
 import { CreateResourceModalComponent } from './modals/create-resource-modal/create-resource-modal.component';
 import { CreateCompetenceModalComponent } from './modals/create-competence-modal/create-competence-modal.component';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
 import { AddResourceToTaskModalComponent } from './modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
+import { CreateSubprojectModalComponent } from './modals/create-subproject-modal/create-subproject-modal.component';
+import { CreateTaskModalComponent } from './modals/create-task-modal/create-task-modal.component';
 
 import { DataSharingService } from './services/data-sharing.service';
 import { UtilsService } from './services/utils.service';
@@ -40,6 +41,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { ProfilesComponent } from './pages/profiles/profiles.component';
 import { CompetencesComponent } from './pages/competences/competences.component';
+import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -49,6 +51,8 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestComponent } from './pages/request/request.component';
 import { TodoComponent } from './pages/todo/todo.component';
+import { SubprojectComponent } from './pages/subproject/subproject.component';
+import { AssignmentComponent } from './pages/assignment/assignment.component';
 
 @NgModule({
   imports: [
@@ -72,6 +76,7 @@ import { TodoComponent } from './pages/todo/todo.component';
   declarations: [
   	AppComponent, 
   	ProjectComponent,
+    SubprojectComponent,
   	TablesComponent,
   	DashboardComponent,
   	PlanningComponent,
@@ -97,6 +102,9 @@ import { TodoComponent } from './pages/todo/todo.component';
     ProfilesComponent,
     CompetencesComponent,
     TodoComponent,
+    CreateSubprojectModalComponent,
+    CreateTaskModalComponent,
+    AssignmentComponent,
   ],
   exports: [
     MatFormFieldModule,

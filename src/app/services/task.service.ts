@@ -33,6 +33,12 @@ export class TaskService {
     getTaskById(id: string): Observable<Task> {
     	return this.http.get<Task>(endpoint + 'task');    
 	}
+	
+    getTasksBySubProjectId(id: string): Observable<Task[]> {
+    	return this.http.get<Task[]>(endpoint + 'subProject/' + id + '/task').pipe(
+          	map(data => data.map(data => new Task().deserialize(data))) 
+	    );    
+	}
     
     createTask(task: Task): Observable<Task> {
     	console.log("Create task:" + task);

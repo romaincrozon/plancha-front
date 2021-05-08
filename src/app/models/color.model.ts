@@ -3,7 +3,7 @@ import { Deserializable } from './deserializable.model';
 export class Color implements Deserializable {
 
   	public id: string;
-  	public color: string;
+  	public code: string;
   	
 	constructor(input?: any) {
     	if (input) {

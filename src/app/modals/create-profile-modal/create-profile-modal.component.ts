@@ -45,7 +45,8 @@ export class CreateProfileModalComponent {
   
   	private submitForm() {
     	var profile = new Profile(this.createProfileForm.value);
-		console.log("Profile:" + profile);
+
+		console.log(profile);
     	this.profileService.createProfile(profile).subscribe(data => {
 			this.profile = data;
 		});
