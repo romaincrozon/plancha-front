@@ -1,0 +1,32 @@
+<div class=" table-responsive">
+	<table class=" table tablesorter">
+		<thead class=" text-primary">
+			<tr>
+				<th></th>
+				<th>D&eacute;tails</th>
+				<th>Acteur</th>
+				<th>Statut</th>
+				<th>&eacute;ch&eacute;ance</th>
+				<th>Priorit&eacute;</th>
+				<th>R&eacute;currence</th>
+				<th>Category</th>
+				<th><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let todoItem of todoItems">
+				<td>{{todoItem?.name}}</td>
+				<td>{{todoItem?.detail}}</td>
+				<td>{{todoItem?.affectedTo?.quadri}}</td>
+				<td class="todo-item" [ngClass]="todoItem?.status?.className">{{todoItem?.status?.name}}</td>
+				<td class="todo-item" [ngStyle]="getProgress(todoItem?.creationDate, todoItem?.deadline)">{{todoItem?.deadline | date:'dd/MM/yyyy'}}</td>
+				<td>{{todoItem?.priority}}</td>
+				<td><app-message message="todo" feature="recurrence" item="{{todoItem?.recurrence}}"></app-message></td>
+				<td>{{todoItem?.todoItemCategory?.name}}</td>
+				<td></td>
+			</tr>
+			<tr>
+			</tr>
+		</tbody>
+	</table>
+</div>

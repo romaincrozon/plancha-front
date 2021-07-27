@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-import { NeedProject } from '../models/need-project.model';
+import { Status } from '../models/status.model';
 
 const endpoint = 'http://localhost:8080/';
 const httpOptions = {
@@ -15,37 +15,43 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
+export class StatusService {
 
-export class NeedProjectService {
-
-  	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
     private extractData(res: Response) {
         let body = res;
         return body || {};
     }
 
-    getNeedProject(): Observable<NeedProject[]> {
-	    return this.http.get<NeedProject[]>(endpoint + 'needProject')
-	        .pipe(
-	          	map(data => data.map(data => new NeedProject().deserialize(data))) 
+    getStatus(): Observable<Status[]> {
+        return this.http.get<Status[]>(endpoint + 'status').pipe(
+          	map(data => data.map(data => new Status().deserialize(data))) 
+	    );
+    }
+    
+    getStatusById(id: string): Observable<Status> {
+    	return this.http.get<Status>(endpoint + 'status/' + id);    
+	}
+	
+    createStatus(status: Status): Observable<Status> {
+    	return this.http.post<Status>(endpoint + 'status', status, httpOptions)
+		    .pipe(
+		      catchError(this.handleError('Create status ', status))
 		    );
     }
     
-    createNeedProject(needProject: NeedProject): Observable<NeedProject> {
-    	console.log("Create availability:" + needProject);
-    	return this.http.post<NeedProject>(endpoint + 'needProject', needProject, httpOptions)
+    updateStatus(status: Status): Observable<Status> {
+    	console.log("Update status :" + status);
+    	return this.http.put<Status>(endpoint + 'status', status, httpOptions)
 		    .pipe(
-		      catchError(this.handleError('Create needProject', needProject))
+		      catchError(this.handleError('Update status ', status))
 		    );
-    } 
-       
-    updateNeedProject(needProject: NeedProject): Observable<NeedProject> {
-    	console.log("Update needProject:" + needProject);
-    	return this.http.put<NeedProject>(endpoint + 'needProject', needProject, httpOptions)
-		    .pipe(
-		      catchError(this.handleError('Update needProject ', needProject))
-		    );
+    }
+    
+    delete(status: Status): void {
+    	console.log("Delete status:" + status);
+    	this.http.delete(endpoint + 'status/' + status.id).subscribe(() => console.log('Delete successful'));
     }
     
     private handleError<T>(operation = 'operation', result?: T) {

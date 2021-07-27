@@ -1,12 +1,12 @@
-<div class="">
-	<div class="">
+<div class="card">
+	<div class="card-header">
 		<h4 class="card-title">Affecter une nouvelle resource &agrave; la t&acirc;che</h4>
 		<button type="button" class="close" aria-label="Close"
 			(click)="activeModal.dismiss('Cross click')"></button>
 	</div>
-	<div class="">
-		<form [formGroup]="addResourceToTaskForm" class="example-form">
-		  	<mat-form-field class="example-full-width">
+	<div class="card-body">
+		<form [formGroup]="addResourceToTaskForm" >
+		  	<mat-form-field>
 		    	<mat-label>Ressource</mat-label>
 		    	<input type="text"
 		        	placeholder="Pick one"
@@ -14,7 +14,7 @@
 		           	matInput
 		           	[formControl]="myControl"
 		           	[matAutocomplete]="auto">
-			    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+			    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
 			    	<mat-option *ngFor="let resource of filteredResources | async" [value]="resource.quadri">
 			        	{{resource.quadri}}
 			      	</mat-option>

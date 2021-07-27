@@ -48,7 +48,7 @@
 												<td></td>
 												<td>{{task.name}}</td>
 												<td>
-													<button (click)="openFormModal(project.resourceList)" type="button" class="btn btn-link">
+													<button (click)="openFormModal(project.resources)" type="button" class="btn btn-link">
                       									<i class="tim-icons icon-pencil"></i>
                     								</button>
                     							</td>
@@ -57,7 +57,7 @@
 <!-- 											<tr app-planning-task -->
 <!-- 												[task]="task" -->
 <!-- 												[gridParameters]="gridParameters"					 -->
-<!-- 												[projectResources]="project?.resourceList" -->
+<!-- 												[projectResources]="project?.resources" -->
 <!-- 												[calendars]="calendar?.planchaCalendarList" -->
 <!-- 												[weeks]="calendar?.weekList"> -->
 <!-- 											</tr> -->
@@ -65,7 +65,7 @@
 												app-planning-row
 												[resourceCalendar]="resourceCalendar"
 												[gridParameters]="gridParameters"					
-												[projectResources]="project?.resourceList"
+												[projectResources]="project?.resources"
 												[calendars]="calendar?.planchaCalendarList"
 												[weeks]="calendar?.weekList">
 											</tr>

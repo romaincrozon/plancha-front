@@ -27,24 +27,24 @@ import { AuthGuard } from './helpers/auth.guard';
 const routes: Routes = [
   { path: '', component: PlanningComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'assignment', component: AssignmentComponent },
-  { path: 'project', component: TablesComponent },
-  { path: 'project/:id', component: ProjectComponent },
-  { path: 'subproject/:id', component: SubprojectComponent },
-  { path: 'planning', component: PlanningComponent },
-  { path: 'profile', component: ProfileSettingsComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'request', component: RequestsComponent },
-  { path: 'todo', component: TodoComponent },
-  { path: 'settings/competences', component: CompetencesComponent },
-  { path: 'settings/profiles', component: ProfilesComponent },
-  { path: 'request', component: RequestsComponent },
-  { path: 'request/:id', component: RequestComponent },
-  { path: 'administration', component: AdministrationComponent },
-  { path: 'icons', component: IconsComponent },
+  { path: 'assignment', component: AssignmentComponent, canActivate: [AuthGuard]  },
+  { path: 'project', component: TablesComponent, canActivate: [AuthGuard]  },
+  { path: 'project/:id', component: ProjectComponent , canActivate: [AuthGuard] },
+  { path: 'subproject/:id', component: SubprojectComponent, canActivate: [AuthGuard]  },
+  { path: 'planning', component: PlanningComponent, canActivate: [AuthGuard]  },
+  { path: 'profile', component: ProfileSettingsComponent, canActivate: [AuthGuard]  },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]  },
+  { path: 'request', component: RequestsComponent, canActivate: [AuthGuard]  },
+  { path: 'todo', component: TodoComponent, canActivate: [AuthGuard]  },
+  { path: 'settings/competences', component: CompetencesComponent, canActivate: [AuthGuard]  },
+  { path: 'settings/profiles', component: ProfilesComponent, canActivate: [AuthGuard]  },
+  { path: 'request', component: RequestsComponent, canActivate: [AuthGuard]  },
+  { path: 'request/:id', component: RequestComponent, canActivate: [AuthGuard]  },
+  { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]  },
+  { path: 'icons', component: IconsComponent, canActivate: [AuthGuard]  },
    
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  //{ path: '**', redirectTo: '' }
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' });

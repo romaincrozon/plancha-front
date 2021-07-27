@@ -31,6 +31,17 @@ export class CalendarService {
 		    );
     }
     
+    getWeekCalendar(): Observable<any> {
+    	let currentDate = new Date();
+  		currentDate.setFullYear(currentDate.getFullYear()+1);
+    	let calendarRange = new CalendarRange(null, new Date().toISOString().slice(0,10), currentDate.toISOString().slice(0,10));
+    	console.log(calendarRange);
+    	return this.http.post<any>(endpoint + 'calendar', calendarRange, httpOptions)
+		    .pipe(
+		      catchError(this.handleError('get week Calendar for dates', calendarRange))
+		    );
+    }
+    
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 

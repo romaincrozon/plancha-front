@@ -3,7 +3,7 @@
 		<h4 class=" card-title">Comp&eacute;tences</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
+		<div *ngIf="competences?.length > 0; else noItemsFound" class=" table-responsive">
 			<table class=" table tablesorter" id="">
 				<thead class=" text-primary">
 					<tr>
@@ -16,7 +16,12 @@
 					</tr>
 				</tbody>
 			</table>
-			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une comp&eacute;tence</button>
 		</div>
+		<ng-template #noItemsFound>
+			<div>
+				Pas de comp&eacute;tences trouv&eacute;es
+			</div>
+		</ng-template>
+		<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une comp&eacute;tence</button>
 	</div>
 </div>

@@ -48,8 +48,7 @@ export class CreateProfileModalComponent {
 
 		console.log(profile);
     	this.profileService.createProfile(profile).subscribe(data => {
-			this.profile = data;
+    		this.activeModal.close(data);
 		});
-    	this.activeModal.close();
   	}
 }

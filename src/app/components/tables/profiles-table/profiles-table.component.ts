@@ -24,7 +24,7 @@ export class ProfilesTableComponent implements OnInit {
 	  
 	  	modalRef.result.then((result) => {
 		    this.profileService.getProfiles().subscribe(data => {
-		    	this.profiles = data;
+				this.profiles.push(result);
 		    });
 	  	}).catch((error) => {
 	    	console.log(error);

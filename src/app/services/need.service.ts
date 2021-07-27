@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-import { NeedTeam } from '../models/need-team.model';
+import { Need } from '../models/need.model';
 
 const endpoint = 'http://localhost:8080/';
 const httpOptions = {
@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class NeedTeamService {
+export class NeedService {
 
   	constructor(private http: HttpClient) { }
 
@@ -25,26 +25,33 @@ export class NeedTeamService {
         return body || {};
     }
 
-    getNeedTeam(): Observable<NeedTeam[]> {
-	    return this.http.get<NeedTeam[]>(endpoint + 'needTeam')
+    getProjectNeeds(): Observable<Need[]> {
+	    return this.http.get<Need[]>(endpoint + 'need/project')
 	        .pipe(
-	          	map(data => data.map(data => new NeedTeam().deserialize(data))) 
+	          	map(data => data.map(data => new Need().deserialize(data))) 
 		    );
     }
     
-    createNeedTeam(needTeam: NeedTeam): Observable<NeedTeam> {
-    	console.log("Create needTeam:" + needTeam);
-    	return this.http.post<NeedTeam>(endpoint + 'needTeam', needTeam, httpOptions)
+    getTeamNeeds(): Observable<Need[]> {
+	    return this.http.get<Need[]>(endpoint + 'need/team')
+	        .pipe(
+	          	map(data => data.map(data => new Need().deserialize(data))) 
+		    );
+    }
+    
+    createNeedProject(need: Need): Observable<Need> {
+    	console.log("Create need:" + need);
+    	return this.http.post<Need>(endpoint + 'need', need, httpOptions)
 		    .pipe(
-		      catchError(this.handleError('Create needTeam ', needTeam))
+		      catchError(this.handleError('Create need', need))
 		    );
     } 
        
-    updateNeedTeam(needTeam: NeedTeam): Observable<NeedTeam> {
-    	console.log("Update needTeam:" + needTeam);
-    	return this.http.put<NeedTeam>(endpoint + 'needTeam', needTeam, httpOptions)
+    updateNeedProject(need: Need): Observable<Need> {
+    	console.log("Update need:" + need);
+    	return this.http.put<Need>(endpoint + 'need', need, httpOptions)
 		    .pipe(
-		      catchError(this.handleError('Update needTeam ', needTeam))
+		      catchError(this.handleError('Update need ', need))
 		    );
     }
     

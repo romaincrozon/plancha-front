@@ -6,8 +6,13 @@ export class CalendarRange {
   	endDate : string | null;
 
 	constructor(datepipe: DatePipe, startDate: string, endDate: string) {
-		this.startDate = datepipe.transform(startDate, 'yyyy-MM-dd');
-		this.endDate = datepipe.transform(endDate, 'yyyy-MM-dd');
+		if (datepipe != null){
+			this.startDate = datepipe.transform(startDate, 'yyyy-MM-dd');
+			this.endDate = datepipe.transform(endDate, 'yyyy-MM-dd');
+  		} else {
+			this.startDate = startDate;
+			this.endDate = endDate;  		
+  		}
   	}
   	
 }

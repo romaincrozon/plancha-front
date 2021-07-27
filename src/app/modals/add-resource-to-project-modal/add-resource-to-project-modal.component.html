@@ -1,0 +1,41 @@
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title">Affecter une nouvelle resource au projet</h4>
+		<button type="button" class="close" aria-label="Close"
+			(click)="activeModal.dismiss('Cross click')"></button>
+	</div>
+	<div class="card-body">
+		<form [formGroup]="addResourceToProjectForm" >
+		  	<mat-form-field >
+		    	<mat-label>Ressource</mat-label>
+		    	<input type="text"
+		        	placeholder="Pick one"
+		           	aria-label="Number"
+		           	matInput
+		           	[formControl]="resourcesControl"
+		           	[matAutocomplete]="auto">
+			    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+			    	<mat-option *ngFor="let resource of filteredResources | async" [value]="resource.quadri">
+			        	{{resource.quadri}}
+			      	</mat-option>
+			    </mat-autocomplete>
+		  	</mat-form-field>
+<!-- 			<select [formControl]="resources"> -->
+<!-- 				<option *ngFor="let resource of resources" [value]="resource.id"> -->
+<!--  			        {{resource.quadri}} -->
+<!-- 				</option>  -->
+<!-- 			</select> -->
+		  	<mat-form-field>
+				<mat-date-range-input [rangePicker]="datepicker">
+					<input matStartDate formControlName="startDate" placeholder="Start date"> 
+					<input matEndDate formControlName="endDate" placeholder="End date"> 
+				</mat-date-range-input>
+				<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+				<mat-date-range-picker #datepicker></mat-date-range-picker> 
+			</mat-form-field>
+<!-- 			<div> -->
+			<button class="btn btn-fill btn-danger">Submit Form</button>
+<!-- 			</div> -->
+		</form>
+	</div>
+</div>

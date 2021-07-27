@@ -19,12 +19,26 @@ export class AddResourceToTaskModalComponent implements OnInit {
   	addResourceToTaskForm: FormGroup;
   	myControl = new FormControl();
   	filteredResources: Observable<Resource[]>;
-  	@Input() resources: Resource[];
+  	resources: Resource[];
   
   	constructor( public resourceService: ResourceService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {
     	this.createForm();
   	}
+  	
+	ngOnInit() {
+		this.getAllResources();
+	}
   
+  	private getAllResources(){
+  		this.resourceService.getAll().subscribe(data => {
+			this.resources = data;
+		    this.filteredResources = this.myControl.valueChanges.pipe(
+		    	startWith(''),
+		      	map(value => this.filter(value))
+		    );
+		});
+    
+  	}
   	private createForm() {
     	this.addResourceToTaskForm = this.formBuilder.group({
       		resource: null,
@@ -39,13 +53,6 @@ export class AddResourceToTaskModalComponent implements OnInit {
 		//console.log("Resource:" + resource);
     	this.activeModal.close();
   	}
-  	
-	ngOnInit() {
-	    this.filteredResources = this.myControl.valueChanges.pipe(
-	    	startWith(''),
-	      	map(value => this.filter(value))
-	    );
-	}
 	
 	private filter(value: string): Resource[] {
 	    const filterValue = value.toLowerCase();

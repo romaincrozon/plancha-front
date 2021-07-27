@@ -2,7 +2,6 @@ import {Deserializable} from './deserializable.model';
 import {SubProject} from './sub-project.model';
 import {Resource} from './resource.model';
 import {Request} from './request.model';
-import {Color} from './color.model';
 
 export class Project implements Deserializable {
   
@@ -19,7 +18,7 @@ export class Project implements Deserializable {
 	public challengedWorkload: number;
 	public consumedWorkload: number;
 	public projectMargin: number;
-	public color: Color;
+	public color: string;
 
 	constructor(input?: any) {
     	if (input) {

@@ -3,8 +3,8 @@
 		<h4 class=" card-title">Profils</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
-			<table class=" table tablesorter" id="">
+		<div *ngIf="profiles?.length > 0; else noItemsFound" class=" table-responsive">
+			<table class=" table tablesorter">
 				<thead class=" text-primary">
 					<tr>
 						<th>Lib&eacute;ll&eacute;</th>
@@ -14,11 +14,16 @@
 				<tbody>
 					<tr *ngFor="let profile of profiles">
 						<td>{{profile.name}}</td> 
-						<td><span *ngFor="let competence of profile?.competences">{{competence.name}}</span></td>
+						<td>{{profile?.competences.join('/ ')}}</td>
 					</tr>
 				</tbody>
 			</table>
-			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un profil</button>
 		</div>
+		<ng-template #noItemsFound>
+			<div>
+				Pas de profils trouv&eacute;s
+			</div>
+		</ng-template>
+		<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un profil</button>
 	</div>
 </div>

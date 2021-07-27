@@ -22,6 +22,7 @@ import { CreateCompetenceModalComponent } from './modals/create-competence-modal
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
 import { AddResourceToTaskModalComponent } from './modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
+import { AddResourceToProjectModalComponent } from './modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
 import { CreateSubprojectModalComponent } from './modals/create-subproject-modal/create-subproject-modal.component';
 import { CreateTaskModalComponent } from './modals/create-task-modal/create-task-modal.component';
 
@@ -32,6 +33,7 @@ import { DirectiveAddresourceDirective } from './directives/directive-addresourc
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake-backend';
+import { KeysPipe } from './pipes/keys.pipe';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -53,6 +55,11 @@ import { RequestComponent } from './pages/request/request.component';
 import { TodoComponent } from './pages/todo/todo.component';
 import { SubprojectComponent } from './pages/subproject/subproject.component';
 import { AssignmentComponent } from './pages/assignment/assignment.component';
+import { CreateTodoItemModalComponent } from './modals/create-todo-item-modal/create-todo-item-modal.component';
+import { CreateNeedModalComponent } from './modals/create-need-modal/create-need-modal.component';
+import { WeekTableComponent } from './components/tables/week-table/week-table.component';
+
+
 
 @NgModule({
   imports: [
@@ -90,6 +97,7 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
   	CreateResourceModalComponent,
   	CreateCompetenceModalComponent,
     AddResourceToTaskModalComponent,
+    AddResourceToProjectModalComponent,
     DeleteModalComponent,
   	UpdateRequestModalComponent,
   	
@@ -105,6 +113,13 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
     CreateSubprojectModalComponent,
     CreateTaskModalComponent,
     AssignmentComponent,
+    CreateTodoItemModalComponent,
+    AddResourceToProjectModalComponent,
+    CreateNeedModalComponent,
+  	WeekTableComponent, 
+  	
+  	KeysPipe, 
+    
   ],
   exports: [
     MatFormFieldModule,
@@ -112,18 +127,21 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
 	MatDatepickerModule,
 	MatNativeDateModule,
 	MatAutocompleteModule,
+  	KeysPipe,
   ],
   providers: [
   	DataSharingService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider,
-    UtilsService
+    UtilsService,
+  	KeysPipe
   ],
   entryComponents: [
   	CreateProjectModalComponent,
   	CreateResourceModalComponent,
   	CreateRequestModalComponent,
+  	CreateTodoItemModalComponent,
   	AddResourceToTaskModalComponent,
   	DeleteModalComponent,
   	PlanningRowComponent,

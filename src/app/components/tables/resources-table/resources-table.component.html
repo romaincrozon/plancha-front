@@ -1,10 +1,9 @@
-
 <div class=" card">
 	<div class=" card-header">
 		<h4 class=" card-title">Resources affect&eacute;es</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
+		<div *ngIf="project?.resources?.length > 0; else noItemsFound" class=" table-responsive">
 			<table class=" table tablesorter" id="">
 				<thead class=" text-primary">
 					<tr>
@@ -13,12 +12,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let resource of resourceList">
+					<tr *ngFor="let resource of project?.resources">
 						<td>{{resource.firstname}}</td>
 						<td>{{resource.lastname}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<ng-template #noItemsFound>
+			<div>
+				Pas de ressources trouv&eacute;s
+			</div>
+		</ng-template>
+		<button (click)="openFormModal()" class="btn btn-fill btn-danger">Affecter une ressource</button>
 	</div>
 </div>

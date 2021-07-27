@@ -1,16 +1,17 @@
 import { Deserializable } from './deserializable.model';
 
-export class Color implements Deserializable {
+export class TodoCategory implements Deserializable {
 
-  	public id: string;
-  	public code: string;
-  	
+  	public id: number;
+    public name: string;
+	public className: string;
+	
 	constructor(input?: any) {
     	if (input) {
 	  		this.deserialize(input);
     	}
   	}
-  	
+  
   	deserialize(input: any): this {
     	Object.assign(this, input);
     	return this;

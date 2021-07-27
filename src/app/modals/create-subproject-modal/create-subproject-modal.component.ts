@@ -5,12 +5,10 @@ import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '
 import { SubProjectService } from '../../services/subproject.service';
 import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
-import { ColorService } from '../../services/color.service';
 
 import { Project } from '../../models/project.model';
 import { SubProject } from '../../models/sub-project.model';
 import { Task } from '../../models/task.model';
-import { Color } from '../../models/color.model';
 
 @Component({
   selector: 'app-create-subproject-modal',
@@ -21,27 +19,18 @@ export class CreateSubprojectModalComponent implements OnInit {
   	createSubprojectForm: FormGroup;
   	subproject: SubProject;
   	project: Project;
-  	colors: Color[];
-  	selectedColor: Color;
+  	selectedColor: string; 
   
   	constructor( public subprojectService: SubProjectService, 
-  			public colorService: ColorService, 
   			public activeModal: NgbActiveModal, 
   			private formBuilder: FormBuilder,  ) {
     }
   	
   	ngOnInit() {
   		this.createForm();
-    	this.getColors();
   	}
   
-  	private getColors(){
-		this.colorService.getColors().subscribe(data => {
-			this.colors = data;
-		});
-  	}
-  
-  	private selectColor(color: Color){
+  	private selectColor(color: string){
   		this.selectedColor = color;
   		console.log(this.selectedColor);
   	}
@@ -64,7 +53,7 @@ export class CreateSubprojectModalComponent implements OnInit {
 		console.log(subprojectToCreate);
 		this.subprojectService.createSubProject(subprojectToCreate).subscribe(data => {
 			this.subproject = data;
+	   	 	this.activeModal.close(this.subproject);
 		});
-	    this.activeModal.close();
   	}
 }

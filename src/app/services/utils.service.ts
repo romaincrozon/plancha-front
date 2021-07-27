@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+
+import { appProperties } from '../app.messages';
 
 import { CalendarItem } from '../models/calendar-item.model';
 import { ResourceCalendar } from '../models/resource-calendar.model';
@@ -34,5 +36,14 @@ export class UtilsService {
 	
 	mapSubProjectToCalendarItems(items: any[]){
 		return [].concat.apply([], items.map(subproject => this.mapTaskToCalendarItems(subproject.taskList)));
+	}
+	
+	getProperty(message : string, feature : string, item: string): any {
+		return message ? feature ? item ? appProperties[message][feature][item] : appProperties[message][feature] : appProperties[message] : "";
+  	}
+  	
+	filterByName(objects: any[], value: string): any[] {
+	    const filterValue = value.toLowerCase();
+	   	return objects.filter(object => object.name.toLowerCase().indexOf(filterValue) === 0);
 	}
 }

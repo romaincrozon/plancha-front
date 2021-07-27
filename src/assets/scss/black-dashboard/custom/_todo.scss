@@ -1,0 +1,34 @@
+td.todo-item.todo {
+	background-color: lightskyblue;
+}
+
+td.todo-item.progress-0{
+	background: linear-gradient(90deg, lightskyblue 10%, gainsboro 90%);
+}
+td.todo-item.progress-20{
+	background: linear-gradient(90deg, lightskyblue 20%, gainsboro 80%);
+}
+td.todo-item.progress-30{
+	background: linear-gradient(90deg, lightskyblue 30%, gainsboro 70%);
+}
+td.todo-item.progress-40{
+	background: linear-gradient(90deg, lightskyblue 40%, gainsboro 60%);
+}
+td.todo-item.progress-50{
+	background: linear-gradient(90deg, lightskyblue 50%, gainsboro 50%);
+}
+td.todo-item.progress-60{
+	background: linear-gradient(90deg, lightskyblue 60%, gainsboro 40%);
+}
+td.todo-item.progress-70{
+	background: linear-gradient(90deg, lightskyblue 70%, gainsboro 30%);
+}
+td.todo-item.progress-80{
+	background: linear-gradient(90deg, lightskyblue 80%, gainsboro 20%);
+}
+td.todo-item.progress-90{
+	background: linear-gradient(90deg, lightskyblue 90%, gainsboro 10%);
+}
+td.todo-item.progress-100{
+	background: linear-gradient(90deg, lightskyblue 100%, gainsboro 0%);
+}

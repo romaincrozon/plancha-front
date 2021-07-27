@@ -7,7 +7,7 @@ export class Profile implements Deserializable {
   
   	public id: number;
   	public name: string;
-  	public competences: Competence[];
+  	public competences: string[];
   	public resources: Resource[];
   	public requests: Request[];
 
@@ -19,7 +19,7 @@ export class Profile implements Deserializable {
   
   	deserialize(input: any): this {
     	Object.assign(this, input);
-	    this.competences = input.competences != null ? input.competences.map(competence => new Competence().deserialize(competence)) : null;
+	    //this.competences = input.competences != null ? input.competences.map(competence => new Competence().deserialize(competence)) : null;
 		this.resources = input.resources != null ? input.resources.map(resource => new Resource().deserialize(resource)) : null;
 		this.requests = input.requests != null ? input.requests.map(request => new Request().deserialize(request)) : null;
 	    return this;

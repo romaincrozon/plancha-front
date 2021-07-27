@@ -35,7 +35,7 @@ export class SubprojectsTableComponent implements OnInit {
 		//modalRef.componentInstance.subproject = this.subproject;
   
 		modalRef.result.then((result) => {
-		  console.log(result);
+			this.list.push(result);
 		}).catch((error) => {
 		  console.log(error);
 		});

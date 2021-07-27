@@ -1,7 +1,11 @@
-import {Deserializable} from './deserializable.model';
+import { Deserializable } from './deserializable.model';
 
-export class NeedProject implements Deserializable {
+export class Status implements Deserializable {
 
+  	public id: number;
+    public name: string;
+	public className: string;
+	
 	constructor(input?: any) {
     	if (input) {
 	  		this.deserialize(input);

@@ -18,7 +18,7 @@ import { Project } from '../../../models/project.model';
 })
 export class ProjectsTableComponent implements OnInit {
   	
-  	list: any[];
+  	list: Project[];
   	
 	constructor(private projectService: ProjectService, private modalService: NgbModal) { }
 
@@ -34,7 +34,7 @@ export class ProjectsTableComponent implements OnInit {
 		//modalRef.componentInstance.subproject = this.subproject;
   
 		modalRef.result.then((result) => {
-		  console.log(result);
+			this.list.push(result);
 		}).catch((error) => {
 		  console.log(error);
 		});

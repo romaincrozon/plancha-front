@@ -1,14 +1,14 @@
 <div class=" card">
 	<div class=" card-header">
-		<h4 class=" card-title">Chantiers</h4>
+		<h4 class=" card-title">Projets</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
-			<table class=" table tablesorter" id="">
+		<div *ngIf="list?.length > 0; else noItemsFound" class=" table-responsive">
+			<table class=" table tablesorter">
 				<thead class=" text-primary">
 					<tr>
-						<th>Name</th>
-						<th>Status</th>
+						<th>Nom</th>
+						<th>Statut</th>
 						<th>% de confiance</th>
 						<th>Charge vendue</th>
 						<th>Charge challeng&eacute;e</th>
@@ -26,15 +26,22 @@
 						<td>{{item.consumedWorkload}}</td>
 						<td>{{item.projectMargin}}</td>
 						<td>
-							<a [routerLink]="['/project', item.id]">
-								<i class="tim-icons icon-pencil"></i>
-							</a>
+							<div>
+								<a [routerLink]="['/project', item.id]">
+									<i class="tim-icons icon-pencil"></i>
+								</a>
+								<i (click)="openDeleteModal(item)" class="tim-icons icon-trash-simple"></i>
+							</div>
 						</td>
-						<td><i (click)="openDeleteModal(item)" class="tim-icons icon-trash-simple"></i><td>
 					</tr>
 				</tbody>
 			</table>
-			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un chantier</button>
-		</div>
+		</div> 
+		<ng-template #noItemsFound>
+			<div>
+				Pas de projets trouv&eacute;s
+			</div>
+		</ng-template>
+		<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un projet</button>
 	</div>
 </div>

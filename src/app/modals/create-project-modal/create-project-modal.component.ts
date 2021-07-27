@@ -5,12 +5,11 @@ import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '
 import { SubProjectService } from '../../services/subproject.service';
 import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
-import { ColorService } from '../../services/color.service';
 
 import { Project } from '../../models/project.model';
 import { SubProject } from '../../models/sub-project.model';
 import { Task } from '../../models/task.model';
-import { Color } from '../../models/color.model';
+import { appProperties } from '../../app.messages';
 
 @Component({
   selector: 'app-create-project-modal',
@@ -20,28 +19,22 @@ export class CreateProjectModalComponent implements OnInit {
   
   	createProjectForm: FormGroup;
   	project: Project;
-  	colors: Color[];
-  	selectedColor: Color;
+  	selectedColor: string;
+  	colors: string[];
   
   	constructor( public projectService: ProjectService, 
-  			public colorService: ColorService, 
   			public activeModal: NgbActiveModal, 
   			private formBuilder: FormBuilder,  ) {
     }
   	
   	ngOnInit() {
   		this.createForm();
-    	this.getColors();
+  		this.colors = appProperties.colors;
   	}
-  
-  	private getColors(){
-		this.colorService.getColors().subscribe(data => {
-			this.colors = data;
-		});
-  	}
-  
-  	private selectColor(color: Color){
+    
+  	private selectColor(event: any, color: string){
   		this.selectedColor = color;
+  		//this.renderer.addClass(event.target, 'selected');
   		console.log(this.selectedColor);
   	}
   	
@@ -61,10 +54,9 @@ export class CreateProjectModalComponent implements OnInit {
   	private submitForm() {
   		var projectToCreate = new Project(this.createProjectForm.value);
   		projectToCreate.color = this.selectedColor;
-		console.log(projectToCreate);
 		this.projectService.createProject(projectToCreate).subscribe(data => {
 			this.project = data;
+		    this.activeModal.close(this.project);
 		});
-	    this.activeModal.close();
   	}
 }

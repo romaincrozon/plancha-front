@@ -74,9 +74,9 @@ export class PlanningTableComponent implements OnInit {
     	}
     }
   	
-  	openFormModal(resources) {
+  	openFormModal() {
 		const modalRef = this.modalService.open(AddResourceToTaskModalComponent);
-		modalRef.componentInstance.resources = resources;
+		//modalRef.componentInstance.resources = resources;
 		
 		modalRef.result.then((result) => {
 			//this.getRequests();

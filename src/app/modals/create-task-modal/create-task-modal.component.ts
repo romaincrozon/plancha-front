@@ -59,7 +59,7 @@ export class CreateTaskModalComponent implements OnInit {
 		console.log(taskToCreate);
 		this.taskService.createTask(taskToCreate).subscribe(data => {
 			this.task = data;
+		    this.activeModal.close(this.task);
 		});
-	    this.activeModal.close();
   	}
 }

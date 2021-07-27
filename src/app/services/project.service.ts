@@ -59,6 +59,14 @@ export class ProjectService {
 		    );
     }
     
+    addResourceToProject(project, resource){
+    	console.log("Add resource " + resource + " to project :" + project);
+    	return this.http.put<Project>(endpoint + 'project/resource', project, httpOptions)
+		    .pipe(
+		      catchError(this.handleError('Update project ', project))
+		    );
+    }
+    
     delete(project: Project): void {
     	console.log("Delete project :" + project);
     	this.http.delete(endpoint + 'project/' + project.id).subscribe(() => console.log('Delete successful'));

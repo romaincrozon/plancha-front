@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 
@@ -11,17 +12,19 @@ import { Project } from '../../models/project.model';
   selector: 'app-grid-parameters',
   templateUrl: './grid-parameters.component.html'
 })
-export class GridParametersComponent implements OnInit {
+export class GridParametersComponent implements OnInit, AfterViewChecked{
   	
   	startDate : string ;
   	endDate : string ;
   	view : string ;
   	selectedProjects : Project[];
   	gridParameterGroup: FormGroup;
+  	currentDate = new Date();
   	
   	@Input() projects: Project[];
   	
-  	constructor(private fb:FormBuilder, 
+  	constructor(private readonly changeDetectorRef: ChangeDetectorRef, 
+  		private fb:FormBuilder, 
   		public dataSharingService: DataSharingService, 
   		private datepipe: DatePipe) {}
 
@@ -30,9 +33,13 @@ export class GridParametersComponent implements OnInit {
  	}
 
   	initializeForm(){
+  		let currentDate = new Date();
+  		currentDate.setMonth(currentDate.getMonth()+1);
+     	let formattedDate=currentDate.toISOString().slice(0,10);
+
     	this.gridParameterGroup = this.fb.group({
-      		startDate:[''],
-      		endDate:[''],
+      		startDate: [new Date()],
+      		endDate: [formattedDate],
       		view:'days',
       		searchText:'',
       		projects: null
@@ -42,6 +49,7 @@ export class GridParametersComponent implements OnInit {
       		this.startDate = value.startDate;
       		this.view = value.view;
       		this.selectedProjects = value.projects;
+      		this.submitForm();
     	})
   	}
   	
@@ -50,4 +58,9 @@ export class GridParametersComponent implements OnInit {
     		this.dataSharingService.gridParameters.next(new GridParameters(new CalendarRange(this.datepipe, this.startDate, this.endDate), this.view, this.selectedProjects));
     	}
   	}
+  	
+  	ngAfterViewChecked(): void {
+    	this.changeDetectorRef.detectChanges();
+  	}
+ 
 }

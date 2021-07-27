@@ -1,6 +1,8 @@
 import {Deserializable} from './deserializable.model';
 
-export class NeedTeam implements Deserializable {
+export class CalendarValue implements Deserializable {
+  	public calendar: string;
+  	public value: number;
 
 	constructor(input?: any) {
     	if (input) {

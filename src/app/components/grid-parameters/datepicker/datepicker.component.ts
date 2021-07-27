@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-datepicker',
   templateUrl: './datepicker.component.html'
 })
-export class DatepickerComponent {
+export class DatepickerComponent{
 
 	@Input() parentForm:FormGroup;
   	
-  	constructor(private fb:FormBuilder) {
+  	constructor(private fb:FormBuilder) { 
   	}
   
   	ngOnInit(): void {

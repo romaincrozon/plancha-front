@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Availability } from '../../../models/availability.model';
+import { AvailabilityService } from '../../../services/availability.service';
+import { CalendarService } from '../../../services/calendar.service';
 
 @Component({
   selector: 'app-availability-table',
@@ -6,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvailabilityTableComponent implements OnInit {
 
-  constructor() { }
+  	availabilities: Availability[];
+	
+  	constructor(public availabilityService: AvailabilityService) {
+  	}
 
-  ngOnInit(): void {
-  }
+  	ngOnInit(): void {
+		this.availabilityService.getAvailabilities().subscribe(data => {
+			this.availabilities = data;
+			console.log(this.availabilities);
+		});
+  	}
 
 }

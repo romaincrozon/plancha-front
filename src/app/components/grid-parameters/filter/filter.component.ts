@@ -17,6 +17,7 @@ export class FilterComponent implements OnInit  {
   	selectedProjects: Project[];
   	selected_count:number = 0;
   	searchText: string = "";
+  	filterActivated: boolean = false;
   	
 	@Input() parentForm: FormGroup;
   
@@ -28,6 +29,7 @@ export class FilterComponent implements OnInit  {
   	
   	// Getting Selected Games and Count
   	getSelected(){
+  		
     	this.selectedProjects = this.projects.filter(project => {
           return project.selected;
         });
@@ -52,8 +54,7 @@ export class FilterComponent implements OnInit  {
     	this.getSelected();    
   	}
   
-  	//Delete Single Listed Game
-  	deleteGame(id:string){
+  	deleteSelected(id:string){
     	this.searchText = "";
     	this.projects =  this.projects.filter(project => {
         if(project.id == id)
@@ -65,5 +66,9 @@ export class FilterComponent implements OnInit  {
   
   	clearFilter(){
     	this.searchText = "";
+  	}
+  	
+  	toggle(){
+  		this.filterActivated = !this.filterActivated;
   	}
 }

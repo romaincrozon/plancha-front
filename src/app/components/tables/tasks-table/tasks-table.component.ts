@@ -33,7 +33,7 @@ export class TasksTableComponent implements OnInit {
 		modalRef.componentInstance.subProject = this.subProject;
   
 		modalRef.result.then((result) => {
-		  console.log(result);
+			this.list.push(result);
 		}).catch((error) => {
 		  console.log(error);
 		});

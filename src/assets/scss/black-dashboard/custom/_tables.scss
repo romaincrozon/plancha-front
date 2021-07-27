@@ -1,6 +1,6 @@
 .table{
   > tbody > tr > td {
-    color: rgba(255, 255, 255, 0.7) !important;
+    //color: rgba(255, 255, 255, 0.7) !important;
 
     .photo {
       height: 30px;
@@ -18,7 +18,21 @@
   > tbody > tr.table-success > td{
     background-color: darken($success,10%);
   }
-
+  
+  > tbody > tr > td:first-child{
+    border-left: 8px solid lightskyblue;
+  }
+  > tbody > tr > td:last-child{
+    border-right: none;
+  }
+  
+  > tbody > tr > td{
+    border-right: 0.2rem solid white;
+    background-color: gainsboro;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
   > tbody > tr.table-info > td{
     background-color: $info;
   }
@@ -86,7 +100,7 @@
        text-transform: uppercase;
        font-weight: $font-weight-extra-bold;
        border: 0;
-       color: rgba($white, 0.7);
+       color: rgba($black, 0.7);
    }
 
    .radio,
@@ -114,9 +128,10 @@
    > thead > tr > td,
    > tbody > tr > td,
    > tfoot > tr > td{
-       border-color: rgba(255, 255, 255, 0.1);
+       //border-color: rgba(255, 255, 255, 0.1);
        padding: 12px 7px;
        vertical-align: middle;
+       text-align: center;
    }
 
    &.table-shopping tbody tr:last-child td{
@@ -158,6 +173,10 @@
 .table-responsive{
   //overflow: scroll;
   padding-bottom: 10px;
+  
+}
+.table-responsive.inline {
+	display: inline-flex;
 }
 
 #tables .table-responsive{
@@ -188,4 +207,25 @@ table.tablesorter thead tr .headerSortDown {
   .form-control-sm {
     font-size: 10px;
   }
+}
+
+.table > tbody > tr > td.cell-background-green {
+	background-color: green !important;
+	color: white;
+}
+.table > tbody > tr > td.cell-background-red {
+	background-color: red;
+	color: white;
+}
+.table > tbody > tr > td.cell-background-white {
+	background-color: white;
+	color: black;
+}
+.table > tbody > tr > td.cell-background-orange {
+	background-color: orange;
+	color: white;
+}
+.table > tbody > tr > td.cell-background-yellow {
+	background-color: yellow;
+	color: black;
 }

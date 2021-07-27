@@ -1,0 +1,35 @@
+<form (ngSubmit)="submitForm()">
+	<table class=" table tablesorter" >
+		<thead class=" text-primary">
+			<tr>
+				<th style="width:10em" *ngFor="let week of weeksShown; let last = last; let first = first">
+					<i (click)="previous()" *ngIf="first && index != 0" class="tim-icons icon-double-left"></i>
+					{{week.year}}S{{week.numWeek}} 
+					<i (click)="next()" *ngIf="last && index != calendar.weekList.length-4" class="tim-icons icon-double-right"></i>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-container *ngIf="list; else createMode">
+				<tr *ngFor="let item of list">
+					<td *ngFor="let week of weeksShown;">
+						{{getValue(item, week)}}
+					</td> 
+				</tr>
+			</ng-container>
+			<ng-template #createMode>
+				<tr>
+					<td *ngFor="let week of weeksShown;">
+						<input type="number" [value]="week.value"/>
+					</td> 
+				</tr>
+			</ng-template> 
+		</tbody>
+	</table>
+	
+	<div class="form-group">
+		<label for="numberOfDays">Nombre de jours-homme:</label>
+		<input type="number" [(ngModel)]="numberOfDays" name="numberOfDays"/>
+		<i (click)="dispatch()" class="tim-icons icon-light-3"></i>
+	</div>
+</form>

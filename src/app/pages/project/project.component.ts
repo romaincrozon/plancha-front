@@ -57,4 +57,11 @@ export class ProjectComponent implements OnInit {
 			console.log("Error");
 		}
 	}
+	
+	private close(){
+		this.project.status = "closed";
+		this.projectService.updateProject(this.project).subscribe(data => {
+			this.project = data;
+		});
+	}
 }

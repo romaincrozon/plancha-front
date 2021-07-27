@@ -3,22 +3,24 @@
 		<h4 class=" card-title">Disponibilit&eacute;s</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
+		<div class=" table-responsive inline" >
+			<app-week-table [list]="availabilities"></app-week-table>
 			<table class=" table tablesorter">
 				<thead class=" text-primary">
 					<tr>
-						<th>Lib&eacute;ll&eacute;</th>
-						<th>Comp&eacute;tences</th>
+						<th>D&eacute;tail d'implication</th>
+						<th>Ressource</th>
+						<th>Profil</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let profile of profiles">
-						<td>{{profile.name}}</td> 
-						<td><span *ngFor="let competence of profile?.competences">{{competence.name}}</span></td>
+					<tr *ngFor="let availability of availabilities">
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter un profil</button>
 		</div>
 	</div>
 </div>

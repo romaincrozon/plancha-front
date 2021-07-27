@@ -27,7 +27,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let week of calendar?.weekList">S{{week.numWeek}}</th>
+									<th style="border: 1px solid black;" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
 								</tr>
 								<tr>
 									<th></th>
@@ -71,7 +71,7 @@
 												<td></td>
 												<td>{{task.name}}</td>
 												<td>
-													<button (click)="openFormModal(project.resourceList)" type="button" class="btn btn-link">
+													<button (click)="openFormModal()" type="button" class="btn btn-link">
                       									<i class="tim-icons icon-pencil"></i>
                     								</button>
                     							</td>
@@ -81,7 +81,7 @@
 												app-planning-row
 												(valueChange)="sum($event)"
 												[resourceCalendar]="resourceCalendar"
-												[projectResources]="project?.resourceList"
+												[projectResources]="project?.resources"
 												[gridParameters]="gridParameters"					
 												[calendars]="calendar?.planchaCalendarList"
 												[weeks]="calendar?.weekList"

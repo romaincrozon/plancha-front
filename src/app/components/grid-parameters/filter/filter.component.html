@@ -1,27 +1,33 @@
 <div>
-	<h4>Select Available Games Below:</h4>
-
-	<div>
-		<div>
-			<input [(ngModel)]="searchText" placeholder="Filter Games" [value]="searchText">
+	<div class="filter">
+		<p>Filtr&eacute; par projet:</p>
+		<div  >
+<!-- 		(focusout)="toggle()" -->
+			<input (focus)="toggle()"[(ngModel)]="searchText" placeholder="Filter Games" [value]="searchText" >
+<!-- 			<div class="selected-filter" *ngIf="selectedProjects.length < projects.length; else all"> -->
+<!-- 				<div *ngFor="let selectedProject of selectedProjects"> -->
+<!-- 					<span>{{selectedProject.name}}  -->
+<!-- 						<span (click)="deleteSelected(selectedProject.id)" title="Click to delete">X</span> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<ng-template #all> -->
+<!-- 				Tous les projets -->
+<!-- 			</ng-template> -->
+			<ul class="list" *ngIf="filterActivated" >
+				<li *ngFor="let project of projects | filter : searchText" >
+					<input [(ngModel)]="project.selected" (change)="getSelected()" type="checkbox" name="projects" value="{{project.id}}" />
+					<span>{{project.name}}</span> 	
+				</li>
+				<li>
+					<div title="Click to Clear Selections" (click)="clearSelection()" *ngIf="selected_count">Clear Selection</div>
+				</li>
+			</ul>
 			<span (click)="clearFilter()" *ngIf="searchText.length>0">X</span>
+			
+			
 		</div>
 	</div>
 
-	<div title="Click to Clear Selections" (click)="clearSelection()" *ngIf="selected_count">Clear Selection</div>
 
-	<ul>
-		<li *ngFor="let project of projects | filter : searchText" >
-			<input [(ngModel)]="project.selected" (change)="getSelected()" type="checkbox" name="projects" value="{{project.id}}" />
-			<span>{{project.name}}</span>
-		</li>
-	</ul>
-
-	<div>
-		<div *ngFor="let selectedProject of selectedProjects">
-			<span>{{selectedProject.name}} 
-				<span (click)="deleteGame(selectedProject.id)" title="Click to delete">X</span>
-			</span>
-		</div>
-	</div>
 </div>

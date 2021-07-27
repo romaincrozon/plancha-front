@@ -1,10 +1,10 @@
 .main-panel {
   &, &[data="red"]{
-    border-color: $danger;
+    //border-color: $danger;
   }
 
   .content {
-    padding: 78px 30px 30px 280px;
+    padding: 50px 15px 30px 55px;
     min-height: calc(100vh - 70px);
   }
 }
@@ -30,7 +30,7 @@
     @include linear-gradient($danger-states, $danger);
   }
   &[data="primary"]{
-    @include linear-gradient($primary-states, $primary);
+    //@include linear-gradient($primary-states, $primary);
   }
 }
 @media screen and (max-width: 991px){

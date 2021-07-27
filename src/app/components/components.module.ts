@@ -31,7 +31,7 @@ import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
 import { CountSubprojectPipePipe } from '../pipes/count-subproject-pipe.pipe';
 import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
 import { ResourcePlanningTableComponent } from './resource-planning-table/resource-planning-table.component';
-import { TodoTableComponent } from './todo-table/todo-table.component';
+import { TodoTableComponent } from './tables/todo-table/todo-table.component';
 import { FilterComponent } from './grid-parameters/filter/filter.component';
 import { SubprojectsTableComponent } from './tables/subprojects-table/subprojects-table.component';
 import { TasksTableComponent } from './tables/tasks-table/tasks-table.component';
@@ -39,6 +39,7 @@ import { NeedProjectTableComponent } from './tables/need-project-table/need-proj
 import { NeedTeamTableComponent } from './tables/need-team-table/need-team-table.component';
 import { AvailabilityTableComponent } from './tables/availability-table/availability-table.component';
 import { CalendarWeeksComponent } from './calendar-weeks/calendar-weeks.component';
+import { MessageComponent } from '../shared/message.component';
 
 @NgModule({
   imports: [
@@ -83,6 +84,7 @@ import { CalendarWeeksComponent } from './calendar-weeks/calendar-weeks.componen
   	NeedTeamTableComponent, 
   	AvailabilityTableComponent, 
   	CalendarWeeksComponent, 
+    MessageComponent,
   ],
   exports: [
   	FooterComponent, 
