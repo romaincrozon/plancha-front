@@ -3,18 +3,19 @@
 		<h4 class=" card-title">Resources affect&eacute;es</h4>
 	</div>
 	<div class=" card-body">
-		<div *ngIf="project?.resources?.length > 0; else noItemsFound" class=" table-responsive">
+		<div *ngIf="project?.resourceList?.length > 0; else noItemsFound" class=" table-responsive">
 			<table class=" table tablesorter" id="">
 				<thead class=" text-primary">
 					<tr>
-						<th>Firstname</th>
-						<th>Lastname</th>
+						<th>Pr&eacute;nom</th>
+						<th>Nom</th>
+						<th><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let resource of project?.resources">
+					<tr *ngFor="let resource of project?.resourceList">
 						<td>{{resource.firstname}}</td>
-						<td>{{resource.lastname}}</td>
+						<td colspan="2">{{resource.lastname}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -24,6 +25,5 @@
 				Pas de ressources trouv&eacute;s
 			</div>
 		</ng-template>
-		<button (click)="openFormModal()" class="btn btn-fill btn-danger">Affecter une ressource</button>
 	</div>
 </div>

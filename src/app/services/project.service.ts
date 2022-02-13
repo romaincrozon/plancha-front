@@ -59,11 +59,11 @@ export class ProjectService {
 		    );
     }
     
-    addResourceToProject(project, resource){
-    	console.log("Add resource " + resource + " to project :" + project);
-    	return this.http.put<Project>(endpoint + 'project/resource', project, httpOptions)
+    addResourceToProject(projectId, resource){
+    	console.log("Add resource " + resource + " to project :" + projectId);
+    	return this.http.post<Project>(endpoint + 'project/' + projectId + '/resource', resource, httpOptions)
 		    .pipe(
-		      catchError(this.handleError('Update project ', project))
+		      catchError(this.handleError('Update project ', projectId))
 		    );
     }
     

@@ -39,7 +39,7 @@ export class NeedService {
 		    );
     }
     
-    createNeedProject(need: Need): Observable<Need> {
+    createNeed(need: Need): Observable<Need> {
     	console.log("Create need:" + need);
     	return this.http.post<Need>(endpoint + 'need', need, httpOptions)
 		    .pipe(
@@ -47,7 +47,7 @@ export class NeedService {
 		    );
     } 
        
-    updateNeedProject(need: Need): Observable<Need> {
+    updateNeed(need: Need): Observable<Need> {
     	console.log("Update need:" + need);
     	return this.http.put<Need>(endpoint + 'need', need, httpOptions)
 		    .pipe(

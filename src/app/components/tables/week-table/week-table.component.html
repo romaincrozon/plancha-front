@@ -27,7 +27,7 @@
 		</tbody>
 	</table>
 	
-	<div class="form-group">
+	<div *ngIf="!list" class="form-group">
 		<label for="numberOfDays">Nombre de jours-homme:</label>
 		<input type="number" [(ngModel)]="numberOfDays" name="numberOfDays"/>
 		<i (click)="dispatch()" class="tim-icons icon-light-3"></i>

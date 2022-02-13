@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProjectService } from '../../services/project.service';
-import { CreateProjectModalComponent } from '../../modals/create-project-modal/create-project-modal.component';
+import { CreateProjectModalComponent } from '../../components/modals/create-project-modal/create-project-modal.component';
 
 import { Project } from '../../models/project.model';
 

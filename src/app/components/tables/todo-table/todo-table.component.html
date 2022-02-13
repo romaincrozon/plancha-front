@@ -6,11 +6,9 @@
 				<th>D&eacute;tails</th>
 				<th>Acteur</th>
 				<th>Statut</th>
-				<th>&eacute;ch&eacute;ance</th>
-				<th>Priorit&eacute;</th>
 				<th>R&eacute;currence</th>
 				<th>Category</th>
-				<th><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
+				<th colspan="2"><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,14 +16,11 @@
 				<td>{{todoItem?.name}}</td>
 				<td>{{todoItem?.detail}}</td>
 				<td>{{todoItem?.affectedTo?.quadri}}</td>
-				<td class="todo-item" [ngClass]="todoItem?.status?.className">{{todoItem?.status?.name}}</td>
-				<td class="todo-item" [ngStyle]="getProgress(todoItem?.creationDate, todoItem?.deadline)">{{todoItem?.deadline | date:'dd/MM/yyyy'}}</td>
-				<td>{{todoItem?.priority}}</td>
+				<td (click)="toggleStatus(todoItem)" [ngStyle]="{'background-color': utils.getProperty('todoStatus', todoItem?.status, 'color')}">{{utils.getProperty('todoStatus', todoItem.status, 'label')}}</td>
 				<td><app-message message="todo" feature="recurrence" item="{{todoItem?.recurrence}}"></app-message></td>
-				<td>{{todoItem?.todoItemCategory?.name}}</td>
-				<td></td>
-			</tr>
-			<tr>
+				<td>{{utils.getProperty('todoCategory', todoItem.todoItemCategory, 'label')}}</td>
+				<td><i (click)="openFormModal(todoItem)" class="tim-icons icon-pencil"></i></td>
+				<td><i (click)="openDeleteModal(todoItem)" class="tim-icons icon-trash-simple"></i></td>
 			</tr>
 		</tbody>
 	</table>

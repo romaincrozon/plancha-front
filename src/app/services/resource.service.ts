@@ -45,14 +45,15 @@ export class ResourceService {
     }
     
     register(resource: Resource): Observable<Resource> {
-        return this.http.post<Resource>(endpoint + '/signup', resource)
+        return this.http.post<Resource>(endpoint + 'resource', resource)
         	.pipe(
 		      catchError(this.handleError('post Resource', resource))
 		    );
     }
 
-    delete(id: number) {
-        return this.http.delete(endpoint + '/resource/${id}');
+    delete(resource: Resource) {
+        //return this.http.delete(endpoint + 'resource', resource);
+    	this.http.delete(endpoint + 'resource/' + resource.id).subscribe(() => console.log('Delete successful'));
     }
     
     private handleError<T>(operation = 'operation', result?: T) {

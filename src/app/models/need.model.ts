@@ -15,10 +15,7 @@ export class Need implements Deserializable {
     public criticity: number;
     public type: number;
     public status: number;
-    public numberOfDays: number;
-    public startDate: string;
-    public endDate: string;
-    public isProjectNeed: boolean;
+    public projectNeed: boolean;
     public comment: string;
 
 

@@ -4,6 +4,8 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { DatePipe } from '@angular/common'
@@ -27,6 +29,7 @@ import { PlanningTaskComponent } from './planning-task/planning-task.component';
 import { AlertComponent } from './alert/alert.component';
 import { ResourcesTableFullComponent } from './resources-table-full/resources-table-full.component';
 import { FilterPipe } from '../pipes/filter.pipe';
+import { KeysPipe } from '../pipes/keys.pipe';
 import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
 import { CountSubprojectPipePipe } from '../pipes/count-subproject-pipe.pipe';
 import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
@@ -41,6 +44,23 @@ import { AvailabilityTableComponent } from './tables/availability-table/availabi
 import { CalendarWeeksComponent } from './calendar-weeks/calendar-weeks.component';
 import { MessageComponent } from '../shared/message.component';
 
+import { CreateProjectModalComponent } from './modals/create-project-modal/create-project-modal.component';
+import { CreateRequestModalComponent } from './modals/create-request-modal/create-request-modal.component';
+import { CreateProfileModalComponent } from './modals/create-profile-modal/create-profile-modal.component';
+import { CreateResourceModalComponent } from './modals/create-resource-modal/create-resource-modal.component';
+import { CreateCompetenceModalComponent } from './modals/create-competence-modal/create-competence-modal.component';
+import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
+import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
+import { AddResourceToTaskModalComponent } from './modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
+import { AddResourceToProjectModalComponent } from './modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
+import { CreateSubprojectModalComponent } from './modals/create-subproject-modal/create-subproject-modal.component';
+import { CreateTaskModalComponent } from './modals/create-task-modal/create-task-modal.component';
+import { CreateTodoItemModalComponent } from './modals/create-todo-item-modal/create-todo-item-modal.component';
+import { CreateNeedModalComponent } from './modals/create-need-modal/create-need-modal.component';
+import { CreateAvailabilityModalComponent } from './modals/create-availability-modal/create-availability-modal.component';
+import { WeekTableComponent } from './tables/week-table/week-table.component';
+
+
 @NgModule({
   imports: [
   	CommonModule, 
@@ -48,7 +68,9 @@ import { MessageComponent } from '../shared/message.component';
   	NgbModule, 
   	MatDatepickerModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     MatNativeDateModule,
+    MatInputModule,
     ReactiveFormsModule,
     FormsModule,
   ],
@@ -72,6 +94,7 @@ import { MessageComponent } from '../shared/message.component';
   	AlertComponent, 
   	ResourcesTableFullComponent, 
   	FilterPipe, 
+  	KeysPipe,
   	CountTaskPipePipe, 
     CountSubprojectPipePipe,
     CountProjectPipePipe,
@@ -83,8 +106,26 @@ import { MessageComponent } from '../shared/message.component';
   	NeedProjectTableComponent, 
   	NeedTeamTableComponent, 
   	AvailabilityTableComponent, 
+  	WeekTableComponent, 
   	CalendarWeeksComponent, 
     MessageComponent,
+    
+  	CreateProjectModalComponent,
+  	CreateRequestModalComponent,
+  	CreateProfileModalComponent,
+  	CreateResourceModalComponent,
+  	CreateCompetenceModalComponent,
+    AddResourceToTaskModalComponent,
+    AddResourceToProjectModalComponent,
+    DeleteModalComponent,
+  	UpdateRequestModalComponent,
+    CreateSubprojectModalComponent,
+    CreateTaskModalComponent,
+    CreateTodoItemModalComponent,
+    AddResourceToProjectModalComponent,
+    CreateNeedModalComponent,
+    CreateAvailabilityModalComponent, 
+    
   ],
   exports: [
   	FooterComponent, 
@@ -111,9 +152,20 @@ import { MessageComponent } from '../shared/message.component';
     CountSubprojectPipePipe,
   	CountProjectPipePipe,
   	FilterPipe,
+  	KeysPipe,
   ],
   providers: [
-  	DatePipe
+  	DatePipe,
+  	KeysPipe
+  ],
+  entryComponents: [
+  	CreateProjectModalComponent,
+  	CreateResourceModalComponent,
+  	CreateRequestModalComponent,
+  	CreateTodoItemModalComponent,
+  	AddResourceToTaskModalComponent,
+  	DeleteModalComponent,
+  	PlanningRowComponent,
   ],
 })
 export class ComponentsModule {}

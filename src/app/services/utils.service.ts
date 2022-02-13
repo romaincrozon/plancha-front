@@ -46,4 +46,8 @@ export class UtilsService {
 	    const filterValue = value.toLowerCase();
 	   	return objects.filter(object => object.name.toLowerCase().indexOf(filterValue) === 0);
 	}
+	filterByQuadri(objects: any[], value: string): any[] {
+	    const filterValue = value.toLowerCase();
+	   	return objects.filter(object => object.quadri.toLowerCase().indexOf(filterValue) === 0);
+	}
 }

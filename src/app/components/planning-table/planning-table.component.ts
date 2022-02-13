@@ -6,7 +6,7 @@ import { CalendarItemService } from '../../services/calendar-item.service';
 import { DataSharingService } from '../../services/data-sharing.service';
 import { UtilsService } from '../../services/utils.service';
 
-import { AddResourceToTaskModalComponent } from '../../modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
+import { AddResourceToTaskModalComponent } from '../modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
 
 import { Project } from '../../models/project.model';
 import { CalendarItem } from '../../models/calendar-item.model';

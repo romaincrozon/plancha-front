@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
  
-import { CreateProjectModalComponent } from '../../../modals/create-project-modal/create-project-modal.component';
-import { DeleteModalComponent } from '../../../modals/delete-modal/delete-modal.component';
+import { CreateProjectModalComponent } from '../../modals/create-project-modal/create-project-modal.component';
+import { DeleteModalComponent } from '../../modals/delete-modal/delete-modal.component';
 import { TaskService } from '../../../services/task.service';
 import { SubProjectService } from '../../../services/subproject.service';
 import { ProjectService } from '../../../services/project.service';

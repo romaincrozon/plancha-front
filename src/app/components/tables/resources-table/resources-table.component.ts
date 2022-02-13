@@ -4,7 +4,7 @@ import { ProjectService } from '../../../services/project.service';
 import { Resource } from '../../../models/resource.model';
 import { Project } from '../../../models/project.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddResourceToProjectModalComponent } from '../../../modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
+import { AddResourceToProjectModalComponent } from '../../modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
 
 @Component({
   selector: "app-resources-table",
@@ -14,7 +14,10 @@ export class ResourcesTableComponent implements OnInit {
 
   	@Input() project: Project;
   	
-	constructor(private modalService: NgbModal, public projectService: ProjectService, private router:Router, private activatedRoute:ActivatedRoute) { }
+	constructor(private modalService: NgbModal, 
+		public projectService: ProjectService, 
+		private router:Router, 
+		private activatedRoute:ActivatedRoute) { }
 
   	ngOnInit(): void {
   	}

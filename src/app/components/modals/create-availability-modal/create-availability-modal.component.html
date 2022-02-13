@@ -1,0 +1,40 @@
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title">Cr&eacute;er une nouvelle disponibilit&eacute;</h4>
+		<button type="button" class="close" aria-label="Close"
+		   (click)="activeModal.dismiss('Cross click')">
+		</button>
+	</div>
+	<div class="card-body">
+		<form [formGroup]="createAvailabilityForm" (ngSubmit)="submitForm()">
+	      	<div class="form-group row">			      	
+		    	<div class=" col-md-6">
+			      	<mat-form-field>
+				    	<mat-label>Ressource:</mat-label>
+				    	<input type="text"
+				        	placeholder="Ressource"
+				           	aria-label="Ressource"
+				           	matInput [formControl]="resourceControl" [matAutocomplete]="resource">
+					    <mat-autocomplete autoActiveFirstOption #resource="matAutocomplete" >
+					    	<mat-option (onSelectionChange)="updateResource(resource)" *ngFor="let resource of filteredResources | async" [value]="resource.quadri">
+					        	{{resource.quadri}}
+					      	</mat-option>
+					    </mat-autocomplete>
+				  	</mat-form-field>
+				</div>
+		    	<div class=" col-md-6">
+			        <label for="implication">Implication:</label>
+					<select class="form-control" name="implication" formControlName="implication">
+						<option *ngFor="let key of implications | keys" value="{{key}}" selected>{{implications[key].label}}</option>
+					</select>
+		      	</div>
+			</div>
+			<app-week-table (calendarValuesEvent)="setCalendarValues($event)"></app-week-table>
+			<div>
+			    <button class="btn btn-fill btn-danger" [disabled]="!createAvailabilityForm.valid">
+			      Cr&eacute;er
+			    </button>
+			</div>
+		</form>
+	</div>
+</div>

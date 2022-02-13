@@ -1,0 +1,62 @@
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title">Cr&eacute;er un nouveau besoin projet</h4>
+		<button type="button" class="close" aria-label="Close"
+		   (click)="activeModal.dismiss('Cross click')">
+		</button>
+	</div>
+	<div class="card-body">
+		<form [formGroup]="createNeedForm" (ngSubmit)="submitForm()">
+	      	<div class="form-group row">			      	
+		    	<div class=" col-md-6">
+			      	<mat-form-field>
+				    	<mat-label>Projet</mat-label>
+				    	<input type="text"
+				        	placeholder="Projet"
+				           	aria-label="Projet"
+				           	matInput [formControl]="projectControl" [matAutocomplete]="project">
+					    <mat-autocomplete autoActiveFirstOption #project="matAutocomplete" >
+					    	<mat-option (onSelectionChange)="updateProject(project)" *ngFor="let project of filteredProjects | async" [value]="project.name">
+					        	{{project.name}}
+					      	</mat-option>
+					    </mat-autocomplete>
+				  	</mat-form-field>
+				</div>
+		    	<div class=" col-md-6">
+					<mat-form-field>
+				    	<mat-label>Profil</mat-label>
+				    	<input type="text"
+				        	placeholder="Pick one"
+				           	aria-label="Profil"
+				           	matInput [formControl]="profileControl" [matAutocomplete]="profile" >
+					    <mat-autocomplete autoActiveFirstOption #profile="matAutocomplete" >
+					    	<mat-option (onSelectionChange)="updateProfile(profile)" *ngFor="let profile of filteredProfiles | async" [value]="profile.name">
+					        	{{profile.name}}
+					      	</mat-option>
+					    </mat-autocomplete>
+				  	</mat-form-field>
+				</div>
+			</div>
+	      	<div class="form-group row">			      	
+		      	<div class=" col-md-12">
+			        <label for="criticity">Criticit&eacute;:</label>
+					<select class="form-control" name="criticity" formControlName="criticity">
+						<option class="{{criticities[key].class}}" *ngFor="let key of criticities | keys; let first = first" value="{{key}}" selected>{{key}}</option>
+					</select>
+		      	</div>
+		    </div>
+	      	<div class="form-group row">			      	
+		      	<div class=" col-md-12">
+			        <label for="comment">Commentaire:</label>
+			        <textarea name="comment" formControlName="comment"></textarea>
+		      	</div>
+		    </div>
+			<app-week-table (calendarValuesEvent)="setCalendarValues($event)"></app-week-table>
+			<div>
+			    <button class="btn btn-fill btn-danger" [disabled]="!createNeedForm.valid">
+			      Submit Form
+			    </button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -40,17 +40,17 @@
 							</thead>
 							<tbody>
 								<ng-container *ngFor="let resource of resources">
-								<tr>
-									<td>{{resource.quadri}}%</td>
-									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-								</tr>
-								<tr>
-									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-								</tr>
-								<tr>
-									<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-								</tr>
-							</ng-container>
+									<tr>
+										<td>{{resource.quadri}}%</td>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+									<tr>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+									<tr>
+										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
+									</tr>
+								</ng-container>
 								<ng-container *ngFor="let project of projects">
 									<tr>
 										<td>{{project.confidencePercentage}}%</td>

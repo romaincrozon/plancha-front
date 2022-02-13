@@ -9,15 +9,17 @@ export class Resource implements Deserializable {
   	public id: number;
   	public firstname: string;
   	public lastname: string;
-  	public login: string;
+  	public username: string;
   	public password: string;
   	public quadri: string;
+  	public role: string;
   	public availabilityPerWeek: number;
     public token: string;
     public cost: number;
 
   	public resourceCalendar: ResourceCalendar;
   	public projects: Project[];
+  	//public profiles: String;
   	public profiles: Profile[];
   	public assignments: Assignment[];
 

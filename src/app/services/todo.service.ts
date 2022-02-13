@@ -32,7 +32,7 @@ export class TodoService {
     }
     
     getTodoItemsByResource(idResource: string): Observable<Todo[]> {
-        return this.http.get<Todo[]>(endpoint + 'todo/' + idResource)
+        return this.http.get<Todo[]>(endpoint + 'todo/resource/' + idResource)
 	        .pipe(
 	          	map(data => data.map(data => new Todo().deserialize(data))) 
 		    );
@@ -48,7 +48,7 @@ export class TodoService {
        
     updateTodoItem(todo: Todo): Observable<Todo> {
     	console.log("Update todo:" + todo);
-    	return this.http.put<Todo>(endpoint + 'todo', todo, httpOptions)
+    	return this.http.put<Todo>(endpoint + 'todo/' + todo.id, todo, httpOptions)
 		    .pipe(
 		      catchError(this.handleError('Update todo ', todo))
 		    );

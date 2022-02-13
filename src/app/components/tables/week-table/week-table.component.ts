@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Output, EventEmitter } from '@angular/core';
 import { CalendarService } from '../../../services/calendar.service';
 import { UtilsService } from '../../../services/utils.service';
+import { CalendarValue } from '../../../models/calendar-value.model';
 
 @Component({
   selector: 'app-week-table',
@@ -16,6 +18,8 @@ export class WeekTableComponent implements OnInit {
   	
   	weekForm: FormGroup;
   	numberOfDays: number;
+	
+	@Output() calendarValuesEvent = new EventEmitter<CalendarValue[]>();
 	
   	constructor(private calendarService: CalendarService, public utilsService: UtilsService, private formBuilder: FormBuilder) {
     	this.index = 0;
@@ -77,8 +81,27 @@ export class WeekTableComponent implements OnInit {
 					numberOfDaysToSet = tempNumberOfDays > this.calendar.weekList[key].numberOfDays ? this.calendar.weekList[key].numberOfDays : tempNumberOfDays; 
 					tempNumberOfDays -= numberOfDaysToSet;
 					this.calendar.weekList[key].value = numberOfDaysToSet;
+					
+					for(let calendarKey in this.calendar.weekList[key].planchaCalendars){
+						if (numberOfDaysToSet > 0 ){
+							this.calendar.weekList[key].planchaCalendars[calendarKey].value = numberOfDaysToSet > 1 ? 1 : numberOfDaysToSet;
+							numberOfDaysToSet--;
+						}
+					}
 				}
 			}
 		}
+    	this.calendarValuesEvent.emit(this.setCalendarValues());
 	}
+	
+  	private setCalendarValues() {
+  		let planchaCalendars = this.calendar.weekList.map(item => item.planchaCalendars);
+		let calendarValues = [];
+		for(let calendarValueKey in planchaCalendars){
+			calendarValues = calendarValues.concat(planchaCalendars[calendarValueKey]);
+		}
+		calendarValues = calendarValues.filter(item => item.value > 0);
+		console.log(calendarValues);
+		return calendarValues;
+  	}
 }

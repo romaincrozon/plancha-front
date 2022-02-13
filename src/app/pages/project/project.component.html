@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class=" card">
 				<div class=" card-header">
-					<h1 class=" title">Edit Project</h1>
+					<h1 class=" title">Projet {{project.name}}</h1>
 				</div>
 				<div class=" card-body">
 					<form [formGroup]="updateProjectForm" (ngSubmit)="submitForm()">
@@ -26,7 +26,6 @@
 							</div>
 							<div class=" col-md-3 px-md-1">
 								<button class=" btn btn-fill btn-danger" type="submit">Sauvegarder</button>
-								<button (click)="close()" class=" btn btn-fill btn-danger">Cl&ocirc;turer</button>
 							</div>
 						</div>
 						
@@ -39,11 +38,13 @@
 							<app-resources-table [project]="project"></app-resources-table>
 						</div>
 					</div>
-					<div class=" row">
-						<div class=" col-md-8 pl-md-1" *ngIf="project" >
-							<app-request-table [project]="project"></app-request-table>
+					
+					<div class=" card-body">
+						<div class=" row">
+							<div class=" col-md-8 pl-md-1" *ngIf="project" >
+								<app-request-table [project]="project"></app-request-table>
+							</div>
 						</div>
-						<div class=" col-md-4 pr-md-1"></div>
 					</div>
 				</div>
 			</div>

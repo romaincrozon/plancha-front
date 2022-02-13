@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Need } from '../../../models/need.model';
-import { CreateNeedModalComponent } from '../../../modals/create-need-modal/create-need-modal.component';
+import { CreateNeedModalComponent } from '../../modals/create-need-modal/create-need-modal.component';
 import { NeedService } from '../../../services/need.service';
 import { UtilsService } from '../../../services/utils.service';
 
@@ -27,6 +27,7 @@ export class NeedProjectTableComponent implements OnInit {
   	
   	openFormModal() {
 		const modalRef = this.modalService.open(CreateNeedModalComponent);
+	    modalRef.componentInstance.isProjectNeed = true;
   
 		modalRef.result.then((result) => {
 		  console.log(result);

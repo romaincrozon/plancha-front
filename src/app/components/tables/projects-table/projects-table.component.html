@@ -18,7 +18,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of list">
-						<td [style.background-color]="item.color.code">{{item.name}}</td>
+						<td [style.background-color]="item.color">{{item.name}}</td>
 						<td>{{item.status}}</td>
 						<td>{{item.confidencePercentage}}%</td>
 						<td>{{item.soldWorkload}}</td>

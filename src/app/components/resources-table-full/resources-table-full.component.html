@@ -11,18 +11,22 @@
 						<th>Pr&eacute;nom</th>
 						<th>Nom</th>
 						<th>Quadrigramme</th>
+						<th>R&ocirc;le</th>
+						<th colspan="2"><i (click)="openFormModal(null)" class="tim-icons icon-simple-add"></i></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let resource of resources">
-						<td>{{resource.username}}</td>
+						<td [ngClass]="utils.getProperty('roles', resource.role, 'class')">{{resource.username}}</td>
 						<td>{{resource.firstname}}</td>
 						<td>{{resource.lastname}}</td>
 						<td>{{resource.quadri}}</td>
+						<td>{{utils.getProperty('roles', resource.role, 'label')}}</td>
+						<td><i (click)="openFormModal(resource)" class="tim-icons icon-pencil"></i></td>
+						<td><i (click)="openDeleteModal(resource)" class="tim-icons icon-trash-simple"></i></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une ressource</button>
 	</div>
 </div>

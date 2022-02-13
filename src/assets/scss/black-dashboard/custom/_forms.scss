@@ -7,6 +7,7 @@
   font-size: $font-size-sm;
   @include transition-input-focus-color();
 
+	
 
   &:focus{
     border-color: $primary;
@@ -37,7 +38,8 @@
           background-image: none;
       }
   }
-
+  
+  
   & + .form-control-feedback{
       border-radius: $border-radius-lg;
       margin-top: -7px;
@@ -130,4 +132,8 @@
   &.form-check .form-check-label{
     color: $danger-states;
   }
+}
+
+.form-control.is-invalid {
+	margin-bottom: 5px !important;
 }

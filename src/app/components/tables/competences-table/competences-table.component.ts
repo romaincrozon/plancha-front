@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompetenceService } from '../../../services/competence.service';
 import { Competence } from '../../../models/competence.model';
-import { CreateCompetenceModalComponent } from '../../../modals/create-competence-modal/create-competence-modal.component';
+import { CreateCompetenceModalComponent } from '../../modals/create-competence-modal/create-competence-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
 
 @Component({

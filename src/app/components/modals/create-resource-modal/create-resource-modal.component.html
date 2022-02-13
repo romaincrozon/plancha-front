@@ -1,0 +1,63 @@
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title">Cr&eacute;er une nouvelle ressource</h4>
+		<button type="button" class="close" aria-label="Close"
+			(click)="activeModal.dismiss('Cross click')"></button>
+	</div>
+	<div class="card-body">
+		<form [formGroup]="createResourceForm" (ngSubmit)="submitForm()">
+			<div class="modal-boy">
+				<div class="container">
+					<div class="form-group">
+						
+						<label for="username">Pseudo: *</label> 
+						<input type="text" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid field-error': submitted && f.username.errors }"/>
+						<div *ngIf="submitted && f.username.invalid" class="invalid-feedback">
+	                        <div *ngIf="f.username.errors.required">Le pseudo est obligatoire</div>
+	                        <div *ngIf="f.username.errors.minlength">Le pseudo doit faire au moins 4 caract&egrave;res</div>
+	                    </div>
+	                    
+						<label for="firstname">Pr&eacute;nom: *</label> 
+						<input type="text" class="form-control" formControlName="firstname" [ngClass]="{ 'is-invalid field-error': submitted && f.firstname.errors }"/>
+						<div *ngIf="submitted && f.firstname.invalid" class="invalid-feedback field-error">
+	                        <div *ngIf="f.firstname.errors.required">Le pr&eacute;nom est obligatoire</div>
+	                    </div>
+	                    
+	                    <label for="lastname">Nom: *</label> 
+						<input type="text" class="form-control" formControlName="lastname" [ngClass]="{ 'is-invalid field-error': submitted && f.lastname.errors }"/>
+						<div *ngIf="submitted && f.lastname.invalid" class="invalid-feedback field-error">
+	                        <div *ngIf="f.lastname.errors.required">Le nom de famille est obligatoire</div>
+	                    </div>
+	                    
+	                    <label for="quadri">Quadri: *</label> 
+						<input type="text" class="form-control" formControlName="quadri" [ngClass]="{ 'is-invalid field-error': submitted && f.quadri.errors }"/>
+						<div *ngIf="submitted && f.quadri.invalid" class="invalid-feedback field-error">
+	                        <div *ngIf="f.quadri.errors.required">Le quadrigramme est obligatoire</div>
+	                        <div *ngIf="f.quadri.errors.minlength || f.quadri.errors.maxlength">Le quadrigramme doit faire exactement 4 caract&egrave;res</div>
+	                    </div>
+	                    
+	                    <label for="role">R&ocirc;le: *</label> 
+<!-- 						<select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid field-error': submitted && f.role.errors }"/> -->
+<!-- 						<div *ngIf="submitted && f.role.invalid" class="invalid-feedback field-error"> -->
+<!-- 	                        <div *ngIf="f.role.errors.required">Le r&ocirc;le est obligatoire</div> -->
+<!-- 	                    </div> -->
+						<select class="form-control" name="role" formControlName="role">
+							<option class="{{roles[key].class}}" *ngFor="let key of roles | keys; let first = first" value="{{key}}" selected>{{roles[key].label}}</option>
+						</select>
+                    
+	                    <label for="password">Mot de passe: *</label> 
+						<input type="text" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid field-error': submitted && f.password.errors }"/>
+						<div *ngIf="submitted && f.password.invalid" class="invalid-feedback field-error">
+	                        <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+	                        <div *ngIf="f.password.errors.minlength">Le mot de passe doit faire au moins 6 caract&egrave;res</div>
+	                    </div>
+	                    
+					</div>
+				</div>
+			</div>
+			<div>
+				<button class="btn btn-fill btn-danger">Ajouter</button>
+			</div>
+		</form>
+	</div>
+</div>

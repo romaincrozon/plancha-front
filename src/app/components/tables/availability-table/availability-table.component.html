@@ -1,6 +1,6 @@
 <div class=" card">
 	<div class=" card-header">
-		<h4 class=" card-title">Disponibilit&eacute;s</h4>
+		<h4 class=" card-title">Disponibilit&eacute;s <i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></h4>
 	</div>
 	<div class=" card-body">
 		<div class=" table-responsive inline" >
@@ -10,14 +10,14 @@
 					<tr>
 						<th>D&eacute;tail d'implication</th>
 						<th>Ressource</th>
-						<th>Profil</th>
+						<th>Profils</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let availability of availabilities">
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{utils.getProperty('implication', availability.implication, 'label')}}</td>
+						<td>{{availability.resource.quadri}}</td>
+						<td>{{availability.resource.profiles}}</td>
 					</tr>
 				</tbody>
 			</table>
