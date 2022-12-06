@@ -25,7 +25,7 @@ export class CalendarService {
     }
 
     getCalendar(calendarRange: CalendarRange): Observable<any> {
-    	return this.http.post<any>(endpoint + 'calendar', calendarRange, httpOptions)
+    	return this.http.post<any>(endpoint + 'calendar/week', calendarRange, httpOptions)
 		    .pipe(
 		      catchError(this.handleError('get Calendar for dates', calendarRange))
 		    );

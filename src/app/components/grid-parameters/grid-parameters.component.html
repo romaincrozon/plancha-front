@@ -1,6 +1,40 @@
 <form class="grid-parameters" [formGroup]="gridParameterGroup" (ngSubmit)="submitForm()">
-	<app-datepicker [parentForm]="gridParameterGroup"></app-datepicker>
-	<app-filter *ngIf="projects" [projects]="projects" [parentForm]="gridParameterGroup"></app-filter>
-	<app-views [parentForm]="gridParameterGroup"></app-views>	
-	<button class="btn btn-fill btn-danger">Valider</button>
+	<mat-form-field> 
+		<mat-date-range-input  [rangePicker]="datepicker">
+			<input (change)="submitForm()" matStartDate formControlName="startDate" > 
+			<input (change)="submitForm()" matEndDate formControlName="endDate" > 
+		</mat-date-range-input>
+		<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+		<mat-date-range-picker #datepicker></mat-date-range-picker> 
+	</mat-form-field>
+	
+	<!-- Filter project -->
+	<div class="filter form-control selector ">
+		<div (click)="toggle()" class="filter-list" >
+			Filtrer par projets: <span *ngFor="let project of selectedProjects"><i class="tim-icons icon-simple-remove" (click)="removeProjectFromSelection(project)"></i>{{project.name}}</span>
+		</div>
+		<div class="list" *ngIf="filterActivated" >
+			<p> Filtrer par:
+			<input name="filter" (change)="submitForm()" class="form-control" [value]="searchText" >
+			<ul>
+				<li *ngFor="let project of projects | filter : searchText" >
+					<input (change)="getSelected()" type="checkbox" name="projects" value="{{project.id}}" />
+					<span>{{project.name}}</span> 	
+				</li>
+			</ul>
+			<div title="Vider la s&eacute;lection" (click)="clearSelection()" *ngIf="selected_count">Clear Selection</div>
+		</div>
+		<span (click)="clearFilter()" *ngIf="searchText.length>0">X</span>
+	</div>
+
+<!-- 	<app-filter *ngIf="projects" [projects]="projects" [parentForm]="gridParameterGroup"></app-filter> -->
+
+	<!-- <div class="form-group" >
+		<select (change)="submitForm()" #view class="form-control" formControlName="view" >
+			<option value="days" selected>Vue: jours</option>
+			<option value="weeks">Vue: semaines</option>
+		</select>
+	</div> -->
+	
+<!-- 	<app-views [parentForm]="gridParameterGroup"></app-views>	 -->
 </form>

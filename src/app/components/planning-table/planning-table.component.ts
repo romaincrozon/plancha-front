@@ -5,6 +5,7 @@ import { ProjectService } from '../../services/project.service';
 import { CalendarItemService } from '../../services/calendar-item.service';
 import { DataSharingService } from '../../services/data-sharing.service';
 import { UtilsService } from '../../services/utils.service';
+import { DatePipe } from '@angular/common'
 
 import { AddResourceToTaskModalComponent } from '../modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
 
@@ -35,17 +36,29 @@ export class PlanningTableComponent implements OnInit {
   		public projectService: ProjectService, 
   		public dataSharingService: DataSharingService,
   		private modalService: NgbModal,
-  		private utilsService: UtilsService) {
+  		private utilsService: UtilsService,
+  		private datepipe: DatePipe) {
   	}
 
   	ngOnInit(): void {
 		this.projectService.getProjects().subscribe(data => {
 			this.projects = data;
+			
+			console.log("projects");
+			console.log(this.projects);
+			
 			this.allProjects = data;
 		});
+		let currentDate = new Date();
+  		currentDate.setMonth(currentDate.getMonth()+1);
+     	let formattedDate=currentDate.toISOString().slice(0,10);
+		this.calendarService.getCalendar(new CalendarRange(this.datepipe, new Date().toISOString(), currentDate.toISOString())).subscribe((data: {}) => {
+			this.calendar = data;
+		});
+		
 	  	this.dataSharingService.gridParameters.subscribe( value => {
 	        this.gridParameters = value;
-	        if (this.gridParameters != null 
+	        if (this.gridParameters
 	        		&& this.gridParameters.calendarRange
 	        		&& this.gridParameters.calendarRange.startDate
 		        	&& this.gridParameters.calendarRange.endDate
@@ -53,6 +66,7 @@ export class PlanningTableComponent implements OnInit {
 		        	&& this.gridParameters.projects){
 				this.calendarService.getCalendar(this.gridParameters.calendarRange).subscribe((data: {}) => {
 					this.calendar = data;
+					console.log(this.calendar);
 				});
 				this.projects = this.gridParameters.projects;
 			}

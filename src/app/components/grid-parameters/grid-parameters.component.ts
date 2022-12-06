@@ -14,14 +14,18 @@ import { Project } from '../../models/project.model';
 })
 export class GridParametersComponent implements OnInit, AfterViewChecked{
   	
+  	@Input() projects;
+  	
   	startDate : string ;
   	endDate : string ;
   	view : string ;
   	selectedProjects : Project[];
   	gridParameterGroup: FormGroup;
-  	currentDate = new Date();
   	
-  	@Input() projects: Project[];
+  	selected_count:number = 0;
+  	searchText: string = "";
+  	filterActivated: boolean = false;
+  	
   	
   	constructor(private readonly changeDetectorRef: ChangeDetectorRef, 
   		private fb:FormBuilder, 
@@ -30,7 +34,7 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
 
  	ngOnInit(): void {
     	this.initializeForm();
- 	}
+    }
 
   	initializeForm(){
   		let currentDate = new Date();
@@ -40,7 +44,7 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
     	this.gridParameterGroup = this.fb.group({
       		startDate: [new Date()],
       		endDate: [formattedDate],
-      		view:'days',
+      		view:'weeks',
       		searchText:'',
       		projects: null
     	});
@@ -50,17 +54,76 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
       		this.view = value.view;
       		this.selectedProjects = value.projects;
       		this.submitForm();
-    	})
+    	});
   	}
   	
   	submitForm() {
-    	if (this.startDate && this.endDate && this.view && this.selectedProjects){
-    		this.dataSharingService.gridParameters.next(new GridParameters(new CalendarRange(this.datepipe, this.startDate, this.endDate), this.view, this.selectedProjects));
+    	if (this.startDate && this.endDate && this.view){
+    		if (this.selectedProjects){
+    			this.dataSharingService.gridParameters.next(new GridParameters(new CalendarRange(this.datepipe, this.startDate, this.endDate), this.view, this.selectedProjects));
+    		}else{
+    			console.log(this.projects);
+    			this.dataSharingService.gridParameters.next(new GridParameters(new CalendarRange(this.datepipe, this.startDate, this.endDate), this.view, this.projects));
+    		}
     	}
   	}
   	
   	ngAfterViewChecked(): void {
+  		//this.selectAll();
     	this.changeDetectorRef.detectChanges();
   	}
- 
+  	
+  	//---------------------------------------------------------------------------
+  	// Filter
+  	getSelected(){
+  		if ( this.projects ){
+	    	this.selectedProjects = this.projects.filter(project => {
+	          return project.selected;
+	        });
+	    	this.selected_count = this.selectedProjects.length; 
+	    	
+	    	this.gridParameterGroup.patchValue({
+			  projects: this.selectedProjects 
+			  
+			});
+		}
+	}
+  
+  	// Clearing All Selections
+  	clearSelection(){
+    	this.searchText = "";
+    	this.projects =  this.projects.filter(project => {
+        	project.selected = false;
+        	return true;
+    	});
+    	this.getSelected();    
+  	}
+  
+  	selectAll(){
+  		if (this.projects){
+  			console.log("toto");
+	    	this.projects = this.projects.forEach(function(project) {
+	        	project.selected = true;
+	        });
+	    	this.getSelected();    
+  		}
+  	}
+  
+  	deleteSelected(id:string){
+    	this.searchText = "";
+    	this.projects =  this.projects.filter(project => {
+        if(project.id == id)
+         	project.selected = false;
+          	return true;
+        });
+    	this.getSelected(); 
+  	}
+  
+  	clearFilter(){
+    	this.searchText = "";
+  	}
+  	
+  	toggle(){
+  		this.filterActivated = !this.filterActivated;
+  	}
 }

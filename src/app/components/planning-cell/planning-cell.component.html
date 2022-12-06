@@ -1,7 +1,7 @@
 <form [formGroup]="cellForm">
 	<div class="container">
 		<div class="form-group">
-			<input style="width:60px" type="number" class="form-control" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" />
+			<input type="number" class="form-control" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" />
 		</div>
 	</div>
 </form>

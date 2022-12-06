@@ -20,29 +20,30 @@ export class ProjectComponent implements OnInit {
   	updateProjectForm: FormGroup;
   	
   	constructor(public projectService: ProjectService, public subProjectService: SubProjectService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
-  		this.createForm();
+		
   	}
 
   	ngOnInit() : void{
-  		this.getProject().subscribe(
-      		currentProject => this.project = currentProject
-    	);
-  	}
+		this.getProject();
+  		
+	}
   	
-  	getProject() : Observable<Project>{
+  	getProject() {
 		this.activatedRoute.paramMap.subscribe(params => {
 	      	this.id = params.get('id');
 		});	  
 		this.projectService.getProjectById(this.id).subscribe(data => {
 			this.project = data;
+			console.log()
+			this.createForm();
 		});
-	    return of(this.project);	
 	}
 	
 	private createForm() {
+		console.log(this.project);
 	    this.updateProjectForm = this.formBuilder.group({
-	    	name: new FormControl(),
-	      	status: new FormControl()
+	    	name: new FormControl(this.project.name, Validators.required),
+	      	status: new FormControl(this.project.status, Validators.required)
   	    });
 	}
 	

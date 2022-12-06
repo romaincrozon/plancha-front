@@ -5,7 +5,7 @@
     position: relative;
     overflow: hidden;
     margin:4px 1px;
-    border-radius: $border-radius-lg;
+    //border-radius: $border-radius-lg;
     cursor: pointer;
 
     @include btn-styles($default, $default-states);

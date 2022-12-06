@@ -3,12 +3,13 @@
 
 	.filter {
 		display: flex;
-	
+		
 		.list {
 			list-style-type: none;    
 			padding: 5px;
 			position: absolute;
 			width: 178px;
+			margin-top: 40px;
 		    border: solid lightgrey 1px;
 		    background-color: #F8F9F9;
 		    border-radius: 5px;
@@ -24,4 +25,18 @@
 		}
 	}	
 	
+	.selector {
+		width: 20em;
+		margin-right: 1em;
+	}
+	
+	.filter-list {
+		padding-top: 2px;
+	}
+	
+	.mat-form-field {
+		margin: 0 2em 0 5em;
+	}
+	
 }
+

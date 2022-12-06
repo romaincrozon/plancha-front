@@ -30,20 +30,30 @@
 			      	</div>
 			      	<div class="form-group row">			      	
 				    	<div class=" col-md-6">
-				      		<label for="soldWorkload">Charge vendue</label>
-							<input class=" form-control" type="number" name="soldWorkload" formControlName="soldWorkload" />
-				      		<label for="challengedWorkload">Charge challeng&eacute;e</label>
-							<input class=" form-control" type="number" name="challengedWorkload" formControlName="challengedWorkload" />
-				      		<label for="consumedWorkload">Charge consomm&eacute;e</label>
-							<input class=" form-control" type="number" name="consumedWorkload" formControlName="consumedWorkload" />
-				      		<label for="projectMargin">Marge</label>
-							<input class=" form-control" type="number" name="projectMargin" formControlName="projectMargin" />
-				      	</div>
-				    	<div class=" col-md-6">
-				    		<div>Color:</div>
-							<div class="color-grid">
-								<div class="color" *ngFor="let color of colors" [style.background-color]="color" 
-									(click)="selectColor($event, color)">
+					      	<div>
+					      		<label for="soldWorkload">Charge vendue</label>
+								<input class=" form-control" type="number" name="soldWorkload" formControlName="soldWorkload" />
+					      	</div>
+				      		<div>
+					      		<label for="challengedWorkload">Charge challeng&eacute;e</label>
+								<input class=" form-control" type="number" name="challengedWorkload" formControlName="challengedWorkload" />
+					      	</div>
+					      	<div>
+					      		<label for="consumedWorkload">Charge consomm&eacute;e</label>
+								<input class=" form-control" type="number" name="consumedWorkload" formControlName="consumedWorkload" />
+					      	</div>
+				    	</div>
+				      	<div class=" col-md-6">
+					      	<div>
+					      		<label for="projectMargin">Marge</label>
+								<input class=" form-control" type="number" name="projectMargin" formControlName="projectMargin" />
+					      	</div>
+				    		<div>
+					    		<div>Color:</div>
+								<div class="color-grid">
+									<div class="color" [class.selected]="selectedColor == color" *ngFor="let color of colors" [style.background-color]="color" 
+										(click)="selectColor($event, color)">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -52,7 +62,7 @@
 			</div>
 			<div>
 			    <button class="btn btn-fill btn-danger" [disabled]="!createProjectForm.valid">
-			      Submit Form
+			      Cr&eacute;er le projet
 			    </button>
 			</div>
 		</form>

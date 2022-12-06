@@ -1,23 +1,23 @@
-<div class=" content">
+<div class=" content" *ngIf="project" >
 	<div class=" row">
 		<div class="col-md-12">
 			<div class=" card">
 				<div class=" card-header">
-					<h1 class=" title">Projet {{project.name}}</h1>
+					<h1 class=" title">Projet {{project?.name}}</h1>
 				</div>
 				<div class=" card-body">
-					<form [formGroup]="updateProjectForm" (ngSubmit)="submitForm()">
+					<form [formGroup]="updateProjectForm">
 						<div class=" row">
 							<div class="col-md-6 pr-md-1">
 								<div class=" form-group">
 									<label>Nom</label> 
-									<input class=" form-control" formControlName="name" placeholder="Nom" type="text" [value]="project?.name" />
+									<input class=" form-control" formControlName="name" placeholder="Nom" type="text" />
 								</div>
 							</div>
 							<div class=" col-md-3 px-md-1">
 								<div class=" form-group">
-									<label>Status</label> 
-									<select class=" form-control" formControlName="status" [value]="project?.status">
+									<label>Status</label>
+									<select class=" form-control" formControlName="status">
 										<option value="active">En cours</option>
 										<option value="forecast">Pr&eacute;visionnel</option>
 										<option value="closed">Cl&ocirc;tur&eacute;</option>
@@ -28,22 +28,21 @@
 								<button class=" btn btn-fill btn-danger" type="submit">Sauvegarder</button>
 							</div>
 						</div>
-						
 					</form>
-					<div class=" row">
-						<div class=" col-md-8 pl-md-1" *ngIf="project">
+
+					<div class=" row" >
+						<div class=" col-md-8 pl-md-1">
 							<app-subprojects-table [project]="project"></app-subprojects-table>
 						</div>
+
 						<div class=" col-md-4 pr-md-1" >
 							<app-resources-table [project]="project"></app-resources-table>
 						</div>
 					</div>
-					
-					<div class=" card-body">
-						<div class=" row">
-							<div class=" col-md-8 pl-md-1" *ngIf="project" >
-								<app-request-table [project]="project"></app-request-table>
-							</div>
+
+					<div class=" row">
+						<div class=" col-md-8 pl-md-1" >
+							<app-request-table [project]="project"></app-request-table>
 						</div>
 					</div>
 				</div>

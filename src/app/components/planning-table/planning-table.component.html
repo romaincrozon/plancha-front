@@ -5,37 +5,25 @@
 				<div class=" card-header">
 					<h4 class=" card-title">Plan de charge</h4>
 				</div>
-				<div class=" card-body">
+				<div class="card-body" *ngIf="projects?.length > 0; else noItemsFound">
 					<div>
 						<app-grid-parameters [projects]="allProjects"></app-grid-parameters>
 					</div>	
 <!-- 					<app-resource-synthesis [projects]="projects" [calendar]="calendar"></app-resource-synthesis> -->
-					<div class=" table-responsive" *ngIf="gridParameters.calendarRange">
+					<div class=" table-responsive" >
 						<table class=" table tablesorter">
 							<thead class=" text-primary">
 								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
+									<th class="empty-cell" colspan="5"></th>
+									<th *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
 								</tr>
 								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
+									<th class="empty-cell" colspan="5"></th>
+									<th *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
 								</tr>
-								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th style="border: 1px solid black;" *ngFor="let date of calendar?.planchaCalendarList" [style.color]="'black'" [ngStyle]="{'background-color' : date.holiday ? 'red': 'white'}" >{{date.calendar | date:'d'}}</th>
+								<tr style="display:none">
+									<th class="empty-cell" colspan="5"></th>
+									<th *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'gainsboro'}" >{{date.calendar | date:'d'}}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -55,18 +43,16 @@
 									<tr>
 										<td>{{project.confidencePercentage}}%</td>
 										<td [attr.colspan]="4">{{project.name}}</td>
-										<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
+										<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.colspan]="" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
 									</tr>
 									<ng-container *ngFor="let subproject of project?.subProjectList">
 										<tr>
-											<td></td>
 											<td></td>
 											<td [attr.colspan]="3">{{subproject.name}}</td>
 											<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
 										</tr>
 										<ng-container *ngFor="let task of subproject?.taskList">
 											<tr>
-												<td></td>
 												<td></td>
 												<td></td>
 												<td>{{task.name}}</td>
@@ -96,6 +82,11 @@
 						</table>
 					</div>
 				</div>
+				<ng-template #noItemsFound>
+					<div class="card-body" >
+						Pas de projets trouv&eacute;s
+					</div>
+				</ng-template>
 			</div>
 		</div>
 	</div>

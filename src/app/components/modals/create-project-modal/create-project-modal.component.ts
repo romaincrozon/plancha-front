@@ -35,7 +35,6 @@ export class CreateProjectModalComponent implements OnInit {
   	private selectColor(event: any, color: string){
   		this.selectedColor = color;
   		//this.renderer.addClass(event.target, 'selected');
-  		console.log(this.selectedColor);
   	}
   	
   	private createForm() {

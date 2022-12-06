@@ -29,7 +29,7 @@ export class ProjectsTableComponent implements OnInit {
   	}
   	
   	openFormModal() {
-		const modalRef = this.modalService.open(CreateProjectModalComponent);
+		const modalRef = this.modalService.open(CreateProjectModalComponent, {size: 'lg', windowClass: 'modal-xl'});
 		//modalRef.componentInstance.project = this.project;
 		//modalRef.componentInstance.subproject = this.subproject;
   

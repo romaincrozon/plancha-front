@@ -12,7 +12,7 @@
   vertical-align: middle;
   user-select: none;
   border: $btn-border-width solid transparent;
-  @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius);
+  @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, 0);
   @include transition($btn-transition);
 
   // Share hover and focus styles

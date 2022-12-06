@@ -101,7 +101,7 @@
     .form-group,
     .input-group{
         .form-control{
-            padding: $padding-vertical - 1 $padding-horizontal - 1 $padding-vertical - 1 $padding-horizontal - 1;
+            padding: $select-padding-vertical $select-padding-horizontal $select-padding-vertical $select-padding-horizontal;
 
             & + .input-group-prepend .input-group-text,
             & + .input-group-append .input-group-text{
