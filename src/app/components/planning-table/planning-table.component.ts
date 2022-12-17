@@ -6,15 +6,13 @@ import { CalendarItemService } from '../../services/calendar-item.service';
 import { DataSharingService } from '../../services/data-sharing.service';
 import { UtilsService } from '../../services/utils.service';
 import { DatePipe } from '@angular/common'
-
-import { AddResourceToTaskModalComponent } from '../modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
-
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Project } from '../../models/project.model';
 import { CalendarItem } from '../../models/calendar-item.model';
 import { CalendarRange } from '../../models/calendar-range.model';
 import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
 import { GridParameters } from '../../models/grid-parameters.model';
-
+import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { DirectiveAddresourceDirective } from '../../directives/directive-addresource.directive';
 import { ResourceCalendar } from '../../models/resource-calendar.model';
 
@@ -25,6 +23,7 @@ import { ResourceCalendar } from '../../models/resource-calendar.model';
 export class PlanningTableComponent implements OnInit {
 	
 	@Input() gridParameters: GridParameters;
+	public isCollapsed = false;
 	
 	calendar: any;
 	projects: Project[];
@@ -88,14 +87,14 @@ export class PlanningTableComponent implements OnInit {
     	}
     }
   	
-  	openFormModal() {
-		const modalRef = this.modalService.open(AddResourceToTaskModalComponent);
-		//modalRef.componentInstance.resources = resources;
+  	// openFormModal() {
+	// 	const modalRef = this.modalService.open(AddResourceToTaskModalComponent);
+	// 	//modalRef.componentInstance.resources = resources;
 		
-		modalRef.result.then((result) => {
-			//this.getRequests();
-		}).catch((error) => {
-		  console.log(error);
-		});
-  	}
+	// 	modalRef.result.then((result) => {
+	// 		//this.getRequests();
+	// 	}).catch((error) => {
+	// 	  console.log(error);
+	// 	});
+  	// }
 }

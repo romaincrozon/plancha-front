@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Observable, of, from, interval } from 'rxjs';
 import { Location } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
-import { SubProjectService } from '../../services/subproject.service';
 
 import { Project } from '../../models/project.model';
 import { SubProject } from '../../models/sub-project.model';
@@ -19,7 +18,7 @@ export class ProjectComponent implements OnInit {
 	project: Project;
   	updateProjectForm: FormGroup;
   	
-  	constructor(public projectService: ProjectService, public subProjectService: SubProjectService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  	constructor(public projectService: ProjectService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
 		
   	}
 

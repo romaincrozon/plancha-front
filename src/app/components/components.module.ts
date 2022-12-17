@@ -36,8 +36,6 @@ import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
 import { ResourcePlanningTableComponent } from './resource-planning-table/resource-planning-table.component';
 import { TodoTableComponent } from './tables/todo-table/todo-table.component';
 import { FilterComponent } from './grid-parameters/filter/filter.component';
-import { SubprojectsTableComponent } from './tables/subprojects-table/subprojects-table.component';
-import { TasksTableComponent } from './tables/tasks-table/tasks-table.component';
 import { NeedProjectTableComponent } from './tables/need-project-table/need-project-table.component';
 import { NeedTeamTableComponent } from './tables/need-team-table/need-team-table.component';
 import { AvailabilityTableComponent } from './tables/availability-table/availability-table.component';
@@ -51,15 +49,14 @@ import { CreateResourceModalComponent } from './modals/create-resource-modal/cre
 import { CreateCompetenceModalComponent } from './modals/create-competence-modal/create-competence-modal.component';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
-import { AddResourceToTaskModalComponent } from './modals/add-resource-to-task-modal/add-resource-to-task-modal.component';
 import { AddResourceToProjectModalComponent } from './modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
 import { CreateSubprojectModalComponent } from './modals/create-subproject-modal/create-subproject-modal.component';
-import { CreateTaskModalComponent } from './modals/create-task-modal/create-task-modal.component';
 import { CreateTodoItemModalComponent } from './modals/create-todo-item-modal/create-todo-item-modal.component';
 import { CreateNeedModalComponent } from './modals/create-need-modal/create-need-modal.component';
 import { CreateAvailabilityModalComponent } from './modals/create-availability-modal/create-availability-modal.component';
 import { WeekTableComponent } from './tables/week-table/week-table.component';
 
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -73,6 +70,7 @@ import { WeekTableComponent } from './tables/week-table/week-table.component';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbCollapseModule,
   ],
   declarations: [
   	FooterComponent, 
@@ -101,8 +99,6 @@ import { WeekTableComponent } from './tables/week-table/week-table.component';
   	ResourcePlanningTableComponent, 
   	TodoTableComponent, 
   	FilterComponent, 
-  	SubprojectsTableComponent, 
-  	TasksTableComponent, 
   	NeedProjectTableComponent, 
   	NeedTeamTableComponent, 
   	AvailabilityTableComponent, 
@@ -115,12 +111,10 @@ import { WeekTableComponent } from './tables/week-table/week-table.component';
   	CreateProfileModalComponent,
   	CreateResourceModalComponent,
   	CreateCompetenceModalComponent,
-    AddResourceToTaskModalComponent,
     AddResourceToProjectModalComponent,
     DeleteModalComponent,
   	UpdateRequestModalComponent,
     CreateSubprojectModalComponent,
-    CreateTaskModalComponent,
     CreateTodoItemModalComponent,
     AddResourceToProjectModalComponent,
     CreateNeedModalComponent,
@@ -132,8 +126,6 @@ import { WeekTableComponent } from './tables/week-table/week-table.component';
   	NavbarComponent, 
   	SidebarComponent, 
   	ProjectsTableComponent, 
-  	SubprojectsTableComponent, 
-  	TasksTableComponent, 
   	ResourcesTableComponent, 
   	PlanningTableComponent, 
   	ProfileInfoComponent, 
@@ -163,9 +155,9 @@ import { WeekTableComponent } from './tables/week-table/week-table.component';
   	CreateResourceModalComponent,
   	CreateRequestModalComponent,
   	CreateTodoItemModalComponent,
-  	AddResourceToTaskModalComponent,
   	DeleteModalComponent,
   	PlanningRowComponent,
   ],
+  bootstrap:    [ ProjectsTableComponent ]
 })
 export class ComponentsModule {}

@@ -2,38 +2,98 @@
 	<div class=" card-header">
 		<h4 class=" card-title">Projets</h4>
 	</div>
+	
 	<div class=" card-body">
-		<div *ngIf="list?.length > 0; else noItemsFound" class=" table-responsive">
-			<table class=" table tablesorter">
-				<thead class=" text-primary">
+		<div *ngIf="projects?.length > 0; else noItemsFound" >
+			<table class=" table table-striped">
+				<thead class="">
 					<tr>
-						<th>Nom</th>
-						<th>Statut</th>
-						<th>% de confiance</th>
-						<th>Charge vendue</th>
-						<th>Charge challeng&eacute;e</th>
-						<th>Charge consomm&eacute;e</th>
-						<th>Marge</th>
+						<th colspan="4" sortable="name" (sort)="onSort($event)">Nom</th>
+						<th sortable="status" (sort)="onSort($event)">Statut</th>
+						<th sortable="confidencePercentage" (sort)="onSort($event)">% de confiance</th>
+						<th sortable="soldWorkload" (sort)="onSort($event)">Charge vendue</th>
+						<th sortable="challengedWorkload" (sort)="onSort($event)">Charge challeng&eacute;e</th>
+						<th sortable="consumedWorkload" (sort)="onSort($event)">Charge consomm&eacute;e</th>
+						<th sortable="projectMargin" (sort)="onSort($event)">Marge</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let item of list">
-						<td [style.background-color]="item.color">{{item.name}}</td>
-						<td>{{item.status}}</td>
-						<td>{{item.confidencePercentage}}%</td>
-						<td>{{item.soldWorkload}}</td>
-						<td>{{item.challengedWorkload}}</td>
-						<td>{{item.consumedWorkload}}</td>
-						<td>{{item.projectMargin}}%</td>
-						<td>
-							<div>
-								<a [routerLink]="['/project', item.id]">
-									<i class="tim-icons icon-pencil"></i>
-								</a>
-								<i (click)="openDeleteModal(item)" class="tim-icons icon-trash-simple"></i>
-							</div>
-						</td>
-					</tr>
+					<ng-container *ngFor="let project of projects; let index=index">
+						<tr >
+							<!-- <td *ngIf="index == 0" rowspan="2"></td> -->
+							<td *ngIf="project.projects.length > 0" class="collapse-icon">
+								<i class="tim-icons" 
+									[ngClass]="isCollapsed(project.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+									(click)="toggle(project.id)"></i>
+							</td>
+							<td *ngIf="project.projects.length == 0" ></td>
+							<td colspan="3" [style.background-color]="project.color">{{project.name}}</td>
+							<td>{{project.status}}</td>
+							<td>{{project.confidencePercentage}}%</td>
+							<td>{{project.soldWorkload}}</td>
+							<td>{{project.challengedWorkload}}</td>
+							<td>{{project.consumedWorkload}}</td>
+							<td>{{project.projectMargin}}%</td>
+							<td>
+								<div>
+									<a [routerLink]="['/project', project.id]">
+										<i class="tim-icons icon-pencil"></i>
+									</a>
+									<i (click)="openDeleteModal(project)" class="tim-icons icon-trash-simple"></i>
+								</div>
+							</td>
+						</tr>
+						<ng-container *ngIf="!isCollapsed(project.id)">
+							<ng-container *ngFor="let subItem of project.projects">
+								<tr>
+									<td class="empty" ></td>
+									<td *ngIf="subItem.projects.length > 0" class="collapse-icon">
+										<i class="tim-icons" 
+											[ngClass]="isCollapsed(subItem.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+											(click)="toggle(subItem.id)"></i>
+									</td>
+									<td *ngIf="subItem.projects.length == 0" ></td>
+									<td colspan="2" [style.background-color]="subItem.color">{{subItem.name}}</td>
+									<td>{{subItem.status}}</td>
+									<td>{{subItem.confidencePercentage}}%</td>
+									<td>{{subItem.soldWorkload}}</td>
+									<td>{{subItem.challengedWorkload}}</td>
+									<td>{{subItem.consumedWorkload}}</td>
+									<td>{{subItem.projectMargin}}</td>
+									<td>
+										<div>
+											<a [routerLink]="['/project', subItem.id]">
+												<i class="tim-icons icon-pencil"></i>
+											</a>
+											<i (click)="openDeleteModal(subItem)" class="tim-icons icon-trash-simple"></i>
+										</div>
+									</td>
+								</tr>
+								<ng-container *ngIf="!isCollapsed(subItem.id)">
+									<tr *ngFor="let subSubItem of subItem.projects">
+										<td class="empty" ></td>
+										<td class="empty" ></td>
+										<td class="empty" ></td>
+										<td [style.background-color]="subSubItem.color">{{subSubItem.name}}</td>
+										<td>{{subSubItem.status}}</td>
+										<td>{{subSubItem.confidencePercentage}}%</td>
+										<td>{{subSubItem.soldWorkload}}</td>
+										<td>{{subSubItem.challengedWorkload}}</td>
+										<td>{{subSubItem.consumedWorkload}}</td>
+										<td>{{subSubItem.projectMargin}}</td>
+										<td>
+											<div>
+												<a [routerLink]="['/project', subSubItem.id]">
+													<i class="tim-icons icon-pencil"></i>
+												</a>
+												<i (click)="openDeleteModal(subSubItem)" class="tim-icons icon-trash-simple"></i>
+											</div>
+										</td>
+									</tr>
+								</ng-container>
+							</ng-container>
+						</ng-container>
+					</ng-container>
 				</tbody>
 			</table>
 		</div> 

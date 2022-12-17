@@ -21,10 +21,10 @@
 									<th class="empty-cell" colspan="5"></th>
 									<th *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
 								</tr>
-								<tr style="display:none">
+								<!-- <tr style="display:none">
 									<th class="empty-cell" colspan="5"></th>
 									<th *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'gainsboro'}" >{{date.calendar | date:'d'}}</th>
-								</tr>
+								</tr> -->
 							</thead>
 							<tbody>
 								<ng-container *ngFor="let resource of resources">
@@ -41,15 +41,25 @@
 								</ng-container>
 								<ng-container *ngFor="let project of projects">
 									<tr>
-										<td>{{project.confidencePercentage}}%</td>
+										<td> 
+											<!-- <button
+											type="button"
+											class="btn btn-outline-primary"
+											(click)="collapse.toggle()"
+											[attr.aria-expanded]="!isCollapsed"
+											aria-controls="collapseExample"
+										>
+											Toggle with Function
+										</button> -->
+										{{project.confidencePercentage}}%</td>
 										<td [attr.colspan]="4">{{project.name}}</td>
-										<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.colspan]="" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
+										<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
 									</tr>
 									<ng-container *ngFor="let subproject of project?.subProjectList">
 										<tr>
 											<td></td>
 											<td [attr.colspan]="3">{{subproject.name}}</td>
-											<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
+											<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
 										</tr>
 										<ng-container *ngFor="let task of subproject?.taskList">
 											<tr>
@@ -61,7 +71,7 @@
                       									<i class="tim-icons icon-pencil"></i>
                     								</button>
                     							</td>
-												<td *ngFor="let calendar of calendar?.planchaCalendarList" [attr.data-calendar]="calendar.calendar" [attr.data-task-id]="task.id" #count>{{task.resourceCalendars | countTaskPipe:calendar}}</td>
+												<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-task-id]="task.id" #count>{{task.resourceCalendars | countTaskPipe:calendar}}</td>
 											</tr>
 											<tr *ngFor="let resourceCalendar of task?.resourceCalendars"
 												app-planning-row

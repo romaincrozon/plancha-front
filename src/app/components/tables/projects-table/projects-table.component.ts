@@ -1,40 +1,71 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from "@angular/core";
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
  
 import { CreateProjectModalComponent } from '../../modals/create-project-modal/create-project-modal.component';
 import { DeleteModalComponent } from '../../modals/delete-modal/delete-modal.component';
-import { TaskService } from '../../../services/task.service';
-import { SubProjectService } from '../../../services/subproject.service';
 import { ProjectService } from '../../../services/project.service';
-
-import { Task } from '../../../models/task.model';
-import { SubProject } from '../../../models/sub-project.model';
 import { Project } from '../../../models/project.model';
+import { SortableHeader, SortEvent } from "src/app/directives/sortable-header";
+
+const compare = (v1: string | number, v2: string | number) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
 @Component({
   selector: "app-projects-table",
   templateUrl: "projects-table.component.html"
 })
 export class ProjectsTableComponent implements OnInit {
-  	
-  	list: Project[];
-  	
+  	isCollapsedMap = new Map<string, boolean>(); 
+  	projects: Project[];
+  	sortedProjects: Project[];
+	@ViewChildren(SortableHeader) headers: QueryList<SortableHeader>;
+	  
 	constructor(private projectService: ProjectService, private modalService: NgbModal) { }
 
   	ngOnInit() {
 		this.projectService.getProjects().subscribe(data => {
-			this.list = data;
+			this.projects = data;
+			console.log(this.projects);
+			this.setCollapsedMap(this.projects);
+			console.log(this.isCollapsedMap);
 		});
   	}
+
+	setCollapsedMap(projects: Project[]){
+		for (var item of projects){
+			this.isCollapsedMap.set(item.id, true);
+			this.setCollapsedMap(item.projects);
+		}
+	}
+
+	toggle(id: string){ this.isCollapsedMap.set(id, !this.isCollapsedMap.get(id));}
+	isCollapsed(id: string): boolean{ return this.isCollapsedMap.get(id); }
   	
+	onSort({ column, direction }: SortEvent) {
+		// resetting other headers
+		this.headers.forEach((header) => {
+			if (header.sortable !== column) {
+				header.direction = '';
+			}
+		});
+
+		// sorting countries
+		if (direction === '' || column === '') {
+			this.sortedProjects = this.projects;
+		} else {
+			// this.sortedProjects = [...this.projects].sort((a, b) => {
+			// 	const res = compare(a[column], b[column]);
+			// 	return direction === 'asc' ? res : -res;
+			// });
+		}
+	}
   	openFormModal() {
 		const modalRef = this.modalService.open(CreateProjectModalComponent, {size: 'lg', windowClass: 'modal-xl'});
 		//modalRef.componentInstance.project = this.project;
 		//modalRef.componentInstance.subproject = this.subproject;
   
 		modalRef.result.then((result) => {
-			this.list.push(result);
+			this.projects.push(result);
 		}).catch((error) => {
 		  console.log(error);
 		});
@@ -46,9 +77,14 @@ export class ProjectsTableComponent implements OnInit {
 		modalRef.componentInstance.object = project;
 
 		modalRef.result.then((result) => {
-			this.list.splice(this.list.indexOf(project), 1);
+			this.projects.splice(this.projects.indexOf(project), 1);
 		}).catch((error) => {
 		  	console.log(error);
 		});
   	}
 }
+
+
+
+
+

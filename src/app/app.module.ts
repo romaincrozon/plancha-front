@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from "./app.component";
 
@@ -56,14 +58,13 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-	ReactiveFormsModule,
     ToastrModule.forRoot(),
-    
     MatFormFieldModule,
-	MatInputModule,
-	MatDatepickerModule,
-	MatNativeDateModule,
-	MatAutocompleteModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
+    NgbCollapseModule,
   ],
   declarations: [
   	AppComponent, 
@@ -75,7 +76,6 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
   	AdministrationComponent,
   	ProfileSettingsComponent,
   	AdministrationComponent,
-  	
   	RequestsComponent,
   	RequestComponent,
   	DirectiveAddresourceDirective,
@@ -90,10 +90,11 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
   ],
   exports: [
     MatFormFieldModule,
-	MatInputModule,
-	MatDatepickerModule,
-	MatNativeDateModule,
-	MatAutocompleteModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
+    NgbModule,
   ],
   providers: [
   	DataSharingService,

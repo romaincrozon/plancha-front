@@ -2,13 +2,9 @@ import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
-import { SubProjectService } from '../../../services/subproject.service';
 import { ProjectService } from '../../../services/project.service';
-import { TaskService } from '../../../services/task.service';
 
 import { Project } from '../../../models/project.model';
-import { SubProject } from '../../../models/sub-project.model';
-import { Task } from '../../../models/task.model';
 import { appProperties } from '../../../app.messages';
 
 @Component({

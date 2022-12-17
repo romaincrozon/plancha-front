@@ -9,7 +9,7 @@ export class Project implements Deserializable {
   	public name: string;
   	public status: string;
   	public confidencePercentage: number;
-  	public subprojects: SubProject[];
+  	public projects: Project[];
   	public resources: Resource[];
   	public requests: Request[];
   	public selected: boolean = true;
@@ -29,7 +29,7 @@ export class Project implements Deserializable {
   	deserialize(input: any): this {
     	Object.assign(this, input);
 
-   		this.subprojects = input.subprojects != null ? input.subprojects.map(subproject => new SubProject().deserialize(subproject)) : null;
+   		this.projects = input.projects != null ? input.projects.map(project => new Project().deserialize(project)) : null;
 		this.resources = input.resources != null ? input.resources.map(resource => new Resource().deserialize(resource)) : null;
 		this.requests = input.requests != null ? input.requests.map(request => new Request().deserialize(request)) : null;
     	return this;
