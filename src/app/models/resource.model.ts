@@ -6,7 +6,7 @@ import {Assignment} from './assignment.model';
 
 export class Resource implements Deserializable {
   
-  	public id: number;
+  	public id: string;
   	public firstname: string;
   	public lastname: string;
   	public username: string;

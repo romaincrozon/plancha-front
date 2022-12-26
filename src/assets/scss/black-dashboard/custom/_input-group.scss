@@ -341,3 +341,11 @@ textarea.form-control{
     font-size: $font-paragraph;
   }
 }
+.row .save {
+    display: flex;
+    align-items: center;
+    > button {
+        padding: 8px 50px;
+        margin-top: 8px;
+    }
+}

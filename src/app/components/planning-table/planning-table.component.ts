@@ -23,7 +23,7 @@ import { ResourceCalendar } from '../../models/resource-calendar.model';
 export class PlanningTableComponent implements OnInit {
 	
 	@Input() gridParameters: GridParameters;
-	public isCollapsed = false;
+	isCollapsedMap = new Map<string, boolean>(); 
 	
 	calendar: any;
 	projects: Project[];
@@ -42,7 +42,7 @@ export class PlanningTableComponent implements OnInit {
   	ngOnInit(): void {
 		this.projectService.getProjects().subscribe(data => {
 			this.projects = data;
-			
+			this.setCollapsedMap(this.projects);
 			console.log("projects");
 			console.log(this.projects);
 			
@@ -71,6 +71,15 @@ export class PlanningTableComponent implements OnInit {
 			}
 	    });
   	}
+
+	setCollapsedMap(projects: Project[]){
+		for (var item of projects){
+			this.isCollapsedMap.set(item.id, true);
+			this.setCollapsedMap(item.projects);
+		}
+	}
+	toggle(id: string){ this.isCollapsedMap.set(id, !this.isCollapsedMap.get(id));}
+	isCollapsed(id: string): boolean{ return this.isCollapsedMap.get(id); }
   	
 	sum(cell) {
         let items = this.count.toArray().filter(element => this.utilsService.formatDate(element.nativeElement.getAttribute("data-calendar")) == this.utilsService.formatDate(cell.calendar));

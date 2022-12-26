@@ -10,6 +10,7 @@ export class Project implements Deserializable {
   	public status: string;
   	public confidencePercentage: number;
   	public projects: Project[];
+  	public parent: Project;
   	public resources: Resource[];
   	public requests: Request[];
   	public selected: boolean = true;

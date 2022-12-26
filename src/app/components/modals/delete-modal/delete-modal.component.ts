@@ -16,7 +16,7 @@ export class DeleteModalComponent {
  	
   	constructor(public activeModal: NgbActiveModal) {}
   	
-  	private validate() {
+  	public validate() {
   		if (this.object && this.service){
 			this.service.delete(this.object); 
 	  	}

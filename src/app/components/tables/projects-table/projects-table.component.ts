@@ -7,6 +7,7 @@ import { DeleteModalComponent } from '../../modals/delete-modal/delete-modal.com
 import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../models/project.model';
 import { SortableHeader, SortEvent } from "src/app/directives/sortable-header";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 const compare = (v1: string | number, v2: string | number) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
@@ -18,17 +19,19 @@ export class ProjectsTableComponent implements OnInit {
   	isCollapsedMap = new Map<string, boolean>(); 
   	projects: Project[];
   	sortedProjects: Project[];
+  	filtersForm: FormGroup;
 	@ViewChildren(SortableHeader) headers: QueryList<SortableHeader>;
 	  
-	constructor(private projectService: ProjectService, private modalService: NgbModal) { }
+	constructor(private projectService: ProjectService, private modalService: NgbModal, private fb:FormBuilder, ) { }
 
   	ngOnInit() {
 		this.projectService.getProjects().subscribe(data => {
 			this.projects = data;
-			console.log(this.projects);
 			this.setCollapsedMap(this.projects);
-			console.log(this.isCollapsedMap);
 		});
+		this.filtersForm = this.fb.group({
+			searchText:''
+	  });
   	}
 
 	setCollapsedMap(projects: Project[]){
@@ -40,29 +43,30 @@ export class ProjectsTableComponent implements OnInit {
 
 	toggle(id: string){ this.isCollapsedMap.set(id, !this.isCollapsedMap.get(id));}
 	isCollapsed(id: string): boolean{ return this.isCollapsedMap.get(id); }
-  	
-	onSort({ column, direction }: SortEvent) {
-		// resetting other headers
-		this.headers.forEach((header) => {
-			if (header.sortable !== column) {
-				header.direction = '';
-			}
-		});
+	updateFilter(selectedProjects: Project[]){ this.projects = selectedProjects; }
 
-		// sorting countries
-		if (direction === '' || column === '') {
-			this.sortedProjects = this.projects;
-		} else {
-			// this.sortedProjects = [...this.projects].sort((a, b) => {
-			// 	const res = compare(a[column], b[column]);
-			// 	return direction === 'asc' ? res : -res;
-			// });
-		}
-	}
-  	openFormModal() {
+	// onSort({ column, direction }: SortEvent) {
+	// 	// resetting other headers
+	// 	this.headers.forEach((header) => {
+	// 		if (header.sortable !== column) {
+	// 			header.direction = '';
+	// 		}
+	// 	});
+
+	// 	// sorting countries
+	// 	if (direction === '' || column === '') {
+	// 		this.sortedProjects = this.projects;
+	// 	} else {
+	// 		// this.sortedProjects = [...this.projects].sort((a, b) => {
+	// 		// 	const res = compare(a[column], b[column]);
+	// 		// 	return direction === 'asc' ? res : -res;
+	// 		// });
+	// 	}
+	// }
+
+	createProject(project: Project | null) {
 		const modalRef = this.modalService.open(CreateProjectModalComponent, {size: 'lg', windowClass: 'modal-xl'});
-		//modalRef.componentInstance.project = this.project;
-		//modalRef.componentInstance.subproject = this.subproject;
+		modalRef.componentInstance.parent = project;
   
 		modalRef.result.then((result) => {
 			this.projects.push(result);
@@ -75,6 +79,7 @@ export class ProjectsTableComponent implements OnInit {
 		const modalRef = this.modalService.open(DeleteModalComponent);
 	    modalRef.componentInstance.service = this.projectService;
 		modalRef.componentInstance.object = project;
+		modalRef.componentInstance.name = project.name;
 
 		modalRef.result.then((result) => {
 			this.projects.splice(this.projects.indexOf(project), 1);

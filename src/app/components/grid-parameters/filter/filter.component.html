@@ -1,21 +1,9 @@
-<div>
-	<div class="filter">
-		<div class="filter">
-			<input name="filter" class="form-control" (focus)="toggle()"[(ngModel)]="searchText" placeholder="Filtrer par projet" [value]="searchText" >
-			<ul class="list" *ngIf="filterActivated" >
-				<li *ngFor="let project of projects | filter : searchText" >
-					<input [(ngModel)]="project.selected" (change)="getSelected()" type="checkbox" name="projects" value="{{project.id}}" />
-					<span>{{project.name}}</span> 	
-				</li>
-				<li>
-					<div title="Vider la s&eacute;lection" (click)="clearSelection()" *ngIf="selected_count">Clear Selection</div>
-				</li>
-			</ul>
-			<span (click)="clearFilter()" *ngIf="searchText.length>0">X</span>
-			
-			
-		</div>
-	</div>
-
-
+<div class="filter" >
+	<input name="filter" (focus)="focusIn()" class="form-control" [(ngModel)]="searchText" placeholder="Filtrer par projet" [value]="searchText" >
+	<ul class="list" (focusout)="focusOut()" *ngIf="filterActivated" >
+		<li *ngFor="let project of projects | filter : searchText" >
+			<input [(ngModel)]="project.selected" (change)="changeSelection()" type="checkbox" value="{{project.id}}" />
+			<span>{{project.name}}</span>
+		</li>
+	</ul>
 </div>

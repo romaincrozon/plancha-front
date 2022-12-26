@@ -9,7 +9,7 @@
 	</mat-form-field>
 	
 	<!-- Filter project -->
-	<div class="filter form-control selector ">
+	<!-- <div class="filter form-control selector ">
 		<div (click)="toggle()" class="filter-list" >
 			Filtrer par projets: <span *ngFor="let project of selectedProjects"><i class="tim-icons icon-simple-remove" (click)="removeProjectFromSelection(project)"></i>{{project.name}}</span>
 		</div>
@@ -25,9 +25,9 @@
 			<div title="Vider la s&eacute;lection" (click)="clearSelection()" *ngIf="selected_count">Clear Selection</div>
 		</div>
 		<span (click)="clearFilter()" *ngIf="searchText.length>0">X</span>
-	</div>
+	</div> -->
 
-<!-- 	<app-filter *ngIf="projects" [projects]="projects" [parentForm]="gridParameterGroup"></app-filter> -->
+	<app-filter *ngIf="projects" [projects]="projects" [parentForm]="gridParameterGroup" (filterEvent)="updateFilter($event)"></app-filter>
 
 	<!-- <div class="form-group" >
 		<select (change)="submitForm()" #view class="form-control" formControlName="view" >

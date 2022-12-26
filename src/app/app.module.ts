@@ -43,7 +43,6 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestComponent } from './pages/request/request.component';
 import { TodoComponent } from './pages/todo/todo.component';
-import { SubprojectComponent } from './pages/subproject/subproject.component';
 import { AssignmentComponent } from './pages/assignment/assignment.component';
 
 
@@ -69,7 +68,6 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
   declarations: [
   	AppComponent, 
   	ProjectComponent,
-    SubprojectComponent,
   	TablesComponent,
   	DashboardComponent,
   	PlanningComponent,

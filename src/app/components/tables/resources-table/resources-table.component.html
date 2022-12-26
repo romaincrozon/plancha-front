@@ -13,9 +13,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let resource of project?.resourceList">
-						<td>{{resource.firstname}}</td>
-						<td colspan="2">{{resource.lastname}}</td>
+					<tr *ngFor="let resource of mapResouces | keyvalue">
+						<td>{{resource.value.firstname}}</td>
+						<td colspan="2">{{resource.value.lastname}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -25,6 +25,6 @@
 				Pas de ressources trouv&eacute;s
 			</div>
 		</ng-template>
-		<button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une ressource</button>
+		<!-- <button (click)="openFormModal()" class=" btn btn-fill btn-danger" >Ajouter une ressource</button> -->
 	</div>
 </div>

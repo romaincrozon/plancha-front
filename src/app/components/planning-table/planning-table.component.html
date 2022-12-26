@@ -10,87 +10,114 @@
 						<app-grid-parameters [projects]="allProjects"></app-grid-parameters>
 					</div>	
 <!-- 					<app-resource-synthesis [projects]="projects" [calendar]="calendar"></app-resource-synthesis> -->
-					<div class=" table-responsive" >
-						<table class=" table tablesorter">
-							<thead class=" text-primary">
-								<tr>
-									<th class="empty-cell" colspan="5"></th>
-									<th *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
-								</tr>
-								<tr>
-									<th class="empty-cell" colspan="5"></th>
-									<th *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
-								</tr>
-								<!-- <tr style="display:none">
-									<th class="empty-cell" colspan="5"></th>
-									<th *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'gainsboro'}" >{{date.calendar | date:'d'}}</th>
-								</tr> -->
-							</thead>
-							<tbody>
-								<ng-container *ngFor="let resource of resources">
-									<tr>
-										<td>{{resource.quadri}}%</td>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-									<tr>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-									<tr>
-										<td *ngFor="let resourceCalendar of resource?.resourceCalendars" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{resourceCalendar | countProjectPipe:calendar}}</td>
-									</tr>
-								</ng-container>
-								<ng-container *ngFor="let project of projects">
-									<tr>
-										<td> 
-											<!-- <button
-											type="button"
-											class="btn btn-outline-primary"
-											(click)="collapse.toggle()"
-											[attr.aria-expanded]="!isCollapsed"
-											aria-controls="collapseExample"
-										>
-											Toggle with Function
-										</button> -->
-										{{project.confidencePercentage}}%</td>
-										<td [attr.colspan]="4">{{project.name}}</td>
-										<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-project-id]="project.id" #count>{{project.subProjectList | countProjectPipe:calendar}}</td>
-									</tr>
-									<ng-container *ngFor="let subproject of project?.subProjectList">
-										<tr>
-											<td></td>
-											<td [attr.colspan]="3">{{subproject.name}}</td>
-											<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-subproject-id]="subproject.id" #count>{{subproject.taskList | countSubprojectPipe:calendar}}</td>
-										</tr>
-										<ng-container *ngFor="let task of subproject?.taskList">
-											<tr>
-												<td></td>
-												<td></td>
-												<td>{{task.name}}</td>
-												<td>
-													<button (click)="openFormModal()" type="button" class="btn btn-link">
-                      									<i class="tim-icons icon-pencil"></i>
-                    								</button>
-                    							</td>
-												<td *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="calendar.calendar" [attr.data-task-id]="task.id" #count>{{task.resourceCalendars | countTaskPipe:calendar}}</td>
-											</tr>
-											<tr *ngFor="let resourceCalendar of task?.resourceCalendars"
-												app-planning-row
-												(valueChange)="sum($event)"
-												[resourceCalendar]="resourceCalendar"
-												[projectResources]="project?.resources"
-												[gridParameters]="gridParameters"					
-												[calendars]="calendar?.planchaCalendarList"
-												[weeks]="calendar?.weekList"
-												[project]="project"
-												[subproject]="subproject"
-												[task]="task">
-											</tr>
+					<table class=" table table-striped table-planning">
+						<thead>
+							<tr>
+								<th class="first-col" colspan="6" rowspan="3"></th>
+								<th class="planning-head" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
+							</tr>
+							<tr>
+								<th class="planning-head" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
+							</tr>
+							<tr >
+								<th class="planning-head days" *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'transparent'}" ></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngFor="let project of projects">
+								<tr *ngIf="project.selected">
+									<td *ngIf="project.projects.length > 0" class="collapse-icon">
+										<i class="tim-icons" 
+											[ngClass]="isCollapsed(project.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+											(click)="toggle(project.id)"></i>
+									</td>
+									<td *ngIf="project.projects.length == 0" ></td>
+									<td [style.background-color]="project.color" class="cell-background"></td>
+									<td [ngClass]="project.projects.length == 0 ? 'row-header' : ''" colspan="4">{{project.name}}</td>
+									<ng-container *ngFor="let week of calendar?.weekList">
+										<ng-container *ngFor="let date of week?.planchaCalendars">
+											<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" >{{project.projects | countProjectPipe:calendar}}</td>
 										</ng-container>
-									</ng-container> 
-								</ng-container>
-							</tbody>
-						</table>
-					</div>
+									</ng-container>
+								</tr>
+								
+								<ng-container *ngIf="!isCollapsed(project.id)">
+									<tr *ngFor="let resourceCalendar of project?.resourceCalendars"
+										app-planning-row
+										(valueChange)="sum($event)"
+										[resourceCalendar]="resourceCalendar"
+										[offset]="2"
+										[gridParameters]="gridParameters"					
+										[calendar]="calendar"
+										[weeks]="calendar?.weekList"
+										[project]="project">
+									</tr>
+									
+									<ng-container *ngFor="let subItem of project?.projects">
+										<tr>
+											<td [attr.colspan]="subItem.projects.length == 0 ? 2 : 1"></td>
+											<td *ngIf="subItem.projects.length > 0" class="collapse-icon">
+												<i class="tim-icons" 
+													[ngClass]="isCollapsed(subItem.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+													(click)="toggle(subItem.id)"></i>
+											</td>
+											<td [style.background-color]="subItem.color" class="cell-background"></td>
+											<td [ngClass]="subItem.projects.length == 0 ? 'row-header' : ''" colspan="3">{{subItem.name}}</td>
+											<ng-container *ngFor="let week of calendar?.weekList">
+												<ng-container *ngFor="let date of week?.planchaCalendars">
+													<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
+												</ng-container>
+											</ng-container>
+										</tr>
+										<tr *ngFor="let subItemResourceCalendar of subItem.resourceCalendars">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td class="row-header" colspan="2">{{subItemResourceCalendar.resource.quadri}}</td>
+											<ng-container *ngFor="let week of calendar?.weekList">
+												<ng-container *ngFor="let date of week?.planchaCalendars">
+													<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
+												</ng-container>
+											</ng-container>
+										</tr>
+										<ng-container *ngIf="!isCollapsed(subItem.id)">
+											<ng-container *ngFor="let subSubItem of subItem?.projects">
+												<tr>
+													<td></td>
+													<td></td>
+													<td [style.background-color]="subSubItem.color" class="cell-background"></td>
+													<td class="row-header">{{subSubItem.name}}</td>
+													<td>
+														<button (click)="openFormModal()" type="button" class="btn btn-link">
+															<i class="tim-icons icon-pencil"></i>
+														</button>
+													</td>	
+													<ng-container *ngFor="let week of calendar?.weekList">
+														<ng-container *ngFor="let date of week?.planchaCalendars">
+															<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
+														</ng-container>
+													</ng-container>
+												</tr>
+													
+												<tr *ngFor="let subSubItemResourceCalendar of subSubItem.resourceCalendars">
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td class="row-header" >{{subSubItemResourceCalendar.resource.quadri}}</td>
+													<ng-container *ngFor="let week of calendar?.weekList">
+														<ng-container *ngFor="let date of week?.planchaCalendars">
+															<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
+														</ng-container>
+													</ng-container>
+												</tr>
+											</ng-container>
+										</ng-container>
+									</ng-container>
+								</ng-container> 
+							</ng-container>
+						</tbody>
+					</table>
 				</div>
 				<ng-template #noItemsFound>
 					<div class="card-body" >

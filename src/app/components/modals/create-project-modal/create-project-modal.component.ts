@@ -14,7 +14,8 @@ import { appProperties } from '../../../app.messages';
 export class CreateProjectModalComponent implements OnInit {
   
   	createProjectForm: FormGroup;
-  	project: Project;
+  	parent: Project;
+  	projects: Project[];
   	selectedColor: string;
   	colors: string[];
   
@@ -24,19 +25,23 @@ export class CreateProjectModalComponent implements OnInit {
     }
   	
   	ngOnInit() {
-  		this.createForm();
   		this.colors = appProperties.colors;
+		this.projectService.getProjects().subscribe(data => {
+			this.projects = data;
+			console.log(this.projects);
+		});
+		this.createForm();
   	}
     
-  	private selectColor(event: any, color: string){
+  	private selectColor(color: string){
   		this.selectedColor = color;
-  		//this.renderer.addClass(event.target, 'selected');
   	}
   	
   	private createForm() {
     	this.createProjectForm = this.formBuilder.group({
-      		name: new FormControl(),
-      		status: new FormControl(),
+      		name: new FormControl('', Validators.required),
+      		status: new FormControl('', Validators.required),
+			parent: new FormControl(this.parent ? this.parent.id : ''),
 	      	confidencePercentage: new FormControl(),
 			soldWorkload: new FormControl(),
 			challengedWorkload: new FormControl(),
@@ -46,12 +51,17 @@ export class CreateProjectModalComponent implements OnInit {
     	});
   	}
   
-  	private submitForm() {
+  	private createProject() {
   		var projectToCreate = new Project(this.createProjectForm.value);
-  		projectToCreate.color = this.selectedColor;
+		if (projectToCreate.parent){
+			let parentProject = new Project();
+			parentProject.id = projectToCreate.parent + "";
+			projectToCreate.parent = parentProject; 
+		} else {
+			projectToCreate.parent = null;
+		}
 		this.projectService.createProject(projectToCreate).subscribe(data => {
-			this.project = data;
-		    this.activeModal.close(this.project);
+		    this.activeModal.close(data);
 		});
   	}
 }

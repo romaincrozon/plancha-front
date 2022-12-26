@@ -30,8 +30,6 @@ import { AlertComponent } from './alert/alert.component';
 import { ResourcesTableFullComponent } from './resources-table-full/resources-table-full.component';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { KeysPipe } from '../pipes/keys.pipe';
-import { CountTaskPipePipe } from '../pipes/count-task-pipe.pipe';
-import { CountSubprojectPipePipe } from '../pipes/count-subproject-pipe.pipe';
 import { CountProjectPipePipe } from '../pipes/count-project-pipe.pipe';
 import { ResourcePlanningTableComponent } from './resource-planning-table/resource-planning-table.component';
 import { TodoTableComponent } from './tables/todo-table/todo-table.component';
@@ -50,7 +48,6 @@ import { CreateCompetenceModalComponent } from './modals/create-competence-modal
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 import { UpdateRequestModalComponent } from './modals/update-request-modal/update-request-modal.component';
 import { AddResourceToProjectModalComponent } from './modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
-import { CreateSubprojectModalComponent } from './modals/create-subproject-modal/create-subproject-modal.component';
 import { CreateTodoItemModalComponent } from './modals/create-todo-item-modal/create-todo-item-modal.component';
 import { CreateNeedModalComponent } from './modals/create-need-modal/create-need-modal.component';
 import { CreateAvailabilityModalComponent } from './modals/create-availability-modal/create-availability-modal.component';
@@ -93,8 +90,6 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
   	ResourcesTableFullComponent, 
   	FilterPipe, 
   	KeysPipe,
-  	CountTaskPipePipe, 
-    CountSubprojectPipePipe,
     CountProjectPipePipe,
   	ResourcePlanningTableComponent, 
   	TodoTableComponent, 
@@ -114,7 +109,6 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     AddResourceToProjectModalComponent,
     DeleteModalComponent,
   	UpdateRequestModalComponent,
-    CreateSubprojectModalComponent,
     CreateTodoItemModalComponent,
     AddResourceToProjectModalComponent,
     CreateNeedModalComponent,
@@ -140,8 +134,6 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    CountTaskPipePipe,
-    CountSubprojectPipePipe,
   	CountProjectPipePipe,
   	FilterPipe,
   	KeysPipe,

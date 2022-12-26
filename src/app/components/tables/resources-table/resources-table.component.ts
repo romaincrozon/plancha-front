@@ -13,6 +13,8 @@ import { AddResourceToProjectModalComponent } from '../../modals/add-resource-to
 export class ResourcesTableComponent implements OnInit {
 
   	@Input() project: Project;
+	
+  	mapResources = new Map<string, Resource>(); 
   	
 	constructor(private modalService: NgbModal, 
 		public projectService: ProjectService, 
@@ -20,7 +22,17 @@ export class ResourcesTableComponent implements OnInit {
 		private activatedRoute:ActivatedRoute) { }
 
   	ngOnInit(): void {
+		this.createMapResources(this.mapResources, this.project);
   	}
+
+	createMapResources(mapResources: Map<string, Resource>, project: Project){
+		for (let resource of project.resources){
+			mapResources.set(resource.id, resource);
+		}
+		for (let p of project.projects){
+			this.createMapResources(mapResources, p);
+		}
+	}
 
   	openFormModal() {
 		const modalRef = this.modalService.open(AddResourceToProjectModalComponent);

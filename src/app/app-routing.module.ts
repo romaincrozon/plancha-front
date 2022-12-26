@@ -4,7 +4,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 import { ProjectComponent } from './pages/project/project.component';
-import { SubprojectComponent } from './pages/subproject/subproject.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TablesComponent } from './pages/tables/tables.component';
 import { PlanningComponent } from './pages/planning/planning.component';
@@ -30,7 +29,6 @@ const routes: Routes = [
   { path: 'assignment', component: AssignmentComponent, canActivate: [AuthGuard]  },
   { path: 'project', component: TablesComponent, canActivate: [AuthGuard]  },
   { path: 'project/:id', component: ProjectComponent , canActivate: [AuthGuard] },
-  { path: 'subproject/:id', component: SubprojectComponent, canActivate: [AuthGuard]  },
   { path: 'planning', component: PlanningComponent, canActivate: [AuthGuard]  },
   { path: 'profile', component: ProfileSettingsComponent, canActivate: [AuthGuard]  },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]  },

@@ -1,7 +1,3 @@
-<form [formGroup]="cellForm">
-	<div class="container">
-		<div class="form-group">
-			<input type="number" class="form-control" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" />
-		</div>
-	</div>
+<form [formGroup]="cellForm" class="cell-form">
+	<input type="number" class="cell" formControlName="value" #inputValue (blur)="submitForm(inputValue.value)" />
 </form>

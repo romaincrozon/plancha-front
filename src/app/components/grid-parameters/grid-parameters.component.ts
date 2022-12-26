@@ -72,6 +72,8 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
   		//this.selectAll();
     	this.changeDetectorRef.detectChanges();
   	}
+	
+	updateFilter(selectedProjects: Project[]){ this.projects = selectedProjects; }
   	
   	//---------------------------------------------------------------------------
   	// Filter

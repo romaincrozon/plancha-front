@@ -26,16 +26,19 @@ export class UtilsService {
 		return this.datepipe.transform(date, 'yyyy-MM-dd');
 	}
 	
-	mapResourceCalendarsToCalendarItems(items: ResourceCalendar[]){
-		return [].concat.apply([], items.map(resourceCalendar => resourceCalendar.calendarItems));
-	}
+	// mapResourceCalendarsToCalendarItems(items: ResourceCalendar[]){
+	// 	return [].concat.apply([], items.map(resourceCalendar => resourceCalendar.calendarItems));
+	// }
 	
-	mapTaskToCalendarItems(items: Task[]){
-		return [].concat.apply([], items.map(task => this.mapResourceCalendarsToCalendarItems(task.resourceCalendars)));
-	}
+	// mapTaskToCalendarItems(items: Task[]){
+	// 	return [].concat.apply([], items.map(task => this.mapResourceCalendarsToCalendarItems(task.resourceCalendars)));
+	// }
 	
-	mapSubProjectToCalendarItems(items: any[]){
-		return [].concat.apply([], items.map(subproject => this.mapTaskToCalendarItems(subproject.taskList)));
+	mapProjectToCalendarItems(items: any[]){
+		return [].concat.apply([], 
+					items.map(project => project.resourceCalendars)
+				.concat.apply([], 
+					items.map(project => this.mapProjectToCalendarItems(project.projects))));
 	}
 	
 	getProperty(message : string, feature : string, item: string): any {
@@ -49,5 +52,8 @@ export class UtilsService {
 	filterByQuadri(objects: any[], value: string): any[] {
 	    const filterValue = value.toLowerCase();
 	   	return objects.filter(object => object.quadri.toLowerCase().indexOf(filterValue) === 0);
+	}
+	getNumberOfDaysInWeek(calendar:any, date: any){
+		
 	}
 }

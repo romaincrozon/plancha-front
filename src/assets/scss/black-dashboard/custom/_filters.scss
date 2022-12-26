@@ -1,3 +1,32 @@
-.mat-form-field-subscript-wrapper {
-	//margin-top: auto !important;
+.filter {
+	> input {
+		border-color: #2b3553;
+		border-top-right-radius: 0.4285rem;
+		border-top-left-radius: 0.4285rem;
+		border-top: 1px solid #2b3553;
+		border-right: 1px solid #2b3553;
+		border-left: 1px solid #2b3553;
+	}
+	> ul {
+		position: absolute;
+		background-color: $light-bg;
+		width: -webkit-fill-available;
+		list-style-type: none;
+		border-color: #2b3553;
+		border-bottom-right-radius: 0.4285rem;
+		border-bottom-left-radius: 0.4285rem;
+		border-bottom: 1px solid #2b3553;
+		border-right: 1px solid #2b3553;
+		border-left: 1px solid #2b3553;
+	
+		> li {
+			margin-top: 5px;
+	
+			> span{
+				color: $danger-states;	
+				margin-left: 5px;
+			}
+		}
+	}
+	
 }

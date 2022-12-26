@@ -22,14 +22,12 @@ import { UtilsService } from '../../services/utils.service';
 export class PlanningRowComponent implements OnInit {
 
 	@Input() gridParameters: GridParameters;
-	@Input() projectResources: Resource[];
 	@Input() resourceCalendar: ResourceCalendar;
-	@Input() calendars: CalendarItem[];
+	@Input() calendar: any;
 	@Input() weeks: WeekItem[];
+	@Input() offset: number;
 	
 	@Input() project: Project;
-	@Input() subproject: SubProject;
-	@Input() task: Task;
 	
   	@Output() valueChange = new EventEmitter<any>();
 	
@@ -37,12 +35,12 @@ export class PlanningRowComponent implements OnInit {
 
   	ngOnInit(): void { }
   	
-	getResourceById(resourceId){
-		if (resourceId != null){
-			let item = this.projectResources.find(node => node.id == resourceId);
-			return item;
-		}
-	}
+	// getResourceById(resourceId){
+	// 	if (resourceId != null){
+	// 		let item = this.projectResources.find(node => node.id == resourceId);
+	// 		return item;
+	// 	}
+	// }
 	
 	sum(cell) {
         this.valueChange.emit(cell);

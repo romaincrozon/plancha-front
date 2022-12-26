@@ -44,7 +44,7 @@ export class PlanningCellComponent implements OnInit {
 	
   	private createForm() {
     	this.cellForm = this.formBuilder.group({
-      		value: null,//this.calendarItem.value,
+      		value: new FormControl(this.calendarItem.value ? this.calendarItem.value : 0)
     	});
   	}
   
