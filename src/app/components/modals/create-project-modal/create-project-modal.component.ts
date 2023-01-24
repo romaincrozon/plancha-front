@@ -26,9 +26,8 @@ export class CreateProjectModalComponent implements OnInit {
   	
   	ngOnInit() {
   		this.colors = appProperties.colors;
-		this.projectService.getProjects().subscribe(data => {
+		  this.projectService.getAllProjects().subscribe(data => {
 			this.projects = data;
-			console.log(this.projects);
 		});
 		this.createForm();
   	}

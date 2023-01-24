@@ -11,6 +11,7 @@ import { CalendarItemService } from '../../services/calendar-item.service';
 import { UtilsService } from '../../services/utils.service';
 import { CalendarResourceTask } from '../../models/calendar-resource-task.model';
 import { WeekItem } from '../../models/week-item.model';
+import { Resource } from 'src/app/models/resource.model';
 
 @Component({
   selector: 'app-planning-cell',
@@ -19,26 +20,23 @@ import { WeekItem } from '../../models/week-item.model';
 export class PlanningCellComponent implements OnInit {
 
   	@Input() resourceCalendar: ResourceCalendar;
-  	@Input() view: string;  	
   	@Input() calendarItem: CalendarItem;
   	@Input() week: any;
   	
   	@Input() project: Project;
-	@Input() subproject: SubProject;
-	@Input() task: Task;
-	
+  	@Input() subItem: Project;
+  	@Input() subSubItem: Project;
   	@Output() valueChange = new EventEmitter<any>();
   	
   	cellForm: FormGroup;
   	calendarItems: CalendarItem[];
   
   	constructor(private formBuilder: FormBuilder, 
-  		private calendarItemService: CalendarItemService, 
-  		private utilsService: UtilsService) {}
+  		private calendarItemService: CalendarItemService,
+		private utilsService: UtilsService) {}
 
   	ngOnInit(): void {
   		this.createForm();
-  		this.fillCell();
   	}
 
 	
@@ -49,46 +47,28 @@ export class PlanningCellComponent implements OnInit {
   	}
   
   	private submitForm(inputValue: number) {
-		if (this.view == 'days'){
-	  		var calendarItemToCreate = new CalendarItem(this.cellForm.value);
-	  		calendarItemToCreate.id = this.calendarItem.id;
-	  		calendarItemToCreate.calendar = this.calendarItem.calendar;
-	  		calendarItemToCreate.resourceCalendarId = this.resourceCalendar.id;
-  			this.calendarItemService.createCalendarItem(calendarItemToCreate).subscribe(data => {
-			  	let index = this.resourceCalendar.calendarItems.findIndex(calendarItem => this.utilsService.formatDate(calendarItem.calendar) === this.utilsService.formatDate(this.calendarItem.calendar));
-			  	if (index > -1){
-				  	this.resourceCalendar[index] = data;
-			  	} else {
-			  		this.resourceCalendar.calendarItems.push(data);
-			  	}
-			  	let diffValue = data.value - (this.calendarItem.value ? this.calendarItem.value : 0);
-			  	this.valueChange.emit({calendar:this.calendarItem.calendar, 
-			  		value:diffValue, 
-			  		projectId: this.project.id, 
-			  		subprojectId: this.subproject.id, 
-			  		taskId: this.task.id
-			  	});
+		var newResourceCalendar = new ResourceCalendar();
+		var calendars = new Array();
+		this.calendarItem.value = this.cellForm.value.value;
+		calendars.push(this.calendarItem);
+		let project = new Project();
+		project.id = this.project.id;
+		
+		let resource = new Resource();
+		resource.id = this.resourceCalendar.resource.id;
+
+		newResourceCalendar.project = project;
+		newResourceCalendar.resource = resource;
+		newResourceCalendar.calendarItems = calendars;
+		this.calendarItemService.createResourceCalendar(newResourceCalendar).subscribe(data => {
+			this.calendarItems = data.calendarItems; 
+			this.valueChange.emit({ 
+				calendar:this.calendarItem.calendar, 
+				value: inputValue, 
+				projectId: this.project.id,
+				subItemId: this.subItem? this.subItem.id : null, 
+				subSubItemId: this.subSubItem? this.subSubItem.id : null
 			});
-		}else{
-  			var weekItemToCreate = new WeekItem();
-  			var calendars = new Array();
-  			this.week.planchaCalendars.forEach(function (planchaCalendar) {
-			    calendars.push(planchaCalendar.calendar);
-			});
-  			weekItemToCreate.calendars = calendars;
-  			weekItemToCreate.resourceCalendarId = this.resourceCalendar.id;
-  			weekItemToCreate.value = this.cellForm.value.value;
-  			this.calendarItemService.createWeekItem(weekItemToCreate).subscribe(data => {
-				this.calendarItems = data;
-			});
-		}
-  	}
-  	
-  	fillCell(){
-		if (this.view == 'days'){
-    		this.cellForm.controls['value'].setValue(this.calendarItem.value);
-    	} else {
-    		//this.cellForm.controls['value'].setValue(this.calendarItem.value);
-		}
+		});
   	}
 }

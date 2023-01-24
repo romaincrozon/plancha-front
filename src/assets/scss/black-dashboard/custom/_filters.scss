@@ -21,12 +21,16 @@
 	
 		> li {
 			margin-top: 5px;
-	
-			> span{
+			> ul {
+				padding-left: 1rem;
+			}
+			
+			> ul > li > span, > span{
 				color: $danger-states;	
 				margin-left: 5px;
 			}
 		}
 	}
+	margin-bottom: 20px;
 	
 }

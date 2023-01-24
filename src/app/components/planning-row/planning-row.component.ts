@@ -28,6 +28,8 @@ export class PlanningRowComponent implements OnInit {
 	@Input() offset: number;
 	
 	@Input() project: Project;
+	@Input() subItem: Project;
+	@Input() subSubItem: Project;
 	
   	@Output() valueChange = new EventEmitter<any>();
 	
@@ -46,15 +48,15 @@ export class PlanningRowComponent implements OnInit {
         this.valueChange.emit(cell);
     }
     
-    getCellValue(resourceCalendar, calendar): CalendarItem {
+    getCellValue(resourceCalendar, date): CalendarItem {
     	if (resourceCalendar != null && resourceCalendar.calendarItems != null) {
-  			var date = this.utilsService.formatDate(calendar.calendar);
+  			var calendar = this.utilsService.formatDate(date.calendar);
   			let item = resourceCalendar.calendarItems.find(node => 
-  				this.utilsService.formatDate(node.calendar) == date);
+  				this.utilsService.formatDate(node.calendar) == calendar);
   			if (item){
     			return item;
     		}
     	}
-    	return calendar;
+    	return date;
     }
 }

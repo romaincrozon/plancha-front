@@ -2,12 +2,13 @@ import { Deserializable } from './deserializable.model';
 import { Resource } from './resource.model';
 import { Task } from './task.model';
 import { CalendarItem } from './calendar-item.model';
+import { Project } from './project.model';
 
 export class ResourceCalendar implements Deserializable {
   
   	public id: number;
   	public resource: Resource;
-  	public task: Task;
+  	public project: Project;
   	public calendarItems: CalendarItem[];
 
 	constructor(input?: any) {

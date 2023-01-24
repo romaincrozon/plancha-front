@@ -1,10 +1,8 @@
 .table {
-    margin-top: 2em;
-    display: inline-block;
+    // margin-top: 2em;
+    // display: inline-block;
     --bs-table-striped-bg: none;
-    > .table-planning td {
-        width: 25px;
-    }
+    
     th.planning-head {
         text-align: center;
         padding: unset;
@@ -14,36 +12,61 @@
     th {
         border-width: 1px;
     }
-    
-    > tbody > tr {
-        > td.cell-value {
-            text-align: center;
-            padding: 8px 0;    
-            width: 6px;
+    > thead > tr.days {
+        height: 5px;
+    }
+    > tbody {
+        > tr.project {
+            background-color: $gray-300;
         }
-        > td.collapse-icon{  
-            width: 20px;
+        > tr.sub-item {
+            background-color: $gray-200;
         }
-        > td.empty {
-            --bs-table-accent-bg: unset;
-            border-color: transparent;
+        > tr.sub-sub-item {
+            background-color: $gray-100;
         }
-        > td.cell-background {
-            width: 5px;
-        }
-        > td.input-cell {
-            padding: unset;
-            width: 25px;
-            padding: 8px 0;
-        }
-        > td.row-header {
-            padding-left: 15px;
+        > tr {
+            > td.cell-value {
+                text-align: center;
+                padding: 8px 0;    
+                width: 6px;
+            }
+            > td.collapse-icon{  
+                width: 20px;
+                border: none;
+            }
+            > td.empty {
+                --bs-table-accent-bg: unset;
+                border-color: transparent;
+                background-color: $light-bg;
+            }
+            > td.cell-background {
+                width: 5px;
+            }
+            > td.cell-background.resource-background {
+                background-color: #00A2E8;
+            }
+
+            > td.input-cell {
+                padding: unset;
+                width: 25px;
+                padding: 8px;
+            }
+            > td.empty {
+                border: none;
+            }
+            > td.row-header {
+                // padding-left: 15px;
+            }
         }
     }
     > thead > tr > th.first-col {
         min-width: 250px;
     }
 } 
+.table-planning > thead > tr > th.first-col  {
+    border: none;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

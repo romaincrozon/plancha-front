@@ -18,19 +18,26 @@ const httpOptions = {
 })
 export class ProjectService {
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    private extractData(res: Response) {
-        let body = res;
-        return body || {};
-    }
+  private extractData(res: Response) {
+      let body = res;
+      return body || {};
+  }
 
-    getProjects(): Observable<Project[]> {
-        return this.http.get<Project[]>(endpoint + 'project')
-        .pipe(
-          	map(data => data.map(data => new Project().deserialize(data))) 
-	    );
-    }
+  getProjectsWithNoParent(): Observable<Project[]> {
+    return this.http.get<Project[]>(endpoint + 'project')
+      .pipe(
+          map(data => data.map(data => new Project().deserialize(data))) 
+    );
+  }
+
+  getAllProjects(): Observable<any> {
+    return this.http.get<Project[]>(endpoint + 'project/all')
+      .pipe(
+          map(data => data.map(data => new Project().deserialize(data))) 
+    );
+  }
 
     getProjectById(id: string): Observable<Project> {
     	return this.http.get<Project>(endpoint + 'project/' + id);    

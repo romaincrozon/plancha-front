@@ -3,7 +3,16 @@
 	<ul class="list" (focusout)="focusOut()" *ngIf="filterActivated" >
 		<li *ngFor="let project of projects | filter : searchText" >
 			<input [(ngModel)]="project.selected" (change)="changeSelection()" type="checkbox" value="{{project.id}}" />
+			<i class="tim-icons" 
+				[ngClass]="isCollapsed(project.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+				(click)="toggle(project.id)"></i>
 			<span>{{project.name}}</span>
+			<ul *ngIf="!isCollapsed(project.id)">
+				<li *ngFor="let subproject of project.projects | filter : searchText" >
+					<input [(ngModel)]="subproject.selected" (change)="changeSelection()" type="checkbox" value="{{subproject.id}}" />
+					<span>{{subproject.name}}</span>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </div>

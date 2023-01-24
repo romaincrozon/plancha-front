@@ -2,6 +2,7 @@ import {Deserializable} from './deserializable.model';
 import {SubProject} from './sub-project.model';
 import {Resource} from './resource.model';
 import {Request} from './request.model';
+import { ResourceCalendar } from './resource-calendar.model';
 
 export class Project implements Deserializable {
   
@@ -13,6 +14,7 @@ export class Project implements Deserializable {
   	public parent: Project;
   	public resources: Resource[];
   	public requests: Request[];
+  	public resourceCalendars: ResourceCalendar[];
   	public selected: boolean = true;
   	
 	public soldWorkload: number;

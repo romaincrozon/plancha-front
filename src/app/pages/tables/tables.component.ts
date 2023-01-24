@@ -24,7 +24,7 @@ export class TablesComponent implements OnInit {
   
   	getProjects() {
 	    this.projects = [];
-		this.projectService.getProjects().subscribe(data => {
+		this.projectService.getProjectsWithNoParent().subscribe(data => {
 	    	this.projects = data;
 	    });
 	}
@@ -34,7 +34,7 @@ export class TablesComponent implements OnInit {
 	  const modalRef = this.modalService.open(CreateProjectModalComponent);
 	  
 	  modalRef.result.then((result) => {
-	    this.projectService.getProjects().subscribe(data => {
+	    this.projectService.getProjectsWithNoParent().subscribe(data => {
 	    	this.projects = data;
 	    });
 	  }).catch((error) => {

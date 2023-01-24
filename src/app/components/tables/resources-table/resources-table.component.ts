@@ -22,7 +22,8 @@ export class ResourcesTableComponent implements OnInit {
 		private activatedRoute:ActivatedRoute) { }
 
   	ngOnInit(): void {
-		this.createMapResources(this.mapResources, this.project);
+		// this.createMapResources(this.mapResources, this.project);
+		console.log(this.project);
   	}
 
 	createMapResources(mapResources: Map<string, Resource>, project: Project){

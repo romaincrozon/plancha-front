@@ -44,7 +44,7 @@ export class CreateRequestModalComponent {
 	}
 	
   	getProjects() : Observable<Project[]>{
-		this.projectService.getProjects().subscribe(data => {
+		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
 		});
 	   	return of(this.projects);	

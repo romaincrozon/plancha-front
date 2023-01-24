@@ -3,19 +3,18 @@
 		<h4 class=" card-title">Resources affect&eacute;es</h4>
 	</div>
 	<div class=" card-body">
-		<div *ngIf="project?.resourceList?.length > 0; else noItemsFound" class=" table-responsive">
-			<table class=" table tablesorter" id="">
-				<thead class=" text-primary">
+		<div *ngIf="project?.resourceCalendars.length > 0; else noItemsFound" class=" table-responsive">
+			<table class=" table table-striped">
+				<thead>
 					<tr>
 						<th>Pr&eacute;nom</th>
 						<th>Nom</th>
-						<th><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let resource of mapResouces | keyvalue">
-						<td>{{resource.value.firstname}}</td>
-						<td colspan="2">{{resource.value.lastname}}</td>
+					<tr *ngFor="let resourceCalendar of project?.resourceCalendars">
+						<td>{{resourceCalendar.resource?.firstname}}</td>
+						<td colspan="2">{{resourceCalendar.resource?.lastname}}</td>
 					</tr>
 				</tbody>
 			</table>

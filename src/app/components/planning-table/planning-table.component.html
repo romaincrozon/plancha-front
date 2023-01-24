@@ -17,26 +17,29 @@
 								<th class="planning-head" *ngFor="let month of calendar?.monthList" [attr.colspan]="month.numberOfDays" >{{month.name}}</th>
 							</tr>
 							<tr>
-								<th class="planning-head" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}</th>
+								<th class="planning-head" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays">S{{week.numWeek}}<br>{{getFirstDayOfWeek(week)}}</th>
 							</tr>
-							<tr >
-								<th class="planning-head days" *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'transparent'}" ></th>
+							<!-- <tr>
+								<th class="planning-head" *ngFor="let week of calendar?.weekList" [attr.colspan]="week.numberOfDays"></th>
+							</tr> -->
+							<tr class="days">
+								<th class="planning-head" *ngFor="let date of calendar?.planchaCalendarList" [ngStyle]="{'background-color' : date.holiday ? 'red': 'transparent'}" ></th>
 							</tr>
 						</thead>
 						<tbody>
 							<ng-container *ngFor="let project of projects">
-								<tr *ngIf="project.selected">
+								<tr *ngIf="project.selected" class="project">
+									<td [style.background-color]="project.color" class="cell-background"></td>
 									<td *ngIf="project.projects.length > 0" class="collapse-icon">
 										<i class="tim-icons" 
 											[ngClass]="isCollapsed(project.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
 											(click)="toggle(project.id)"></i>
 									</td>
-									<td *ngIf="project.projects.length == 0" ></td>
-									<td [style.background-color]="project.color" class="cell-background"></td>
+									<td class="collapse-icon" *ngIf="project.projects.length == 0" ></td>
 									<td [ngClass]="project.projects.length == 0 ? 'row-header' : ''" colspan="4">{{project.name}}</td>
 									<ng-container *ngFor="let week of calendar?.weekList">
 										<ng-container *ngFor="let date of week?.planchaCalendars">
-											<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" >{{project.projects | countProjectPipe:calendar}}</td>
+											<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-project-id]="project.id" #count>{{project | countProjectPipe:date}}</td>
 										</ng-container>
 									</ng-container>
 								</tr>
@@ -53,64 +56,84 @@
 										[project]="project">
 									</tr>
 									
-									<ng-container *ngFor="let subItem of project?.projects">
-										<tr>
-											<td [attr.colspan]="subItem.projects.length == 0 ? 2 : 1"></td>
-											<td *ngIf="subItem.projects.length > 0" class="collapse-icon">
-												<i class="tim-icons" 
-													[ngClass]="isCollapsed(subItem.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
-													(click)="toggle(subItem.id)"></i>
-											</td>
-											<td [style.background-color]="subItem.color" class="cell-background"></td>
-											<td [ngClass]="subItem.projects.length == 0 ? 'row-header' : ''" colspan="3">{{subItem.name}}</td>
-											<ng-container *ngFor="let week of calendar?.weekList">
-												<ng-container *ngFor="let date of week?.planchaCalendars">
-													<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
-												</ng-container>
-											</ng-container>
-										</tr>
-										<tr *ngFor="let subItemResourceCalendar of subItem.resourceCalendars">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td class="row-header" colspan="2">{{subItemResourceCalendar.resource.quadri}}</td>
-											<ng-container *ngFor="let week of calendar?.weekList">
-												<ng-container *ngFor="let date of week?.planchaCalendars">
-													<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
-												</ng-container>
-											</ng-container>
-										</tr>
-										<ng-container *ngIf="!isCollapsed(subItem.id)">
-											<ng-container *ngFor="let subSubItem of subItem?.projects">
-												<tr>
-													<td></td>
-													<td></td>
-													<td [style.background-color]="subSubItem.color" class="cell-background"></td>
-													<td class="row-header">{{subSubItem.name}}</td>
-													<td>
-														<button (click)="openFormModal()" type="button" class="btn btn-link">
-															<i class="tim-icons icon-pencil"></i>
-														</button>
-													</td>	
-													<ng-container *ngFor="let week of calendar?.weekList">
-														<ng-container *ngFor="let date of week?.planchaCalendars">
-															<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
-														</ng-container>
+									<ng-container *ngIf="project.selected" >
+										<ng-container *ngFor="let subItem of project?.projects">
+											<tr class="sub-item">
+												<td class="empty" [attr.colspan]="subItem.projects.length == 0 ? 2 : 1"></td>
+												<td [style.background-color]="subItem.color" class="cell-background"></td>
+												<td *ngIf="subItem.projects.length > 0" class="collapse-icon">
+													<i class="tim-icons" 
+														[ngClass]="isCollapsed(subItem.id) ? 'icon-minimal-right' : 'icon-minimal-down'" 
+														(click)="toggle(subItem.id)"></i>
+												</td>
+												<td [ngClass]="subItem.projects.length == 0 ? 'row-header' : ''" colspan="3">{{subItem.name}}</td>
+												<ng-container *ngFor="let week of calendar?.weekList">
+													<ng-container *ngFor="let date of week?.planchaCalendars">
+														<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subItem-id]="subItem.id" #count>0</td>
 													</ng-container>
-												</tr>
-													
-												<tr *ngFor="let subSubItemResourceCalendar of subSubItem.resourceCalendars">
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td class="row-header" >{{subSubItemResourceCalendar.resource.quadri}}</td>
-													<ng-container *ngFor="let week of calendar?.weekList">
-														<ng-container *ngFor="let date of week?.planchaCalendars">
-															<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
-														</ng-container>
+												</ng-container>
+											</tr>
+
+											<tr *ngFor="let subItemResourceCalendar of subItem?.resourceCalendars"
+												app-planning-row
+												(valueChange)="sum($event)"
+												[resourceCalendar]="subItemResourceCalendar"
+												[offset]="3"
+												[gridParameters]="gridParameters"					
+												[calendar]="calendar"
+												[weeks]="calendar?.weekList"
+												[project]="project"
+												[subItem]="subItem">
+											</tr>
+											<!-- <tr *ngFor="let subItemResourceCalendar of subItem.resourceCalendars">
+												<td class="empty" colspan="3"></td>
+												<td class="row-header" colspan="2">{{subItemResourceCalendar.resource.quadri}}</td>
+												<ng-container *ngFor="let week of calendar?.weekList">
+													<ng-container *ngFor="let date of week?.planchaCalendars">
+														<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
 													</ng-container>
-												</tr>
+												</ng-container>
+											</tr> -->
+											<ng-container *ngIf="!isCollapsed(subItem.id)">
+												<ng-container *ngFor="let subSubItem of subItem?.projects">
+													<tr  class="sub-sub-item">
+														<td [style.background-color]="subSubItem.color" class="cell-background"></td>
+														<td class="empty" colspan="2"></td>
+														<td class="row-header">{{subSubItem.name}}</td>
+														<td>
+															<button (click)="openFormModal()" type="button" class="btn btn-link">
+																<i class="tim-icons icon-pencil"></i>
+															</button>
+														</td>	
+														<ng-container *ngFor="let week of calendar?.weekList">
+															<ng-container *ngFor="let date of week?.planchaCalendars">
+																<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subSubItem-id]="subSubItem.id" #count>0</td>
+															</ng-container>
+														</ng-container>
+													</tr>
+														
+													<tr *ngFor="let subSubItemResourceCalendar of subSubItem?.resourceCalendars"
+														app-planning-row
+														(valueChange)="sum($event)"
+														[resourceCalendar]="subSubItemResourceCalendar"
+														[offset]="4"
+														[gridParameters]="gridParameters"					
+														[calendar]="calendar"
+														[weeks]="calendar?.weekList"
+														[project]="subSubItem"
+														[subItem]="subItem"
+														[subSubItem]="subSubItem">
+													</tr>
+													<!-- <tr *ngFor="let subSubItemResourceCalendar of subSubItem.resourceCalendars">
+														<td class="empty" colspan="4"></td>
+														<td class="row-header" >{{subSubItemResourceCalendar.resource.quadri}}</td>
+														<ng-container *ngFor="let week of calendar?.weekList">
+															<ng-container *ngFor="let date of week?.planchaCalendars">
+																<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays">0</td>
+															</ng-container>
+														</ng-container>
+													</tr> -->
+												</ng-container>
 											</ng-container>
 										</ng-container>
 									</ng-container>

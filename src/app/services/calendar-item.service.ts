@@ -6,6 +6,8 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { CalendarItem } from '../models/calendar-item.model';
 import { CalendarResourceTask } from '../models/calendar-resource-task.model';
 import { CalendarRange } from '../models/calendar-range.model';
+import { ResourceCalendar } from '../models/resource-calendar.model';
+import { WeekItem } from '../models/week-item.model';
 
 const endpoint = 'http://localhost:8080/';
 const httpOptions = {
@@ -33,11 +35,11 @@ export class CalendarItemService {
 		    );
     }
     
-    createWeekItem(weekItem: any): Observable<CalendarItem[]> {
-	    return this.http.post<CalendarItem[]>(endpoint + 'weeklyCalendarItem', weekItem, httpOptions)
+    createResourceCalendar(resourceCalendar: ResourceCalendar): Observable<ResourceCalendar> {
+	    return this.http.post<ResourceCalendar>(endpoint + 'resourceCalendar', resourceCalendar, httpOptions)
 	        .pipe(
-	          	map(data => data.map(data => new CalendarItem().deserialize(data))) 
-		    );
+                catchError(this.handleError('post Week item', resourceCalendar))
+            );
     }
     
     

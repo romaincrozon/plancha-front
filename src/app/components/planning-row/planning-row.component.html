@@ -1,5 +1,5 @@
-<td [attr.colspan]="offset"></td>
-<td class="cell-background"></td>
+<td [attr.colspan]="offset" class="empty"></td>
+<td class="cell-background resource-background"></td>
 <td class="input-cell row-header" [attr.colspan]="5 - offset">{{resourceCalendar.resource?.quadri}}</td>
 
 <ng-container *ngFor="let week of calendar?.weekList">
@@ -8,6 +8,8 @@
 			<app-planning-cell
 				(valueChange)="sum($event)" 
 				[project]="project"
+				[subItem]="subItem"
+				[subSubItem]="subSubItem"
 				[calendarItem]="getCellValue(resourceCalendar, date)" 
 				[resourceCalendar]="resourceCalendar" >
 			</app-planning-cell>

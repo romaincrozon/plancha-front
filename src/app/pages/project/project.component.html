@@ -8,45 +8,105 @@
 				<div class=" card-body">
 					<form [formGroup]="updateProjectForm">
 						<div class=" row">
-							<div class="col-md-3 pr-md-1">
-								<div class=" form-group">
-									<label>Nom</label> 
-									<input class=" form-control" formControlName="name" placeholder="Nom" type="text" />
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+
+										<div class=" row">
+											<div class="col-md-12">
+												<div class=" form-group">
+													<label>Nom</label> 
+													<input class=" form-control" formControlName="name" placeholder="Nom" type="text" />
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div [ngClass]="isForecast ? 'col-md-6' : 'col-md-12'">
+												<div class=" form-group">
+													<label>Status</label>
+													<select class=" form-control" formControlName="status" (ngModelChange)="changeForecast($event)">
+														<option value="active">En cours</option>
+														<option value="forecast">Pr&eacute;visionnel</option>
+														<option value="closed">Cl&ocirc;tur&eacute;</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class=" form-group" *ngIf="isForecast">
+													<label for="confidencePercentage">% de confiance</label>
+													<input class=" form-control" type="number" name="confidencePercentage" formControlName="confidencePercentage" value="100"/>
+												</div>
+											</div>
+										</div>
+										
+										<div class=" row">
+											<div class="col-md-12">
+												<div class=" form-group">
+													<label>Projet parent</label>
+													<select class=" form-control" formControlName="parent">
+														<option value="0">Sélectionnez un projet parent</option>
+														<option *ngFor="let project of allProjects" [value]="project.id">{{project.name}}</option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+										<div class=" row">
+											<div class="col-md-6">
+												<div class=" form-group" >
+													<label for="soldWorkload">Charge vendue</label>
+													<input class=" form-control" type="number" name="soldWorkload" formControlName="soldWorkload" />
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class=" form-group" >
+													<label for="challengedWorkload">Charge challeng&eacute;e</label>
+													<input class=" form-control" type="number" name="challengedWorkload" formControlName="challengedWorkload" />
+												</div>
+											</div>
+										</div>
+											
+										<div class=" row">
+											<div class="col-md-6">
+												<div class=" form-group" >
+													<label for="consumedWorkload">Charge consomm&eacute;e</label>
+													<input class=" form-control" type="number" name="consumedWorkload" formControlName="consumedWorkload" />
+												</div>
+											</div>
+										
+											<div class="col-md-6">
+												<div class=" form-group">
+													<label for="projectMargin">Marge</label>
+													<input class=" form-control" type="number" name="projectMargin" formControlName="projectMargin" />
+												</div>
+											</div>
+										</div>
+											
+										<div class="row">
+											<div class="col-md-12">
+												<div>Color:</div>
+												<div class="color-grid">
+													<div class="color" [class.selected]="selectedColor == color" *ngFor="let color of colors" [style.background-color]="color" 
+														(click)="selectColor(color)">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<button class=" btn btn-fill btn-danger" type="submit">Sauvegarder</button>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class=" col-md-3 px-md-1">
-								<div class=" form-group">
-									<label>Status</label>
-									<select class=" form-control" formControlName="status">
-										<option value="active">En cours</option>
-										<option value="forecast">Pr&eacute;visionnel</option>
-										<option value="closed">Cl&ocirc;tur&eacute;</option>
-									</select>
-								</div>
+							<div class="col-md-4">
+								<app-resources-table [project]="project"></app-resources-table>
 							</div>
-							<div class=" col-md-4 px-md-1" *ngIf="project.parent">
-								<div class=" form-group">
-									<label>Projet parent</label>
-									<select class=" form-control" formControlName="parent">
-										<option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
-									</select>
-								</div>
-							</div>
-							<div class="save col-md-2 px-md-1">
-								<button class=" btn btn-fill btn-danger" type="submit">Sauvegarder</button>
+	
+							<div class=" col-md-4">
+								<app-request-table [project]="project"></app-request-table>
 							</div>
 						</div>
 					</form>
-
-					<div class="row">
-						<div class=" col-md-4 pr-md-1" >
-							<app-resources-table [project]="project"></app-resources-table>
-						</div>
-
-						<div class=" col-md-8 pl-md-1" >
-							<app-request-table [project]="project"></app-request-table>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

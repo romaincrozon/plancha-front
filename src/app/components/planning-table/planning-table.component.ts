@@ -34,23 +34,19 @@ export class PlanningTableComponent implements OnInit {
   	constructor(public calendarService: CalendarService, 
   		public projectService: ProjectService, 
   		public dataSharingService: DataSharingService,
-  		private modalService: NgbModal,
   		private utilsService: UtilsService,
   		private datepipe: DatePipe) {
   	}
 
   	ngOnInit(): void {
-		this.projectService.getProjects().subscribe(data => {
+		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
 			this.setCollapsedMap(this.projects);
-			console.log("projects");
-			console.log(this.projects);
 			
 			this.allProjects = data;
 		});
 		let currentDate = new Date();
   		currentDate.setMonth(currentDate.getMonth()+1);
-     	let formattedDate=currentDate.toISOString().slice(0,10);
 		this.calendarService.getCalendar(new CalendarRange(this.datepipe, new Date().toISOString(), currentDate.toISOString())).subscribe((data: {}) => {
 			this.calendar = data;
 		});
@@ -81,15 +77,25 @@ export class PlanningTableComponent implements OnInit {
 	toggle(id: string){ this.isCollapsedMap.set(id, !this.isCollapsedMap.get(id));}
 	isCollapsed(id: string): boolean{ return this.isCollapsedMap.get(id); }
   	
+	getFirstDayOfWeek(week: any){
+		if (week){
+			let firstDay = week.planchaCalendars.find(planchaCalendar => planchaCalendar.dayNumberInWeek == 1)
+			return this.datepipe.transform(firstDay.calendar, 'dd/MM'); 
+		}
+		return null;
+	}
+
 	sum(cell) {
-        let items = this.count.toArray().filter(element => this.utilsService.formatDate(element.nativeElement.getAttribute("data-calendar")) == this.utilsService.formatDate(cell.calendar));
-    	if (items){
+        let items = this.count.toArray().filter(element => {
+			return this.utilsService.formatDate(element.nativeElement.getAttribute("data-calendar")) == this.utilsService.formatDate(cell.calendar)
+		});
+        if (items){
     		items.forEach((item, index) => {
-    			if (item.nativeElement.getAttribute('data-task-id') && item.nativeElement.getAttribute('data-task-id') == cell.taskId){
+    			if (item.nativeElement.getAttribute('data-project-id') && item.nativeElement.getAttribute('data-project-id') == cell.projectId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
-	        	} else if (item.nativeElement.getAttribute('data-subproject-id') && item.nativeElement.getAttribute('data-subproject-id') == cell.subprojectId){
+	        	} else if (item.nativeElement.getAttribute('data-subItem-id') && item.nativeElement.getAttribute('data-subItem-id') == cell.subItemId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
-    			} else if (item.nativeElement.getAttribute('data-project-id') && item.nativeElement.getAttribute('data-project-id') == cell.projectId){
+    			} else if (item.nativeElement.getAttribute('data-subSubItem-id') && item.nativeElement.getAttribute('data-subSubItem-id') == cell.subSubItemId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
 	        	}  
     		});

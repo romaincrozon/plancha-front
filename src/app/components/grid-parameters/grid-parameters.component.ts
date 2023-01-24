@@ -22,7 +22,7 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
   	selectedProjects : Project[];
   	gridParameterGroup: FormGroup;
   	
-  	selected_count:number = 0;
+  	selectedCount:number = 0;
   	searchText: string = "";
   	filterActivated: boolean = false;
   	
@@ -38,7 +38,7 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
 
   	initializeForm(){
   		let currentDate = new Date();
-  		currentDate.setMonth(currentDate.getMonth()+1);
+  		currentDate.setMonth(currentDate.getMonth()+6);
      	let formattedDate=currentDate.toISOString().slice(0,10);
 
     	this.gridParameterGroup = this.fb.group({
@@ -82,11 +82,10 @@ export class GridParametersComponent implements OnInit, AfterViewChecked{
 	    	this.selectedProjects = this.projects.filter(project => {
 	          return project.selected;
 	        });
-	    	this.selected_count = this.selectedProjects.length; 
+	    	this.selectedCount = this.selectedProjects.length; 
 	    	
 	    	this.gridParameterGroup.patchValue({
 			  projects: this.selectedProjects 
-			  
 			});
 		}
 	}

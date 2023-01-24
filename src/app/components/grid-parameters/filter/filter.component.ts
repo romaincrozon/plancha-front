@@ -19,14 +19,29 @@ export class FilterComponent implements OnInit  {
   	
   	searchText: string = "";
   	filterActivated: boolean = false;
+	isCollapsedMap = new Map<string, boolean>(); 
   
   	constructor() {}
 
-  	ngOnInit(): void { this.initSelection(); }
+  	ngOnInit(): void { 
+		this.initSelection();
+		this.setCollapsedMap(this.projects); 
+	}
 
 	initSelection(){ this.projects.forEach(project => project.selected = true); }
   	changeSelection(){ this.filterEvent.emit(this.projects); }
   	clearFilter(){ this.searchText = ""; }
   	focusIn(){ this.filterActivated = true;console.log("focusin") }
   	focusOut(){ this.filterActivated = false; console.log("focusout")}
+
+	setCollapsedMap(projects: Project[]){
+		for (var item of projects){
+			this.isCollapsedMap.set(item.id, true);
+			this.setCollapsedMap(item.projects);
+		}
+	}
+
+	toggle(id: string){ this.isCollapsedMap.set(id, !this.isCollapsedMap.get(id));}
+	isCollapsed(id: string): boolean{ return this.isCollapsedMap.get(id); }
+  	
 }

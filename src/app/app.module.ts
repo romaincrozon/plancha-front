@@ -6,11 +6,10 @@ import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppComponent } from "./app.component";
 
-import { PlanningRowComponent } from './components/planning-row/planning-row.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -98,6 +97,7 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
   	DataSharingService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
     fakeBackendProvider,
     UtilsService,
   ],

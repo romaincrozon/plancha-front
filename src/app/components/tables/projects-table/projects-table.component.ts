@@ -25,7 +25,7 @@ export class ProjectsTableComponent implements OnInit {
 	constructor(private projectService: ProjectService, private modalService: NgbModal, private fb:FormBuilder, ) { }
 
   	ngOnInit() {
-		this.projectService.getProjects().subscribe(data => {
+		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
 			this.setCollapsedMap(this.projects);
 		});

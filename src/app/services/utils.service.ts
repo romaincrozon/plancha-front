@@ -7,6 +7,7 @@ import { CalendarItem } from '../models/calendar-item.model';
 import { ResourceCalendar } from '../models/resource-calendar.model';
 import { Task } from '../models/task.model';
 import { SubProject } from '../models/sub-project.model';
+import { Project } from '../models/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,16 @@ export class UtilsService {
 	// 	return [].concat.apply([], items.map(task => this.mapResourceCalendarsToCalendarItems(task.resourceCalendars)));
 	// }
 	
-	mapProjectToCalendarItems(items: any[]){
-		return [].concat.apply([], 
-					items.map(project => project.resourceCalendars)
-				.concat.apply([], 
-					items.map(project => this.mapProjectToCalendarItems(project.projects))));
+	mapProjectToCalendarItems(item: Project){
+		let y = item.resourceCalendars.map(resourceCalendar => resourceCalendar.calendarItems);
+		let array = y && y.length > 0 ? y[0] : []
+		let b = item.projects ? item.projects.map(project => this.mapProjectToCalendarItems(project)) : null;
+		if (b && b.length != 0){
+			b.map(c => {
+				array.concat(c)
+			})
+		}
+		return array;
 	}
 	
 	getProperty(message : string, feature : string, item: string): any {

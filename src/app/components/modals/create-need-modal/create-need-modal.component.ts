@@ -61,7 +61,7 @@ export class CreateNeedModalComponent implements OnInit {
   	}
   	
   	private getAllProjects(){
-  		this.projectService.getProjects().subscribe(data => {
+  		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
 		    this.filteredProjects = this.projectControl.valueChanges.pipe(
 		    	startWith(''),
