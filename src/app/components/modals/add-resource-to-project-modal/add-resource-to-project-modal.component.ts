@@ -11,6 +11,9 @@ import { ResourceService } from '../../../services/resource.service';
 import { ProjectService } from '../../../services/project.service';
 import { Resource } from '../../../models/resource.model';
 import { Project } from '../../../models/project.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ResourceCalendar } from 'src/app/models/resource-calendar.model';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-add-resource-to-project-modal',
@@ -19,54 +22,58 @@ import { Project } from '../../../models/project.model';
 export class AddResourceToProjectModalComponent implements OnInit {
 
   	addResourceToProjectForm: FormGroup;
-  	resourcesControl = new FormControl();
-  	//filteredResources: Observable<Resource[]>;
+
+  	filteredResources: Observable<Resource[]>;
   	resources: Resource[];
-  	
   	project: Project;
 
-  	constructor(public resourceService: ResourceService, public projectService: ProjectService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {
-    	this.createForm();
+  	constructor(public resourceService: ResourceService, 
+			public projectService: ProjectService, 
+			public authenticationService: AuthenticationService, 
+			public utilsService: UtilsService, 
+			public activeModal: NgbActiveModal, 
+			private formBuilder: FormBuilder) {
   	}
   	
 	ngOnInit() {
+		this.createForm();
 		this.getAllResources();
 	}
   
-  
-  	private getAllResources(){
-  		this.resourceService.getAll().subscribe(data => {
-			this.resources = data;
-		    /*this.filteredResources = this.resourcesControl.valueChanges.pipe(
-		    	startWith(''),
-		      	map(value => this.filter(value))
-		    );*/
-		});
-    
-  	}
-  	
-  	private createForm() {
+	private createForm() {
     	this.addResourceToProjectForm = this.formBuilder.group({
-      		resource: null,
+      		resourceControl: new FormControl('', Validators.required),
 		});
 	}
+  	private getAllResources(){
+		let existingResources = this.project? this.project.resources? this.project.resources.map(resource => resource.id) : [] : [];
+		this.resourceService.getAll().subscribe(data => {
+			console.log("this.resources");
+			console.log(data);
+			this.resources = data.filter(resource => resource.id != this.authenticationService.currentResourceValue.id && !existingResources.find(existingResourceId => existingResourceId == resource.id));
+			console.log(this.resources);
+			this.filteredResources = this.addResourceToProjectForm.controls.resourceControl.valueChanges.pipe(
+		    	startWith(''),
+		      	map(value => this.utilsService.filterByQuadri(this.resources, value))
+		    );
+		});
+  	}
   
   	private submitForm() {
-  		var resource = new Resource();
-  		resource.id = this.addResourceToProjectForm.value.resource;
-  		
-  		if (this.project.resources == null){
-  			this.project.resources = [];
-  		}
-  		this.project.resources.push(resource);
-  		this.projectService.addResourceToProject(this.project.id, resource).subscribe(data => {
-		    this.activeModal.close(data);
-		});
+		let resourceCalendar = new ResourceCalendar();
+		resourceCalendar.project = this.project;
+		resourceCalendar.resource = this.resources.find(resource => resource.quadri == this.addResourceToProjectForm.controls.resourceControl.value);
+		resourceCalendar.calendarItems = [];
+		console.log("submit")
+		if (!this.project.resourceCalendars)
+			this.project.resourceCalendars = [];
+		this.project.resourceCalendars.push(resourceCalendar);
+		console.log(this.project)
+		this.activeModal.close(this.project);
   	}
 	
 	private filter(value: string): Resource[] {
 	    const filterValue = value.toLowerCase();
 	   	return this.resources.filter(resource => resource.quadri?.toLowerCase().indexOf(filterValue) === 0);
 	}
-
 }

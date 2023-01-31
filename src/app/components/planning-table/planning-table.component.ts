@@ -15,6 +15,7 @@ import { GridParameters } from '../../models/grid-parameters.model';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { DirectiveAddresourceDirective } from '../../directives/directive-addresource.directive';
 import { ResourceCalendar } from '../../models/resource-calendar.model';
+import { AddResourceToProjectModalComponent } from '../modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
 
 @Component({
   selector: 'app-planning-table',
@@ -35,15 +36,21 @@ export class PlanningTableComponent implements OnInit {
   		public projectService: ProjectService, 
   		public dataSharingService: DataSharingService,
   		private utilsService: UtilsService,
+		private modalService: NgbModal,
   		private datepipe: DatePipe) {
   	}
 
   	ngOnInit(): void {
 		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
+			console.log("this.projects");
+			console.log(this.projects);
 			this.setCollapsedMap(this.projects);
-			
+		});
+		this.projectService.getAllProjects().subscribe(data => {
 			this.allProjects = data;
+			console.log("this.allProjects");
+			console.log(this.allProjects);
 		});
 		let currentDate = new Date();
   		currentDate.setMonth(currentDate.getMonth()+1);
@@ -61,7 +68,6 @@ export class PlanningTableComponent implements OnInit {
 		        	&& this.gridParameters.projects){
 				this.calendarService.getCalendar(this.gridParameters.calendarRange).subscribe((data: {}) => {
 					this.calendar = data;
-					console.log(this.calendar);
 				});
 				this.projects = this.gridParameters.projects;
 			}
@@ -86,10 +92,9 @@ export class PlanningTableComponent implements OnInit {
 	}
 
 	sum(cell) {
-        let items = this.count.toArray().filter(element => {
-			return this.utilsService.formatDate(element.nativeElement.getAttribute("data-calendar")) == this.utilsService.formatDate(cell.calendar)
-		});
-        if (items){
+        let items = this.count.toArray().filter(element => this.utilsService.formatDate(element.nativeElement.getAttribute("data-calendar")) == this.utilsService.formatDate(cell.calendar));
+        console.log(items);
+		if (items){
     		items.forEach((item, index) => {
     			if (item.nativeElement.getAttribute('data-project-id') && item.nativeElement.getAttribute('data-project-id') == cell.projectId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
@@ -102,14 +107,13 @@ export class PlanningTableComponent implements OnInit {
     	}
     }
   	
-  	// openFormModal() {
-	// 	const modalRef = this.modalService.open(AddResourceToTaskModalComponent);
-	// 	//modalRef.componentInstance.resources = resources;
-		
-	// 	modalRef.result.then((result) => {
-	// 		//this.getRequests();
-	// 	}).catch((error) => {
-	// 	  console.log(error);
-	// 	});
-  	// }
+	openAddResourceToProjectModal(project: Project){
+		const modalRef = this.modalService.open(AddResourceToProjectModalComponent);
+		modalRef.componentInstance.project = project;
+		modalRef.result.then((result) => {
+			project = result;
+		}).catch((error) => {
+			console.log(error);
+		});
+	}
 }

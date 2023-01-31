@@ -46,6 +46,10 @@
             > td.cell-background.resource-background {
                 background-color: #00A2E8;
             }
+            > td > img.add-user-icon {
+                width: 15px; 
+                float: right;
+            }
 
             > td.input-cell {
                 padding: unset;

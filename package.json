@@ -55,10 +55,6 @@
   ],
   "author": "Romain Crozon",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/black-dashboard-angular/issues"
-  },
-  "homepage": "https://demos.creative-tim.com/black-dashboard-angular/#/dashboard",
   "private": false,
   "dependencies": {
     "@angular/animations": "^11.0.5",

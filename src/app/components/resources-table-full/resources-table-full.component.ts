@@ -29,6 +29,10 @@ export class ResourcesTableFullComponent implements OnInit {
 			this.resources = data;
 		});
   	}
+
+	getRole(resource: Resource){
+		return this.utils.getProperty('roles', resource.role ? resource.role : "1", 'label');
+	}
   	
   	openFormModal(resource: Resource) {
 		const modalRef = this.modalService.open(CreateResourceModalComponent);

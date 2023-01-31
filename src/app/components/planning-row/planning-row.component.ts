@@ -48,15 +48,15 @@ export class PlanningRowComponent implements OnInit {
         this.valueChange.emit(cell);
     }
     
-    getCellValue(resourceCalendar, date): CalendarItem {
-    	if (resourceCalendar != null && resourceCalendar.calendarItems != null) {
-  			var calendar = this.utilsService.formatDate(date.calendar);
-  			let item = resourceCalendar.calendarItems.find(node => 
+    getCellValue(date): CalendarItem {
+    	if (this.resourceCalendar && this.resourceCalendar.calendarItems) {
+			var calendar = this.utilsService.formatDate(date.calendar);
+			let item = this.resourceCalendar.calendarItems.find(node => 
   				this.utilsService.formatDate(node.calendar) == calendar);
   			if (item){
     			return item;
     		}
-    	}
+    	} 
     	return date;
     }
 }

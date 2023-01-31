@@ -19,7 +19,7 @@ import { Resource } from 'src/app/models/resource.model';
 })
 export class PlanningCellComponent implements OnInit {
 
-  	@Input() resourceCalendar: ResourceCalendar;
+	@Input() resourceCalendar: ResourceCalendar;
   	@Input() calendarItem: CalendarItem;
   	@Input() week: any;
   	
@@ -32,8 +32,7 @@ export class PlanningCellComponent implements OnInit {
   	calendarItems: CalendarItem[];
   
   	constructor(private formBuilder: FormBuilder, 
-  		private calendarItemService: CalendarItemService,
-		private utilsService: UtilsService) {}
+  		private calendarItemService: CalendarItemService) {}
 
   	ngOnInit(): void {
   		this.createForm();
@@ -42,24 +41,29 @@ export class PlanningCellComponent implements OnInit {
 	
   	private createForm() {
     	this.cellForm = this.formBuilder.group({
-      		value: new FormControl(this.calendarItem.value ? this.calendarItem.value : 0)
+      		value: new FormControl(this.calendarItem ? this.calendarItem.value ? this.calendarItem.value : 0 : 0)
     	});
   	}
   
   	private submitForm(inputValue: number) {
+		console.log("submit cell")
 		var newResourceCalendar = new ResourceCalendar();
 		var calendars = new Array();
+		if (!this.calendarItem)
+			this.calendarItem = new CalendarItem();
 		this.calendarItem.value = this.cellForm.value.value;
 		calendars.push(this.calendarItem);
 		let project = new Project();
-		project.id = this.project.id;
-		
+		project.id = this.subSubItem ? this.subSubItem.id : this.subItem ? this.subItem.id : this.project.id;
 		let resource = new Resource();
 		resource.id = this.resourceCalendar.resource.id;
 
 		newResourceCalendar.project = project;
+
 		newResourceCalendar.resource = resource;
 		newResourceCalendar.calendarItems = calendars;
+		console.log("newResourceCalendar")
+		console.log(newResourceCalendar)
 		this.calendarItemService.createResourceCalendar(newResourceCalendar).subscribe(data => {
 			this.calendarItems = data.calendarItems; 
 			this.valueChange.emit({ 

@@ -36,9 +36,11 @@ export class CalendarItemService {
     }
     
     createResourceCalendar(resourceCalendar: ResourceCalendar): Observable<ResourceCalendar> {
+        console.log("resourceCalendar");
+	    console.log(resourceCalendar);
 	    return this.http.post<ResourceCalendar>(endpoint + 'resourceCalendar', resourceCalendar, httpOptions)
 	        .pipe(
-                catchError(this.handleError('post Week item', resourceCalendar))
+                catchError(this.handleError('post resourceCalendar item', resourceCalendar))
             );
     }
     
@@ -52,14 +54,8 @@ export class CalendarItemService {
     
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
-
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-
-            // TODO: better job of transforming error for user consumption
+            console.error(error); 
             console.log(`${operation} failed: ${error.message}`);
-
-            // Let the app keep running by returning an empty result.
             return of(result as T);
         };
     }

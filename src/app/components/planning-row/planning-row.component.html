@@ -1,7 +1,7 @@
 <td [attr.colspan]="offset" class="empty"></td>
 <td class="cell-background resource-background"></td>
-<td class="input-cell row-header" [attr.colspan]="5 - offset">{{resourceCalendar.resource?.quadri}}</td>
-
+<td class="input-cell row-header" [attr.colspan]="5 - offset">{{resourceCalendar ? resourceCalendar.resource?.quadri : resource?.quadri}}</td>
+<td></td>
 <ng-container *ngFor="let week of calendar?.weekList">
 	<ng-container *ngFor="let date of week?.planchaCalendars">
 		<td class="input-cell" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" >
@@ -10,7 +10,7 @@
 				[project]="project"
 				[subItem]="subItem"
 				[subSubItem]="subSubItem"
-				[calendarItem]="getCellValue(resourceCalendar, date)" 
+				[calendarItem]="getCellValue(date)" 
 				[resourceCalendar]="resourceCalendar" >
 			</app-planning-cell>
 		</td>

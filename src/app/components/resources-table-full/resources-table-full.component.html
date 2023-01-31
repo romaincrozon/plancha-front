@@ -3,9 +3,9 @@
 		<h4 class=" card-title">Resources</h4>
 	</div>
 	<div class=" card-body">
-		<div class=" table-responsive">
-			<table class=" table tablesorter">
-				<thead class=" text-primary">
+		<div>
+			<table class=" table table-striped">
+				<thead>
 					<tr>
 						<th>Pseudo</th>
 						<th>Pr&eacute;nom</th>
@@ -21,7 +21,7 @@
 						<td>{{resource.firstname}}</td>
 						<td>{{resource.lastname}}</td>
 						<td>{{resource.quadri}}</td>
-						<td>{{utils.getProperty('roles', resource.role, 'label')}}</td>
+						<td>{{getRole(resource)}}</td>
 						<td><i (click)="openFormModal(resource)" class="tim-icons icon-pencil"></i></td>
 						<td><i (click)="openDeleteModal(resource)" class="tim-icons icon-trash-simple"></i></td>
 					</tr>

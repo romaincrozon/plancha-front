@@ -27,27 +27,26 @@ export class UtilsService {
 		return this.datepipe.transform(date, 'yyyy-MM-dd');
 	}
 	
-	// mapResourceCalendarsToCalendarItems(items: ResourceCalendar[]){
-	// 	return [].concat.apply([], items.map(resourceCalendar => resourceCalendar.calendarItems));
-	// }
-	
-	// mapTaskToCalendarItems(items: Task[]){
-	// 	return [].concat.apply([], items.map(task => this.mapResourceCalendarsToCalendarItems(task.resourceCalendars)));
-	// }
-	
 	mapProjectToCalendarItems(item: Project){
-		let y = item.resourceCalendars.map(resourceCalendar => resourceCalendar.calendarItems);
-		let array = y && y.length > 0 ? y[0] : []
-		let b = item.projects ? item.projects.map(project => this.mapProjectToCalendarItems(project)) : null;
-		if (b && b.length != 0){
-			b.map(c => {
-				array.concat(c)
+		let array = [].concat.apply([], item.resourceCalendars.map(resourceCalendar => {
+			console.log(resourceCalendar)
+			console.log(resourceCalendar.calendarItems)
+			return resourceCalendar.calendarItems
+		}));
+		let subItemArray = item.projects ? item.projects.map(project => this.mapProjectToCalendarItems(project)) : null;
+		if (subItemArray && subItemArray.length != 0){
+			subItemArray.map(a => {
+				array.concat(a)
 			})
 		}
+		console.log("array")
+		console.log(array)
 		return array;
 	}
 	
 	getProperty(message : string, feature : string, item: string): any {
+		console.log("feature");
+		console.log(feature);
 		return message ? feature ? item ? appProperties[message][feature][item] : appProperties[message][feature] : appProperties[message] : "";
   	}
   	
@@ -56,10 +55,13 @@ export class UtilsService {
 	   	return objects.filter(object => object.name.toLowerCase().indexOf(filterValue) === 0);
 	}
 	filterByQuadri(objects: any[], value: string): any[] {
-	    const filterValue = value.toLowerCase();
-	   	return objects.filter(object => object.quadri.toLowerCase().indexOf(filterValue) === 0);
-	}
-	getNumberOfDaysInWeek(calendar:any, date: any){
-		
+		console.log("filterByQuadri");
+		console.log(objects);
+	    console.log(value);
+		if (objects && value){
+			const filterValue = value.toLowerCase();
+			return objects.filter(object => object.quadri.toLowerCase().indexOf(filterValue) === 0);
+		}
+		return [];
 	}
 }
