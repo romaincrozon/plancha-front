@@ -29,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { ProfilesComponent } from './pages/profiles/profiles.component';
 import { CompetencesComponent } from './pages/competences/competences.component';
@@ -62,6 +63,7 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
     NgbCollapseModule,
   ],
   declarations: [
@@ -83,7 +85,6 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
     CompetencesComponent,
     TodoComponent,
     AssignmentComponent,
-  	
   ],
   exports: [
     MatFormFieldModule,

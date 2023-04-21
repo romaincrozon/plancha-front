@@ -8,6 +8,7 @@ import { ResourceCalendar } from '../models/resource-calendar.model';
 import { Task } from '../models/task.model';
 import { SubProject } from '../models/sub-project.model';
 import { Project } from '../models/project.model';
+import { Resource } from '../models/resource.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,26 +28,23 @@ export class UtilsService {
 		return this.datepipe.transform(date, 'yyyy-MM-dd');
 	}
 	
-	mapProjectToCalendarItems(item: Project){
+	mapProjectToCalendarItems(item: Project, cal: CalendarItem){
 		let array = [].concat.apply([], item.resourceCalendars.map(resourceCalendar => {
-			console.log(resourceCalendar)
-			console.log(resourceCalendar.calendarItems)
-			return resourceCalendar.calendarItems
+			return resourceCalendar.calendarItems.filter(calendarItem => this.formatDate(calendarItem.calendar) === this.formatDate(cal.calendar))
 		}));
-		let subItemArray = item.projects ? item.projects.map(project => this.mapProjectToCalendarItems(project)) : null;
+		let subItemArray = item.projects ? item.projects.map(project => this.mapProjectToCalendarItems(project, cal)) : null;
+		console.log("subItemArray")
+		console.log(subItemArray)
 		if (subItemArray && subItemArray.length != 0){
 			subItemArray.map(a => {
 				array.concat(a)
 			})
 		}
-		console.log("array")
-		console.log(array)
+		console.log(array);
 		return array;
 	}
 	
 	getProperty(message : string, feature : string, item: string): any {
-		console.log("feature");
-		console.log(feature);
 		return message ? feature ? item ? appProperties[message][feature][item] : appProperties[message][feature] : appProperties[message] : "";
   	}
   	
@@ -63,5 +61,13 @@ export class UtilsService {
 			return objects.filter(object => object.quadri.toLowerCase().indexOf(filterValue) === 0);
 		}
 		return [];
+	}
+	
+	getResourceById(resources: Resource[], resourceId: string): Resource{
+		if (resourceId != null){
+			let item = resources.find(node => node.id == resourceId);
+			return item;
+		}
+		return null
 	}
 }

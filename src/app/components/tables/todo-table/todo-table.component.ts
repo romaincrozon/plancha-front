@@ -7,6 +7,7 @@ import { ResourceService } from '../../../services/resource.service';
 import { UtilsService } from '../../../services/utils.service';
 import { Todo } from '../../../models/todo.model';
 import { Resource } from '../../../models/resource.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
  
 @Component({
   selector: 'app-todo-table',
@@ -14,11 +15,13 @@ import { Resource } from '../../../models/resource.model';
 })
 export class TodoTableComponent implements OnInit {
 
-	todoItems: Todo[];
+	todoItemsAffectedToMe: Todo[];
+	todoItemsAffectedToOthers: Todo[];
 	//resources: Resource[];
 	
   	constructor(private todoService: TodoService, 
   		private resourceService: ResourceService, 
+		public authenticationService: AuthenticationService, 
   		private modalService: NgbModal,
   		private utils: UtilsService) { }
 
@@ -27,19 +30,19 @@ export class TodoTableComponent implements OnInit {
   	}
 
   	getData(){
-		this.todoService.getTodoItems().subscribe(data => {
-			this.todoItems = data;
-			console.log(this.todoItems);
-			this.resourceService.getAll().subscribe(data => {
-				var resources = data;
-				this.todoItems.forEach(function(todoItem) {
+		console.log("user: " + this.authenticationService.currentResourceValue.id)
+		this.todoService.getTodoItems().subscribe(todoItems => {
+			this.resourceService.getAll().subscribe(resources => {
+				todoItems.forEach(function(todoItem) {
 				    todoItem.affectedTo = resources.find(resource => resource.id == todoItem.affectedTo);
 				    todoItem.createdBy = resources.find(resource => resource.id == todoItem.createdBy);
 				});
+				this.todoItemsAffectedToMe = todoItems.filter(todoItem => todoItem.affectedTo.id == this.authenticationService.currentResourceValue.id);
+				this.todoItemsAffectedToOthers = todoItems.filter(todoItem => todoItem.affectedTo.id != this.authenticationService.currentResourceValue.id);
+				console.log(this.todoItemsAffectedToMe )
+				console.log(this.todoItemsAffectedToOthers )
 			});
-			
 		});
-		
   	}
   	
   	toggleStatus(todoItem){

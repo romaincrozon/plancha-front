@@ -40,7 +40,10 @@
 									<td><img class="add-user-icon" alt="add user" src="assets/img/add-user.png" (click)="openAddResourceToProjectModal(project)"/></td>
 									<ng-container *ngFor="let week of calendar?.weekList">
 										<ng-container *ngFor="let date of week?.planchaCalendars">
-											<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-project-id]="project.id" #count>{{project | countProjectPipe:date}}</td>
+											<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-project-id]="project.id" #count>
+												{{computeCell(project, date)}}
+												<!-- {{project | countProjectPipe:date}} -->
+											</td>
 										</ng-container>
 									</ng-container>
 								</tr>
@@ -54,7 +57,8 @@
 										[gridParameters]="gridParameters"					
 										[calendar]="calendar"
 										[weeks]="calendar?.weekList"
-										[project]="project">
+										[project]="project"
+										[resources]="resources">
 									</tr>
 									
 									<ng-container *ngIf="project.selected" >
@@ -71,7 +75,10 @@
 												<td><img class="add-user-icon" alt="add user" src="assets/img/add-user.png" (click)="openAddResourceToProjectModal(subItem)"/></td>
 												<ng-container *ngFor="let week of calendar?.weekList">
 													<ng-container *ngFor="let date of week?.planchaCalendars">
-														<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subItem-id]="subItem.id" #count>{{subItem | countProjectPipe:date}}</td>
+														<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subItem-id]="subItem.id" #count>
+															{{computeCell(subItem, date)}}
+															<!-- {{subItem | countProjectPipe:date}} -->
+														</td>
 													</ng-container>
 												</ng-container>
 											</tr>
@@ -85,7 +92,8 @@
 												[calendar]="calendar"
 												[weeks]="calendar?.weekList"
 												[project]="project"
-												[subItem]="subItem">
+												[subItem]="subItem"
+												[resources]="resources">
 											</tr>
 											<!-- <tr *ngFor="let subItemResourceCalendar of subItem.resourceCalendars">
 												<td class="empty" colspan="3"></td>
@@ -110,7 +118,10 @@
 														</td>	
 														<ng-container *ngFor="let week of calendar?.weekList">
 															<ng-container *ngFor="let date of week?.planchaCalendars">
-																<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subSubItem-id]="subSubItem.id" #count>{{subSubItem | countProjectPipe:date}}</td>
+																<td class="cell-value" *ngIf="date.dayNumberInWeek == 1" [attr.colspan]="week.numberOfDays" [attr.data-calendar]="date.calendar" [attr.data-subSubItem-id]="subSubItem.id" #count>
+																	<!-- {{subSubItem | countProjectPipe:date}} -->
+																	{{computeCell(subSubItem, date)}}
+																</td>
 															</ng-container>
 														</ng-container>
 													</tr>
@@ -125,7 +136,8 @@
 														[weeks]="calendar?.weekList"
 														[project]="subSubItem"
 														[subItem]="subItem"
-														[subSubItem]="subSubItem">
+														[subSubItem]="subSubItem"
+														[resources]="resources">
 													</tr>
 													<!-- <tr *ngFor="let subSubItemResourceCalendar of subSubItem.resourceCalendars">
 														<td class="empty" colspan="4"></td>

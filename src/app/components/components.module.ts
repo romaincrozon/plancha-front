@@ -54,6 +54,7 @@ import { CreateAvailabilityModalComponent } from './modals/create-availability-m
 import { WeekTableComponent } from './tables/week-table/week-table.component';
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { GenericFilterComponent } from './generic-filter/generic-filter.component';
 
 @NgModule({
   imports: [
@@ -112,7 +113,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     CreateTodoItemModalComponent,
     AddResourceToProjectModalComponent,
     CreateNeedModalComponent,
-    CreateAvailabilityModalComponent, 
+    CreateAvailabilityModalComponent,
+    GenericFilterComponent, 
     
   ],
   exports: [

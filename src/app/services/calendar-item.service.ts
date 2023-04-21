@@ -45,10 +45,10 @@ export class CalendarItemService {
     }
     
     
-    getCalendarItemsByDate(calendarRange: CalendarRange): Observable<CalendarResourceTask[]> {
-    	return this.http.post<CalendarResourceTask[]>(endpoint + 'calendarItemsByDate', calendarRange, httpOptions)
+    getCalendarItemsByDate(calendarRange: CalendarRange): Observable<CalendarItem[]> {
+    	return this.http.post<CalendarItem[]>(endpoint + 'calendarItemsByDate', calendarRange, httpOptions)
 	        .pipe(
-	          	map(data => data.map(data => new CalendarResourceTask().deserialize(data))) 
+	          	map(data => data.map(data => new CalendarItem().deserialize(data))) 
 		    );
     }
     

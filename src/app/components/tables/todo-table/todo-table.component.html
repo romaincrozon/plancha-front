@@ -1,27 +1,84 @@
-<div class=" table-responsive">
-	<table class=" table tablesorter">
-		<thead class=" text-primary">
-			<tr>
-				<th></th>
-				<th>D&eacute;tails</th>
-				<th>Acteur</th>
-				<th>Statut</th>
-				<th>R&eacute;currence</th>
-				<th>Category</th>
-				<th colspan="2"><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let todoItem of todoItems">
-				<td>{{todoItem?.name}}</td>
-				<td>{{todoItem?.detail}}</td>
-				<td>{{todoItem?.affectedTo?.quadri}}</td>
-				<td (click)="toggleStatus(todoItem)" [ngStyle]="{'background-color': utils.getProperty('todoStatus', todoItem?.status, 'color')}">{{utils.getProperty('todoStatus', todoItem.status, 'label')}}</td>
-				<td><app-message message="todo" feature="recurrence" item="{{todoItem?.recurrence}}"></app-message></td>
-				<td>{{utils.getProperty('todoCategory', todoItem.todoItemCategory, 'label')}}</td>
-				<td><i (click)="openFormModal(todoItem)" class="tim-icons icon-pencil"></i></td>
-				<td><i (click)="openDeleteModal(todoItem)" class="tim-icons icon-trash-simple"></i></td>
-			</tr>
-		</tbody>
-	</table>
+<div class="table-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class=" card">
+				<div class=" card-header">
+					<h4 class=" card-title">Mes tâches</h4>
+				</div>
+				<div class="card-body" *ngIf="todoItemsAffectedToMe?.length > 0; else noItemsFound">	
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>D&eacute;tails</th>
+								<th>Statut</th>
+								<th>R&eacute;currence</th>
+								<th>Category</th>
+								<th colspan="2"><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let todoItem of todoItemsAffectedToMe">
+								<td>{{todoItem?.name}}</td>
+								<td>{{todoItem?.detail}}</td>
+								<td (click)="toggleStatus(todoItem)" [ngStyle]="{'background-color': utils.getProperty('todoStatus', todoItem?.status, 'color')}">{{utils.getProperty('todoStatus', todoItem.status, 'label')}}</td>
+								<td><app-message message="todo" feature="recurrence" item="{{todoItem?.recurrence}}"></app-message></td>
+								<td>{{utils.getProperty('todoCategory', todoItem.todoItemCategory, 'label')}}</td>
+								<td><i (click)="openFormModal(todoItem)" class="tim-icons icon-pencil"></i></td>
+								<td><i (click)="openDeleteModal(todoItem)" class="tim-icons icon-trash-simple"></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<ng-template #noItemsFound>
+					<div class="card-body" >
+						Pas de t&acirc;ches trouv&eacute;s
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="table-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class=" card">
+				<div class=" card-header">
+					<h4 class=" card-title">Tâches affectées à l'équipe</h4>
+				</div>
+				<div class="card-body" *ngIf="todoItemsAffectedToOthers?.length > 0; else noItemsFound">	
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>D&eacute;tails</th>
+								<th>Acteur</th>
+								<th>Statut</th>
+								<th>R&eacute;currence</th>
+								<th>Category</th>
+								<th colspan="2"><i (click)="openFormModal()" class="tim-icons icon-simple-add"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let todoItem of todoItemsAffectedToOthers">
+								<td>{{todoItem?.name}}</td>
+								<td>{{todoItem?.detail}}</td>
+								<td>{{todoItem?.affectedTo?.quadri}}</td>
+								<td (click)="toggleStatus(todoItem)" [ngStyle]="{'background-color': utils.getProperty('todoStatus', todoItem?.status, 'color')}">{{utils.getProperty('todoStatus', todoItem.status, 'label')}}</td>
+								<td><app-message message="todo" feature="recurrence" item="{{todoItem?.recurrence}}"></app-message></td>
+								<td>{{utils.getProperty('todoCategory', todoItem.todoItemCategory, 'label')}}</td>
+								<td><i (click)="openFormModal(todoItem)" class="tim-icons icon-pencil"></i></td>
+								<td><i (click)="openDeleteModal(todoItem)" class="tim-icons icon-trash-simple"></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<ng-template #noItemsFound>
+					<div class="card-body" >
+						Pas de t&acirc;ches trouv&eacute;s
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
 </div>

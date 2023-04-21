@@ -27,7 +27,8 @@ export class PlanningCellComponent implements OnInit {
   	@Input() subItem: Project;
   	@Input() subSubItem: Project;
   	@Output() valueChange = new EventEmitter<any>();
-  	
+
+  	currentProject: Project;	
   	cellForm: FormGroup;
   	calendarItems: CalendarItem[];
   
@@ -35,6 +36,8 @@ export class PlanningCellComponent implements OnInit {
   		private calendarItemService: CalendarItemService) {}
 
   	ngOnInit(): void {
+		this.currentProject.id = this.subSubItem ? this.subSubItem.id : this.subItem ? this.subItem.id : this.project.id;
+		
   		this.createForm();
   	}
 
@@ -47,18 +50,18 @@ export class PlanningCellComponent implements OnInit {
   
   	private submitForm(inputValue: number) {
 		console.log("submit cell")
-		var newResourceCalendar = new ResourceCalendar();
-		var calendars = new Array();
+		let currentValue = this.calendarItem.value;
+		let newResourceCalendar = new ResourceCalendar();
+		let calendars = new Array();
 		if (!this.calendarItem)
 			this.calendarItem = new CalendarItem();
 		this.calendarItem.value = this.cellForm.value.value;
 		calendars.push(this.calendarItem);
-		let project = new Project();
-		project.id = this.subSubItem ? this.subSubItem.id : this.subItem ? this.subItem.id : this.project.id;
+		
 		let resource = new Resource();
-		resource.id = this.resourceCalendar.resource.id;
+		resource.id = this.resourceCalendar.resource + "";
 
-		newResourceCalendar.project = project;
+		newResourceCalendar.project = this.currentProject;
 
 		newResourceCalendar.resource = resource;
 		newResourceCalendar.calendarItems = calendars;
@@ -68,7 +71,7 @@ export class PlanningCellComponent implements OnInit {
 			this.calendarItems = data.calendarItems; 
 			this.valueChange.emit({ 
 				calendar:this.calendarItem.calendar, 
-				value: inputValue, 
+				value: inputValue - currentValue, 
 				projectId: this.project.id,
 				subItemId: this.subItem? this.subItem.id : null, 
 				subSubItemId: this.subSubItem? this.subSubItem.id : null

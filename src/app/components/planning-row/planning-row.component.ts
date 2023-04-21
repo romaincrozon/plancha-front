@@ -30,19 +30,13 @@ export class PlanningRowComponent implements OnInit {
 	@Input() project: Project;
 	@Input() subItem: Project;
 	@Input() subSubItem: Project;
+	@Input() resources: Resource[];
 	
   	@Output() valueChange = new EventEmitter<any>();
 	
   	constructor(private utilsService: UtilsService) { }
 
   	ngOnInit(): void { }
-  	
-	// getResourceById(resourceId){
-	// 	if (resourceId != null){
-	// 		let item = this.projectResources.find(node => node.id == resourceId);
-	// 		return item;
-	// 	}
-	// }
 	
 	sum(cell) {
         this.valueChange.emit(cell);
@@ -59,4 +53,8 @@ export class PlanningRowComponent implements OnInit {
     	} 
     	return date;
     }
+
+	getResourceById(id: string){
+		return this.utilsService.getResourceById(this.resources, id);
+	}
 }

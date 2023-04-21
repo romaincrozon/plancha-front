@@ -1,6 +1,6 @@
 <td [attr.colspan]="offset" class="empty"></td>
 <td class="cell-background resource-background"></td>
-<td class="input-cell row-header" [attr.colspan]="5 - offset">{{resourceCalendar ? resourceCalendar.resource?.quadri : resource?.quadri}}</td>
+<td class="input-cell row-header" [attr.colspan]="5 - offset">{{resourceCalendar ? getResourceById(resourceCalendar?.resource)?.quadri : ''}}</td>
 <td></td>
 <ng-container *ngFor="let week of calendar?.weekList">
 	<ng-container *ngFor="let date of week?.planchaCalendars">

@@ -48,10 +48,7 @@ export class AddResourceToProjectModalComponent implements OnInit {
   	private getAllResources(){
 		let existingResources = this.project? this.project.resources? this.project.resources.map(resource => resource.id) : [] : [];
 		this.resourceService.getAll().subscribe(data => {
-			console.log("this.resources");
-			console.log(data);
 			this.resources = data.filter(resource => resource.id != this.authenticationService.currentResourceValue.id && !existingResources.find(existingResourceId => existingResourceId == resource.id));
-			console.log(this.resources);
 			this.filteredResources = this.addResourceToProjectForm.controls.resourceControl.valueChanges.pipe(
 		    	startWith(''),
 		      	map(value => this.utilsService.filterByQuadri(this.resources, value))
@@ -64,11 +61,9 @@ export class AddResourceToProjectModalComponent implements OnInit {
 		resourceCalendar.project = this.project;
 		resourceCalendar.resource = this.resources.find(resource => resource.quadri == this.addResourceToProjectForm.controls.resourceControl.value);
 		resourceCalendar.calendarItems = [];
-		console.log("submit")
 		if (!this.project.resourceCalendars)
 			this.project.resourceCalendars = [];
 		this.project.resourceCalendars.push(resourceCalendar);
-		console.log(this.project)
 		this.activeModal.close(this.project);
   	}
 	

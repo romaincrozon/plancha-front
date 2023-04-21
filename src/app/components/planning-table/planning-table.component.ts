@@ -16,6 +16,8 @@ import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { DirectiveAddresourceDirective } from '../../directives/directive-addresource.directive';
 import { ResourceCalendar } from '../../models/resource-calendar.model';
 import { AddResourceToProjectModalComponent } from '../modals/add-resource-to-project-modal/add-resource-to-project-modal.component';
+import { ResourceService } from 'src/app/services/resource.service';
+import { Resource } from 'src/app/models/resource.model';
 
 @Component({
   selector: 'app-planning-table',
@@ -27,13 +29,18 @@ export class PlanningTableComponent implements OnInit {
 	isCollapsedMap = new Map<string, boolean>(); 
 	
 	calendar: any;
+	calendarItems: CalendarItem[];
 	projects: Project[];
 	allProjects: Project[];
+	resources: Resource[];
   	
-  	@ViewChildren('count') count;
+	@ViewChildren('count') count;
+	@ViewChildren('cells') cells;
   
   	constructor(public calendarService: CalendarService, 
-  		public projectService: ProjectService, 
+		public projectService: ProjectService, 
+		public resourceService: ResourceService, 
+		public calendarItemService: CalendarItemService,
   		public dataSharingService: DataSharingService,
   		private utilsService: UtilsService,
 		private modalService: NgbModal,
@@ -43,14 +50,13 @@ export class PlanningTableComponent implements OnInit {
   	ngOnInit(): void {
 		this.projectService.getProjectsWithNoParent().subscribe(data => {
 			this.projects = data;
-			console.log("this.projects");
-			console.log(this.projects);
 			this.setCollapsedMap(this.projects);
 		});
 		this.projectService.getAllProjects().subscribe(data => {
 			this.allProjects = data;
-			console.log("this.allProjects");
-			console.log(this.allProjects);
+		});
+		this.resourceService.getAll().subscribe(data => {
+			this.resources = data;
 		});
 		let currentDate = new Date();
   		currentDate.setMonth(currentDate.getMonth()+1);
@@ -66,8 +72,11 @@ export class PlanningTableComponent implements OnInit {
 		        	&& this.gridParameters.calendarRange.endDate
 		        	&& this.gridParameters.view
 		        	&& this.gridParameters.projects){
-				this.calendarService.getCalendar(this.gridParameters.calendarRange).subscribe((data: {}) => {
+				this.calendarService.getCalendar(this.gridParameters.calendarRange).subscribe(data => {
 					this.calendar = data;
+				});
+				this.calendarItemService.getCalendarItemsByDate(this.gridParameters.calendarRange).subscribe(data => {
+					this.calendarItems = data;
 				});
 				this.projects = this.gridParameters.projects;
 			}
@@ -96,6 +105,7 @@ export class PlanningTableComponent implements OnInit {
         console.log(items);
 		if (items){
     		items.forEach((item, index) => {
+				console.log(item.nativeElement.innerHTML);
     			if (item.nativeElement.getAttribute('data-project-id') && item.nativeElement.getAttribute('data-project-id') == cell.projectId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
 	        	} else if (item.nativeElement.getAttribute('data-subItem-id') && item.nativeElement.getAttribute('data-subItem-id') == cell.subItemId){
@@ -103,6 +113,20 @@ export class PlanningTableComponent implements OnInit {
     			} else if (item.nativeElement.getAttribute('data-subSubItem-id') && item.nativeElement.getAttribute('data-subSubItem-id') == cell.subSubItemId){
     				item.nativeElement.innerHTML = Number(item.nativeElement.innerHTML) + Number(cell.value);
 	        	}  
+    		});
+    	}
+    }
+	
+	computeCell(project: Project, date: string) {
+        let items = this.cells.toArray().filter(element => this.utilsService.formatDate(element.nativeElement.getAttribute("data-cell-calendar")) == this.utilsService.formatDate(date));
+        console.log(items);
+		let value = 0;
+		if (items){
+    		items.forEach((item, index) => {
+				console.log(item.nativeElement.innerHTML);
+    			if (item.nativeElement.getAttribute('data-cell-project-id') && item.nativeElement.getAttribute('data-cell-project-id') == project.id){
+    				value += Number(item.nativeElement.innerHTML);
+	        	}
     		});
     	}
     }

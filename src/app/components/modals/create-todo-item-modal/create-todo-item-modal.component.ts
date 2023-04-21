@@ -60,14 +60,16 @@ export class CreateTodoItemModalComponent implements OnInit {
   		if (this.todoItem){
   			let o = Object.assign(this.todoItem, this.createTodoItemForm.value);
   			
-  			console.log("sdg");
-			console.log(o);
 			this.todoService.updateTodoItem(this.todoItem).subscribe(data => {
 				this.activeModal.close(data);
 			});
 		} else {
 	  		var todoItemToCreate = new Todo(this.createTodoItemForm.value);
-	  		todoItemToCreate.createdBy = this.authenticationService.currentResourceValue;
+			console.log(todoItemToCreate);
+			todoItemToCreate.affectedTo = new Resource();
+			todoItemToCreate.affectedTo.id = this.createTodoItemForm.controls.affectedTo.value;
+	  		todoItemToCreate.createdBy = new Resource();
+			todoItemToCreate.createdBy.id = this.authenticationService.currentResourceValue.id;
 	  		todoItemToCreate.creationDate = this.utils.formatDate(new Date().toDateString());  		
 	
 			console.log(todoItemToCreate);
